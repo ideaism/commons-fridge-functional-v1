@@ -1,0 +1,11 @@
+{
+  "name": "Commons Fridge Functional Prototype v1.0",
+  "published": "2026-08-21",
+  "sourceSha256": "619332ed7b1bf9587b15ce5e3dd1ea84e2d7e537299ca6f4bae189a2dd5b329f",
+  "routes": {
+    "home": "./",
+    "add": "./#add",
+    "manage": "./#manage"
+  },
+  "evidenceBoundary": "Researcher-tested technical demonstrator; not participant usability validation."
+}

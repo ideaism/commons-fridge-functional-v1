@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='5' y='2' width='22' height='28' rx='4' fill='%23f3f0e7' stroke='%2326302b' stroke-width='2'/%3E%3Cpath d='M5 12h22M22 6v3M22 16v5' stroke='%23506b5b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<title>Commons Fridge · Functional Prototype v1.0</title>
+<style>:root{
+  --paper:#f3f0e7;
+  --card:#fffdf6;
+  --ink:#26302b;
+  --muted:#667069;
+  --sage:#506b5b;
+  --sage-soft:#dfe8df;
+  --amber:#d89245;
+  --amber-soft:#f5e5ce;
+  --danger:#8d3f35;
+  --line:2px solid var(--ink);
+  --shadow:7px 8px 0 #c7c8bd;
+}
+*{box-sizing:border-box}
+html{min-height:100%;background:#d9ddd6;color:var(--ink)}
+body{margin:0;min-height:100%;padding:42px 18px 26px;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.55;background:linear-gradient(150deg,#e8ebe5 0 48%,#d6ddd6 48% 100%);color:var(--ink)}
+button,input,select{font:inherit;color:inherit}
+button,a{touch-action:manipulation}
+button{min-height:46px;border:var(--line);border-radius:9px 12px 8px 11px;background:var(--sage);color:white;padding:10px 14px;font-weight:720;cursor:pointer;transition:transform 120ms ease,background 120ms ease,box-shadow 120ms ease}
+button:hover{background:#3f594a;box-shadow:2px 3px 0 #bbc2b9}
+button:active{transform:translateY(1px);box-shadow:none}
+button.secondary{background:transparent;color:var(--ink);border-color:#68736c}
+button.secondary:hover{background:var(--sage-soft)}
+button.danger{background:transparent;color:var(--danger);border-color:var(--danger)}
+button.danger:hover{background:#f5e3df}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #176bb3;outline-offset:3px}
+h1,h2,h3,p{overflow-wrap:anywhere}
+h1{font-size:clamp(30px,7vw,42px);line-height:1.04;letter-spacing:-.035em;margin:10px 0 16px}
+h2{font-size:clamp(24px,5.5vw,32px);line-height:1.12;letter-spacing:-.025em;margin:7px 0 13px}
+h3{font-size:17px;margin:0}
+p{margin:7px 0 15px}
+.prototype-disclosure{position:fixed;z-index:10;inset:0 0 auto;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:8px 12px;border-bottom:1px dashed #6a756e;background:rgba(243,240,231,.97);font-size:11px;letter-spacing:.055em;text-align:center}
+.prototype-disclosure span{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--sage)}
+.device-shell{width:min(100%,460px);min-height:780px;margin:0 auto;border:3px solid var(--ink);border-radius:29px 24px 31px 25px;background:var(--card);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.app-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 18px 13px;border-bottom:1px dashed #aeb6af;background:rgba(255,253,246,.95)}
+.brand{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none}
+.brand span:last-child{display:grid}
+.brand small{font:600 10px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em;color:var(--sage)}
+.brand strong{font-size:15px}
+.fridge-mark{position:relative;width:29px;height:35px;border:2px solid var(--ink);border-radius:5px 4px 6px 5px;background:var(--paper)}
+.fridge-mark:after{content:"";position:absolute;left:0;right:0;top:12px;border-top:2px solid var(--ink)}
+.fridge-mark i{position:absolute;right:5px;top:5px;height:5px;border-left:2px solid var(--sage)}
+.icon-button{width:46px;min-width:46px;padding:7px;text-align:center;background:transparent;color:var(--ink);font-size:23px}
+.app-surface{flex:1;padding:25px 22px 28px;animation:surface-in 220ms ease-out}
+.scope-footer{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;padding:11px 14px;border-top:1px dashed #aeb6af;color:var(--muted);font-size:11px;text-align:center}
+.kicker{margin:0;color:var(--sage);font:700 11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase}
+.lede{color:var(--muted);font-size:15px;max-width:36ch}
+.route-grid{display:grid;gap:12px;margin:25px 0 20px}
+.route-card{display:grid;grid-template-columns:50px 1fr auto;align-items:center;gap:13px;min-height:104px;border:var(--line);border-radius:14px 10px 16px 11px;padding:13px;background:var(--paper);color:var(--ink);text-decoration:none;transition:transform 130ms ease,background 130ms ease}
+.route-card:nth-child(2){transform:rotate(-.25deg)}
+.route-card:hover{background:var(--sage-soft);transform:translateY(-2px)}
+.route-card b{display:block;font-size:17px}
+.route-card small{display:block;margin-top:3px;color:var(--muted)}
+.route-card .arrow{font-size:22px;color:var(--sage)}
+.route-icon{display:grid;place-items:center;width:48px;height:48px;border:2px solid var(--ink);border-radius:50%;background:var(--card);font-size:22px}
+.boundary-note{border-left:4px solid var(--amber);background:var(--amber-soft);padding:11px 12px;font-size:13px;color:#5d4a33}
+.field{display:block;margin:18px 0 0;font-size:13px;font-weight:760}
+.field input{width:100%;min-height:48px;margin-top:7px;border:var(--line);border-radius:8px 11px 7px 10px;background:white;padding:10px 12px}
+.option-list{display:grid;gap:9px;margin:9px 0 19px}
+.option-button{display:flex;align-items:center;justify-content:space-between;width:100%;background:transparent;color:var(--ink);text-align:left}
+.option-button[aria-pressed="true"]{background:var(--ink);color:white}
+.option-button[aria-pressed="true"]:after{content:"✓"}
+.step-label{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;color:var(--muted);font-size:12px}
+.step-label strong{color:var(--sage)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:20px}
+.actions.single{grid-template-columns:1fr}
+.back-link{display:inline-flex;align-items:center;gap:5px;min-height:44px;margin-bottom:7px;color:var(--sage);font-weight:720;text-decoration-thickness:1px;text-underline-offset:4px}
+.segmented{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:18px 0;padding:3px;border:2px solid var(--ink);border-radius:11px}
+.segmented button{min-height:40px;padding:6px 4px;border-color:transparent;background:transparent;color:var(--ink);font-size:12px;text-align:center}
+.segmented button[aria-pressed="true"]{background:var(--ink);color:white}
+.item-list{display:grid;gap:12px}
+.item-card{position:relative;border:2px solid #667069;border-radius:11px 14px 9px 13px;background:white;padding:14px}
+.item-card:nth-child(even){transform:rotate(.2deg)}
+.item-card p{margin:5px 0 10px;color:var(--muted);font-size:13px}
+.item-meta{display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-block;border:1px solid var(--sage);border-radius:99px;padding:2px 8px;background:var(--sage-soft);color:#355044;font-size:10px}
+.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}
+.card-actions button{min-height:42px;font-size:12px}
+.empty-state{border:2px dashed #97a199;border-radius:12px;padding:28px 14px;text-align:center;color:var(--muted)}
+.edit-panel,.confirm-panel{margin-top:12px;border:2px dashed var(--sage);border-radius:12px;padding:12px;background:var(--sage-soft)}
+.edit-panel select{width:100%;min-height:44px;margin:7px 0 10px;border:2px solid var(--ink);border-radius:8px;background:white;padding:8px}
+.checkbox-row{display:flex;align-items:center;gap:9px;min-height:44px;font-size:13px;font-weight:650}
+.checkbox-row input{width:20px;height:20px}
+.toast{position:fixed;z-index:20;left:50%;bottom:22px;max-width:min(90vw,420px);transform:translate(-50%,16px);border:2px solid var(--ink);border-radius:9px;background:var(--ink);color:white;padding:10px 14px;opacity:0;pointer-events:none;transition:opacity 160ms ease,transform 160ms ease;box-shadow:3px 4px 0 rgba(0,0,0,.16)}
+.toast.is-visible{opacity:1;transform:translate(-50%,0)}
+@keyframes surface-in{from{opacity:.45;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(max-width:600px){
+  body{padding:38px 0 0;background:var(--card)}
+  .device-shell{width:100%;min-height:calc(100vh - 38px);border:0;border-radius:0;box-shadow:none}
+  .app-surface{padding:22px 18px calc(30px + env(safe-area-inset-bottom))}
+  .route-card{min-height:96px}
+}
+@media(max-width:360px){
+  .actions,.card-actions{grid-template-columns:1fr}
+  .route-card{grid-template-columns:44px 1fr}.route-card .arrow{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .route-card:nth-child(2),.item-card:nth-child(even){transform:none}
+}
+</style>
+</head>
+<body>
+<div class="prototype-disclosure" role="note">
+  <span>FUNCTIONAL PROTOTYPE v1.0</span>
+  <strong>研究者技术自测 · 未经参与者可用性测试</strong>
+</div>
+<main class="device-shell" aria-labelledby="route-title">
+  <header class="app-header">
+    <a class="brand" href="#home" aria-label="返回首页">
+      <span class="fridge-mark" aria-hidden="true"><i></i></span>
+      <span><small>THE COMMONS FRIDGE</small><strong>共享冰箱公地</strong></span>
+    </a>
+    <button class="icon-button" type="button" data-action="reset-demo" title="复位虚构演示数据" aria-label="复位虚构演示数据">↺</button>
+  </header>
+  <section id="app" class="app-surface" aria-live="off"></section>
+  <footer class="scope-footer">
+    <span>仅保存于本机浏览器</span>
+    <span aria-hidden="true">·</span>
+    <span>不判断食品安全</span>
+  </footer>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+<script>const STORAGE_KEY = 'commons-fridge-functional-v1';
+
+const INITIAL_ITEMS = [
+  {
+    id: 'demo-oats',
+    description: 'Oat milk',
+    ownership: 'Personal',
+    review: 'Review soon'
+  },
+  {
+    id: 'demo-container',
+    description: 'Labelled container',
+    ownership: 'Shared with house',
+    review: null
+  }
+];
+
+const OWNERSHIP_OPTIONS = ['Personal', 'Shared with house', 'Ask first'];
+
+const clone = (value) => JSON.parse(JSON.stringify(value));
+const app = document.getElementById('app');
+const toast = document.getElementById('toast');
+let toastTimer = 0;
+let storageRecovered = false;
+
+function loadItems() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return clone(INITIAL_ITEMS);
+  try {
+    const parsed = JSON.parse(saved);
+    if (!Array.isArray(parsed)) throw new Error('items must be an array');
+    return parsed.map((item) => ({
+      id: String(item.id),
+      description: String(item.description),
+      ownership: OWNERSHIP_OPTIONS.includes(item.ownership) ? item.ownership : 'Personal',
+      review: item.review === 'Review soon' ? 'Review soon' : null
+    }));
+  } catch (error) {
+    localStorage.removeItem(STORAGE_KEY);
+    storageRecovered = true;
+    return clone(INITIAL_ITEMS);
+  }
+}
+
+const state = {
+  items: loadItems(),
+  description: '',
+  ownership: null,
+  review: undefined,
+  filter: 'all',
+  editingId: null,
+  pendingClearId: null
+};
+
+function saveItems() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items));
+}
+
+function getRoute() {
+  if (window.location.hash === '#add') return 'add';
+  if (window.location.hash === '#manage') return 'manage';
+  return 'home';
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>'"]/g, (character) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+  })[character]);
+}
+
+function showToast(message) {
+  window.clearTimeout(toastTimer);
+  toast.textContent = message;
+  toast.classList.add('is-visible');
+  toastTimer = window.setTimeout(() => toast.classList.remove('is-visible'), 2200);
+}
+
+function ownershipButtons(selected) {
+  return OWNERSHIP_OPTIONS.map((option) => `
+    <button type="button" class="option-button" data-action="select-ownership" data-value="${option}" aria-pressed="${selected === option}">
+      <span>${option}</span>
+    </button>`).join('');
+}
+
+function homeView() {
+  return `
+    <p class="kicker">TWO PHYSICAL ENTRIES / 两个实体入口</p>
+    <h1 id="route-title" tabindex="-1">站在冰箱前，<br>只做这一刻需要的事。</h1>
+    <p class="lede">NFC 与 QR 进入同一网页的两个状态。不安装 App，不建立账号。</p>
+    <div class="route-grid">
+      <a class="route-card" href="#add">
+        <span class="route-icon" aria-hidden="true">＋</span>
+        <span><b>Add / 放入</b><small>记录一件需要被看见的食物</small></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="route-card" href="#manage">
+        <span class="route-icon" aria-hidden="true">↻</span>
+        <span><b>Manage / 查看处理</b><small>更新归属、提醒或清除记录</small></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+    <p class="boundary-note"><strong>证据边界：</strong>五场访谈支持问题与习惯框架；本网页仅完成研究者技术自测，尚未接受参与者可用性测试。</p>`;
+}
+
+function addView() {
+  return `
+    <a class="back-link" href="#home">← 返回两个入口</a>
+    <p class="kicker">ADD / 放入</p>
+    <h1 id="route-title" tabindex="-1">记录一件<br>需要被看见的食物</h1>
+    <p class="lede">只保留简短描述、归属和可选的计划提醒。</p>
+    <label class="field">简短描述
+      <input id="item-description" type="text" maxlength="42" autocomplete="off" value="${escapeHTML(state.description)}" placeholder="例如：Labelled container">
+    </label>
+    <div class="step-label"><strong>01</strong><span>谁可以处理它？</span></div>
+    <div class="option-list" aria-label="所有权与许可">${ownershipButtons(state.ownership)}</div>
+    <div class="step-label"><strong>02</strong><span>需要计划提醒吗？</span></div>
+    <div class="actions">
+      <button type="button" class="option-button" data-action="set-reminder" aria-pressed="${state.review === 'Review soon'}">Review soon</button>
+      <button type="button" class="secondary" data-action="skip-reminder" aria-pressed="${state.review === null}">跳过提醒</button>
+    </div>
+    <div class="actions single">
+      <button type="button" data-action="save-item">保存并查看</button>
+    </div>`;
+}
+
+function filteredItems() {
+  if (state.filter === 'personal') return state.items.filter((item) => item.ownership !== 'Shared with house');
+  if (state.filter === 'shared') return state.items.filter((item) => item.ownership === 'Shared with house');
+  return state.items;
+}
+
+function editPanel(item) {
+  if (state.editingId !== item.id) return '';
+  const options = OWNERSHIP_OPTIONS.map((option) => `<option ${item.ownership === option ? 'selected' : ''}>${option}</option>`).join('');
+  return `
+    <div class="edit-panel">
+      <label class="field">更新归属
+        <select data-edit-ownership="${escapeHTML(item.id)}">${options}</select>
+      </label>
+      <label class="checkbox-row">
+        <input type="checkbox" data-edit-review="${escapeHTML(item.id)}" ${item.review ? 'checked' : ''}>
+        Review soon
+      </label>
+      <div class="actions">
+        <button type="button" data-action="update-item" data-value="${escapeHTML(item.id)}">保存更新</button>
+        <button type="button" class="secondary" data-action="cancel-update">取消</button>
+      </div>
+    </div>`;
+}
+
+function clearPanel(item) {
+  if (state.pendingClearId !== item.id) return '';
+  return `
+    <div class="confirm-panel" role="alert">
+      <strong>从演示清单清除这项？</strong>
+      <p>这不会处理真实食物，只会移除本机虚构记录。</p>
+      <div class="actions">
+        <button type="button" class="danger" data-action="confirm-clear" data-value="${escapeHTML(item.id)}">确认清除</button>
+        <button type="button" class="secondary" data-action="cancel-clear">保留</button>
+      </div>
+    </div>`;
+}
+
+function itemCard(item) {
+  return `
+    <article class="item-card">
+      <h3>${escapeHTML(item.description)}</h3>
+      <p>只显示使用者主动确认的状态。</p>
+      <div class="item-meta">
+        <span class="chip">${escapeHTML(item.ownership)}</span>
+        ${item.review ? '<span class="chip">Review soon</span>' : '<span class="chip">No reminder</span>'}
+      </div>
+      <div class="card-actions">
+        <button type="button" class="secondary" data-action="edit-item" data-value="${escapeHTML(item.id)}">更新</button>
+        <button type="button" class="danger" data-action="clear-item" data-value="${escapeHTML(item.id)}">清除</button>
+      </div>
+      ${editPanel(item)}
+      ${clearPanel(item)}
+    </article>`;
+}
+
+function manageView() {
+  const items = filteredItems();
+  return `
+    <a class="back-link" href="#home">← 返回两个入口</a>
+    <p class="kicker">MANAGE / 查看处理</p>
+    <h1 id="route-title" tabindex="-1">看见、更新，<br>然后让记录离开。</h1>
+    <div class="segmented" aria-label="清单过滤">
+      <button type="button" data-action="set-filter" data-value="all" aria-pressed="${state.filter === 'all'}">全部</button>
+      <button type="button" data-action="set-filter" data-value="personal" aria-pressed="${state.filter === 'personal'}">个人</button>
+      <button type="button" data-action="set-filter" data-value="shared" aria-pressed="${state.filter === 'shared'}">共享</button>
+    </div>
+    <div class="item-list">
+      ${items.length ? items.map(itemCard).join('') : '<div class="empty-state"><strong>这个视图现在没有项目。</strong><p>回到 Add 添加一条虚构记录。</p><a class="back-link" href="#add">前往 Add →</a></div>'}
+    </div>`;
+}
+
+function render({ focusHeading = false } = {}) {
+  const route = getRoute();
+  app.innerHTML = route === 'add' ? addView() : route === 'manage' ? manageView() : homeView();
+  if (focusHeading) document.getElementById('route-title')?.focus({ preventScroll: true });
+}
+
+function resetDemo() {
+  localStorage.removeItem(STORAGE_KEY);
+  state.items = clone(INITIAL_ITEMS);
+  state.description = '';
+  state.ownership = null;
+  state.review = undefined;
+  state.filter = 'all';
+  state.editingId = null;
+  state.pendingClearId = null;
+  render();
+  showToast('虚构演示数据已复位');
+}
+
+function handleAction(action, value) {
+  if (action === 'select-ownership') {
+    state.ownership = value;
+    render();
+    return;
+  }
+  if (action === 'set-reminder') {
+    state.review = 'Review soon';
+    render();
+    return;
+  }
+  if (action === 'skip-reminder') {
+    state.review = null;
+    render();
+    showToast('已跳过提醒');
+    return;
+  }
+  if (action === 'save-item') {
+    const description = state.description.trim();
+    if (!description) return showToast('请先写一条简短描述');
+    if (!state.ownership) return showToast('请选择归属或许可');
+    if (state.review === undefined) return showToast('请选择 Review soon 或跳过提醒');
+    state.items.push({
+      id: `item-${Date.now()}`,
+      description,
+      ownership: state.ownership,
+      review: state.review
+    });
+    saveItems();
+    state.description = '';
+    state.ownership = null;
+    state.review = undefined;
+    window.location.hash = '#manage';
+    showToast('已保存到本机演示清单');
+    return;
+  }
+  if (action === 'set-filter') {
+    state.filter = value;
+    render();
+    return;
+  }
+  if (action === 'edit-item') {
+    state.editingId = value;
+    state.pendingClearId = null;
+    render();
+    return;
+  }
+  if (action === 'cancel-update') {
+    state.editingId = null;
+    render();
+    return;
+  }
+  if (action === 'update-item') {
+    const item = state.items.find((candidate) => candidate.id === value);
+    if (!item) return;
+    const select = document.querySelector(`[data-edit-ownership="${CSS.escape(value)}"]`);
+    const review = document.querySelector(`[data-edit-review="${CSS.escape(value)}"]`);
+    item.ownership = select.value;
+    item.review = review.checked ? 'Review soon' : null;
+    state.editingId = null;
+    saveItems();
+    render();
+    showToast('记录已更新');
+    return;
+  }
+  if (action === 'clear-item') {
+    state.pendingClearId = value;
+    state.editingId = null;
+    render();
+    return;
+  }
+  if (action === 'cancel-clear') {
+    state.pendingClearId = null;
+    render();
+    return;
+  }
+  if (action === 'confirm-clear') {
+    state.items = state.items.filter((item) => item.id !== value);
+    state.pendingClearId = null;
+    saveItems();
+    render();
+    showToast('虚构记录已清除');
+    return;
+  }
+  if (action === 'reset-demo') resetDemo();
+}
+
+document.addEventListener('input', (event) => {
+  if (event.target.id === 'item-description') {
+    state.description = event.target.value;
+  }
+});
+
+document.addEventListener('click', (event) => {
+  const control = event.target.closest('[data-action]');
+  if (!control) return;
+  handleAction(control.dataset.action, control.dataset.value || '');
+});
+
+window.addEventListener('hashchange', () => render({ focusHeading: true }));
+render();
+if (storageRecovered) showToast('损坏的本机演示数据已清除并复位');
+</script>
+</body>
+</html>
