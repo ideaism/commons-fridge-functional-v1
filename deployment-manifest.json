@@ -1,11 +1,19 @@
 {
-  "name": "Commons Fridge Functional Prototype v1.0",
-  "published": "2026-08-21",
-  "sourceSha256": "619332ed7b1bf9587b15ce5e3dd1ea84e2d7e537299ca6f4bae189a2dd5b329f",
+  "name": "Commons Fridge Functional Prototype v1.2 (Chinese build)",
+  "published": "2026-08-22",
+  "supersedes": "v1.0, published 2026-08-21, sha256 619332ed7b1bf9587b15ce5e3dd1ea84e2d7e537299ca6f4bae189a2dd5b329f",
+  "sourceSha256": "425dcda056fb3fce5c16a84f7d7f21943634d3f5d33f06c9f4e0edcc6219da3e",
+  "language": "zh-CN",
   "routes": {
     "home": "./",
     "add": "./#add",
     "manage": "./#manage"
   },
-  "evidenceBoundary": "Researcher-tested technical demonstrator; not participant usability validation."
+  "storageKey": "commons-fridge-functional-v1",
+  "evidenceBoundary": "Researcher-tested technical demonstrator; not participant usability validation.",
+  "notes": [
+    "Routes are URL hash fragments resolved in the browser; the server returns the same document for all three. Correct routing must be confirmed on a real phone.",
+    "Ownership is stored as stable keys (personal / shared / ask), so records saved by v1.0 and v1.1 migrate automatically.",
+    "No camera, upload, account, analytics or external runtime dependency."
+  ]
 }
