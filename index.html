@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='5' y='2' width='22' height='28' rx='4' fill='%23f3f0e7' stroke='%2326302b' stroke-width='2'/%3E%3Cpath d='M5 12h22M22 6v3M22 16v5' stroke='%23506b5b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
-<title>Commons Fridge · Functional Prototype v1.5</title>
+<title>Commons Fridge</title>
 <style>:root{
   --paper:#f3f0e7;
   --card:#fffdf6;
@@ -310,48 +310,114 @@ button.mini[disabled]{opacity:1;cursor:default;border-style:dashed}
   .segmented.four button{font-size:9.5px}
   .zone-name{font-size:14px}
 }
+
+/* ==================== v1.6 ==================== */
+
+/* 语言切换：紧挨复位按钮 */
+.header-tools{display:flex;align-items:center;gap:8px}
+.lang-button{width:auto;min-width:48px;padding:0 10px;font:700 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.04em}
+
+/* 首页第三、四入口 */
+.route-card.is-shop .route-icon{font-size:22px;color:var(--sage);border-color:var(--sage)}
+.home-tools{margin-top:18px;text-align:center}
+.text-link{color:var(--sage);font-size:12.5px;font-weight:700;text-decoration:underline}
+
+/* F14 两组快速项 */
+.quick-group-label{margin:16px 0 7px;font-size:12px;font-weight:720;color:var(--muted)}
+.quick-group-label:first-of-type{margin-top:0}
+.group-note{margin:14px 0 0;font-size:11.5px;color:var(--muted);line-height:1.55}
+
+/* F8 开放取用 */
+.chip-offer{border-color:var(--sage);background:var(--sage-soft);color:#355044}
+.zone-group.is-offer .zone-head{border-bottom-color:var(--sage)}
+.zone-group.is-offer .zone-name{color:var(--sage)}
+
+/* F9 搬出交接 */
+.moving-banner{margin:0 0 14px;padding:9px 12px;border-left:4px solid var(--sage);
+  background:var(--sage-soft);border-radius:0 8px 8px 0;color:#355044;
+  font:700 11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase}
+.pick-list{display:grid;gap:8px;margin:16px 0 0}
+.pick-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;width:100%;
+  min-height:52px;padding:10px 12px;border:2px solid #667069;border-radius:9px 12px 8px 11px;
+  background:white;color:var(--ink);text-align:left}
+.pick-row.is-on{border-color:var(--ink);background:var(--sage-soft)}
+.pick-box{display:grid;place-items:center;width:22px;height:22px;flex:none;
+  border:2px solid var(--ink);border-radius:6px;background:white;font-size:13px;font-weight:800}
+.pick-name{font-size:14px;font-weight:700}
+.back-link.as-button{display:inline-block;min-height:0;padding:0;border:none;background:transparent}
+.button-link{display:block;text-align:center;border:var(--line);border-radius:9px 12px 8px 11px;
+  background:var(--sage);color:white;padding:12px;font-weight:720;font-size:15px;text-decoration:none}
+
+/* F10 房屋设置 */
+.zone-input{width:100%;min-height:40px;border:2px solid #8d968f;border-radius:8px;
+  background:var(--paper);padding:8px 10px;font-size:14px;font-weight:700;color:var(--ink)}
+.agreed-block{margin:18px 0 0;padding:12px 14px;border:2px dashed #8d968f;
+  border-radius:9px 12px 8px 11px;background:var(--paper)}
+.agreed-head{margin:0 0 7px;font:700 10px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--sage)}
+.agreed-block ul{margin:0;padding-left:18px}
+.agreed-block li{font-size:12.5px;color:var(--muted);line-height:1.6}
+
+/* F13 买菜前看一眼 */
+.shop-block{margin:20px 0 0}
+.shop-head{margin:0 0 9px;padding-bottom:6px;border-bottom:2px solid var(--ink);font-size:15px;font-weight:800}
+.shop-row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 0;
+  border-bottom:1px dashed #c3cbc3}
+.shop-row:last-child{border-bottom:none}
+.shop-name{flex:1;min-width:110px;font-size:14px;font-weight:700}
+.shop-count{font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);
+  font-variant-numeric:tabular-nums}
+.shop-row .age-line{margin:0}
+.shop-empty{margin:0;padding:14px 0;color:var(--muted);font-size:13px}
+.shop-note{margin:20px 0 0;padding:10px 12px;border-left:3px solid #8d968f;background:var(--paper);
+  border-radius:0 8px 8px 0;font-size:12px;color:var(--muted);line-height:1.5}
 </style>
 </head>
 <body>
 <div class="prototype-disclosure" role="note">
-  <span>Functional Prototype v1.5</span>
-  <strong>Researcher self-test · not tested with participants</strong>
+  <span id="disclosure-version"></span>
+  <strong id="disclosure-scope"></strong>
 </div>
 <main class="device-shell" aria-labelledby="route-title">
   <header class="app-header">
-    <a class="brand" href="#home" aria-label="Back to home">
+    <a class="brand" href="#home" id="brand-link">
       <span class="fridge-mark" aria-hidden="true"><i></i></span>
-      <span><small>THE COMMONS FRIDGE</small><strong>The Commons Fridge</strong></span>
+      <span><small id="brand-eyebrow"></small><strong id="brand-name"></strong></span>
     </a>
-    <button class="icon-button" type="button" data-action="reset-demo" title="Reset the fictional demo data" aria-label="Reset the fictional demo data">↺</button>
+    <div class="header-tools">
+      <button class="icon-button lang-button" type="button" data-action="toggle-lang" id="lang-button"></button>
+      <button class="icon-button" type="button" data-action="reset-demo" id="reset-button">↺</button>
+    </div>
   </header>
   <section id="app" class="app-surface" aria-live="off"></section>
   <footer class="scope-footer">
-    <span>Saved only in this browser</span>
+    <span id="footer-storage"></span>
     <span aria-hidden="true">·</span>
-    <span>Does not judge food safety</span>
+    <span id="footer-safety"></span>
     <span aria-hidden="true">·</span>
-    <span>No alarms, no notifications</span>
+    <span id="footer-timing"></span>
     <span aria-hidden="true">·</span>
-    <span>Does not sync between devices</span>
+    <span id="footer-sync"></span>
   </footer>
 </main>
 <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-<script>const T = {"disclosure":{"version":"Functional Prototype v1.5","scope":"Researcher self-test · not tested with participants"},"brand":{"eyebrow":"THE COMMONS FRIDGE","name":"The Commons Fridge","backToHome":"Back to home"},"footer":{"storage":"Saved only in this browser","safety":"Does not judge food safety","timing":"No alarms, no notifications","sync":"Does not sync between devices"},"reset":{"label":"Reset the fictional demo data","confirm":"Reset? The current fictional records will be cleared.","done":"Fictional demo data reset"},"home":{"kicker":"TWO PHYSICAL ENTRY POINTS","title":"At the fridge,<br>do only what this moment needs.","lede":"NFC and QR open two states of the same page. No app to install, no account to create.","addTitle":"Put in","addSub":"Note something that needs to be seen","manageTitle":"Check and handle","manageSub":"Update ownership, plan, or clear the record","boundary":"<strong>Evidence boundary:</strong> five interviews support the problem and habit framing. This page has passed researcher technical self-testing only and has not been usability-tested with participants.","foundTitle":"Found something","foundSub":"Note something nobody has claimed"},"add":{"back":"← Back to the two entry points","kicker":"PUT IN","title":"Just back from the shop?<br>Tap once to add a line.","lede":"No need to enter them one at a time. Tap a common item, or use Other.","mascotLine":"Put it in — I'll remember it for you.","quickLabel":"Common items — tap one to add a line","quickPicks":["Milk","Leftovers","Vegetables","Bread","Yoghurt","Drinks"],"otherLabel":"+ Other","otherPlaceholder":"Write something","otherCommit":"Add to this batch","otherCancel":"Cancel","batchCountOne":"1 item in this batch","batchCountMany":"{n} items in this batch","batchDefault":"Default owner for this batch","planLabel":"When do you plan to eat it?","emptyHint":"Nothing added yet","saveOne":"Save all (1 item)","saveMany":"Save all ({n} items)","remove":"Remove","counter":"{n} / {max}"},"ownership":{"personal":"Personal","shared":"Shared","ask":"Ask first","unknown":"Not sure whose"},"plan":{"soon":"Eating soon","week":"This week","open":"Not sure"},"manage":{"back":"← Back to the two entry points","kicker":"CHECK AND HANDLE","title":"See it, update it,<br>then let the record go.","mascotLine":"Let's look together — no nagging, no judging.","statusOne":"1 thing is past the middle of its plan.","statusMany":"{n} things are past the middle of their plan.","rescuedOne":"1 rescued recently","rescuedMany":"{n} rescued recently","fishInvite":"Handle it and the penguin gets a fish","filterLabel":"Filter list","filterAll":"All","filterPersonal":"Personal","filterShared":"Shared","filterSoon":"Eating soon","cardNote":"Only states a user has actively confirmed are shown.","emptyTitle":"Nothing in this view right now.","emptyBody":"Go back to Put in to add a fictional record.","emptyLink":"Go to Put in →","edit":"Update","clear":"Clear","editOwnership":"Update ownership","editPlan":"When do you plan to eat it?","saveUpdate":"Save update","cancel":"Cancel","clearTitle":"Clear this from the demo list?","clearBody":"This does not handle real food. It only removes the fictional record held on this device.","clearConfirm":"Confirm clear","clearCancel":"Keep","claim":"This is mine","hold":"I will handle this","releaseHold":"Leave it","holdOne":"Someone plans to handle this · 1 hour left","holdMany":"Someone plans to handle this · {n} hours left","holdOver":"Someone planned to handle this","handleNow":"Handle it","handled":"HANDLED · this receipt disappears after 48 hours","opened":"Opened","openedNote":"restarted when opened · today","pauseAll":"I'm away","resumeAll":"I am back","resumeOne":"Resume just this","pauseOne":"Pause this one","pausedBanner":"Plans are paused. Tap when you are back.","pausedChip":"paused","nothingNow":"Nothing needs attention right now."},"toast":{"needDescription":"Write a short description first","savedOne":"Saved 1 item to the demo list on this device","savedMany":"Saved {n} items to the demo list on this device","rowRemoved":"Removed from this batch","updated":"Record updated","cleared":"Fictional record cleared","fishEarned":"Rescued in time — the penguin got a fish","recovered":"Corrupted local demo data was cleared and reset","claimed":"Marked as yours","held":"Held for 48 hours","holdReleased":"Left as it was","openedDone":"Plan restarted from now","pausedAll":"Plans paused","resumedAll":"Plans running again","noted":"Noted on this device"},"demoFish":3,"demoItems":[{"description":"Chicken breast","ownership":"personal","plan":"soon","ageDays":3.4,"zone":"z1"},{"description":"Oat milk","ownership":"personal","plan":"soon","ageDays":2.2,"zone":"z1"},{"description":"Labelled leftovers box","ownership":"shared","plan":"week","ageDays":1,"zone":"z1"},{"description":"Bread","ownership":"personal","plan":"open","zone":"z1"},{"description":"A bottle of milk","ownership":"unknown","plan":"open","ageDays":87,"zone":"z2"},{"description":"Frozen chicken legs","ownership":"unknown","plan":"open","ageDays":112,"zone":"z3"}],"zone":{"label":"Where does this batch go?","rowLabel":"Zone","none":"Unspecified","new":"NEW","kindOwn":"PERSONAL","kindMixed":"ANYONE CAN PUT THINGS HERE","kindCold":"FIRST COME FIRST SERVED","mixedHint":"Anyone can put things in this area. Mark whose it is so it can find its way back.","coldHint":"Frozen things start with no plan.","whose":"Whose is this one?"},"found":{"back":"← Back to the two entry points","kicker":"FOUND SOMETHING","title":"Note it down.<br>No need to ask anyone.","lede":"The record itself makes it visible again. Nobody gets named.","note":"Ownership is locked to \"not sure whose\". This record does not tag anyone, and nobody is chased to claim it.","saveOne":"Note it down (1 item)","saveMany":"Note it down ({n} items)"},"house":{"scopeMine":"Mine","scopeHouse":"House","localOnly":"Fictional records held on this device. This version does not sync between devices.","statusOne":"1 thing in the house is past the middle of its plan.","statusMany":"{n} things in the house are past the middle of their plan.","ageOne":"in here 1 day","ageMany":"in here {n} days"},"demoZones":[{"id":"z1","kind":"own","label":"Top shelf"},{"id":"z2","kind":"mixed","label":"Door"},{"id":"z3","kind":"cold","label":"Freezer drawer"}]};
-/* Commons Fridge · Functional Prototype v1.5
- *
- * 语言无关的应用逻辑。所有面向用户的文字都来自构建时注入的 T（strings.json）。
+<script>const S = {"en":{"_meta":{"htmlLang":"en","title":"Commons Fridge · Functional Prototype v1.6"},"disclosure":{"version":"Functional Prototype v1.6","scope":"Researcher self-test · not tested with participants"},"brand":{"eyebrow":"THE COMMONS FRIDGE","name":"The Commons Fridge","backToHome":"Back to home"},"footer":{"storage":"Saved only in this browser","safety":"Does not judge food safety","timing":"No alarms, no notifications","sync":"Does not sync between devices"},"reset":{"label":"Reset the fictional demo data","confirm":"Reset? The current fictional records will be cleared.","done":"Fictional demo data reset"},"home":{"kicker":"TWO PHYSICAL ENTRY POINTS","title":"At the fridge,<br>do only what this moment needs.","lede":"NFC and QR open two states of the same page. No app to install, no account to create.","addTitle":"Put in","addSub":"Note something that needs to be seen","manageTitle":"Check and handle","manageSub":"Update ownership, plan, or clear the record","boundary":"<strong>Evidence boundary:</strong> five interviews support the problem and habit framing. This page has passed researcher technical self-testing only and has not been usability-tested with participants.","foundTitle":"Found something","foundSub":"Note something nobody has claimed","shopTitle":"Before you shop","shopSub":"What to eat first, what the house has, where there is room","new":"NEW","backThree":"← Back to the three entry points"},"add":{"back":"← Back to the two entry points","kicker":"PUT IN","title":"Just back from the shop?<br>Tap once to add a line.","lede":"No need to enter them one at a time. Tap a common item, or use Other.","mascotLine":"Put it in — I'll remember it for you.","quickLabel":"Common items — tap one to add a line","quickPicks":["Milk","Leftovers","Vegetables","Bread","Yoghurt","Drinks"],"otherLabel":"+ Other","otherPlaceholder":"Write something","otherCommit":"Add to this batch","otherCancel":"Cancel","batchCountOne":"1 item in this batch","batchCountMany":"{n} items in this batch","batchDefault":"Default owner for this batch","planLabel":"When do you plan to eat it?","emptyHint":"Nothing added yet","saveOne":"Save all (1 item)","saveMany":"Save all ({n} items)","remove":"Remove","counter":"{n} / {max}","groupSoon":"These I usually eat soon","groupOpen":"These I leave open","quickSoon":["Milk","Leftovers","Meat"],"quickOpen":["Bread","Vegetables","Drinks"],"groupNote":"Both defaults can be changed, and changing one says nothing. This is about how you plan to note things, not about the food."},"ownership":{"personal":"Personal","shared":"Shared","ask":"Ask first","unknown":"Not sure whose"},"plan":{"soon":"Eating soon","week":"This week","open":"Not sure"},"manage":{"back":"← Back to the two entry points","kicker":"CHECK AND HANDLE","title":"See it, update it,<br>then let the record go.","mascotLine":"Let's look together — no nagging, no judging.","statusOne":"1 thing is past the middle of its plan.","statusMany":"{n} things are past the middle of their plan.","rescuedOne":"1 rescued recently","rescuedMany":"{n} rescued recently","fishInvite":"Handle it and the penguin gets a fish","filterLabel":"Filter list","filterAll":"All","filterPersonal":"Personal","filterShared":"Shared","filterSoon":"Eating soon","cardNote":"Only states a user has actively confirmed are shown.","emptyTitle":"Nothing in this view right now.","emptyBody":"Go back to Put in to add a fictional record.","emptyLink":"Go to Put in →","edit":"Update","clear":"Clear","editOwnership":"Update ownership","editPlan":"When do you plan to eat it?","saveUpdate":"Save update","cancel":"Cancel","clearTitle":"Clear this from the demo list?","clearBody":"This does not handle real food. It only removes the fictional record held on this device.","clearConfirm":"Confirm clear","clearCancel":"Keep","claim":"This is mine","hold":"I will handle this","releaseHold":"Leave it","holdOne":"Someone plans to handle this · 1 hour left","holdMany":"Someone plans to handle this · {n} hours left","holdOver":"Someone planned to handle this","handleNow":"Handle it","handled":"HANDLED · this receipt disappears after 48 hours","opened":"Opened","openedNote":"restarted when opened · today","pauseAll":"I'm away","resumeAll":"I am back","resumeOne":"Resume just this","pauseOne":"Pause this one","pausedBanner":"Plans are paused. Tap when you are back.","pausedChip":"paused","nothingNow":"Nothing needs attention right now.","toFreezer":"Move to freezer","thaw":"Take out to thaw","freezerNote":"Moving it to the freezer cancels the current plan. It goes quiet and stops surfacing.","offer":"Anyone can take this","offerStop":"Stop offering","offerToday":"Today only","offerTwoDays":"Next two days","offerAlways":"No time limit","offerGroup":"Free to take right now","offerGroupKind":"TIME-LIMITED","offerPick":"For how long?"},"toast":{"needDescription":"Write a short description first","savedOne":"Saved 1 item to the demo list on this device","savedMany":"Saved {n} items to the demo list on this device","rowRemoved":"Removed from this batch","updated":"Record updated","cleared":"Fictional record cleared","fishEarned":"Rescued in time — the penguin got a fish","recovered":"Corrupted local demo data was cleared and reset","claimed":"Marked as yours","held":"Held for 48 hours","holdReleased":"Left as it was","openedDone":"Plan restarted from now","pausedAll":"Plans paused","resumedAll":"Plans running again","noted":"Noted on this device","frozen":"Moved to the freezer","thawed":"Taken out to thaw","offered":"Open for anyone to take","offerStopped":"No longer offered","handedOver":"Handover finished","setupDone":"Fridge set up"},"demoFish":3,"demoItems":[{"description":"Chicken breast","ownership":"personal","plan":"soon","ageDays":3.4,"zone":"z1"},{"description":"Oat milk","ownership":"personal","plan":"soon","ageDays":2.2,"zone":"z1"},{"description":"Labelled leftovers box","ownership":"shared","plan":"week","ageDays":1,"zone":"z1"},{"description":"Bread","ownership":"personal","plan":"open","zone":"z1"},{"description":"A bottle of milk","ownership":"unknown","plan":"open","ageDays":87,"zone":"z2"},{"description":"Frozen chicken legs","ownership":"unknown","plan":"open","ageDays":112,"zone":"z3"}],"zone":{"label":"Where does this batch go?","rowLabel":"Zone","none":"Unspecified","new":"NEW","kindOwn":"PERSONAL","kindMixed":"ANYONE CAN PUT THINGS HERE","kindCold":"FIRST COME FIRST SERVED","mixedHint":"Anyone can put things in this area. Mark whose it is so it can find its way back.","coldHint":"Frozen things start with no plan.","whose":"Whose is this one?","roomLeft":"room left","full":"this one is full","markFull":"Mark as full","markRoom":"Mark as having room","freeing":"freeing up"},"found":{"back":"← Back to the two entry points","kicker":"FOUND SOMETHING","title":"Note it down.<br>No need to ask anyone.","lede":"The record itself makes it visible again. Nobody gets named.","note":"Ownership is locked to \"not sure whose\". This record does not tag anyone, and nobody is chased to claim it.","saveOne":"Note it down (1 item)","saveMany":"Note it down ({n} items)"},"house":{"scopeMine":"Mine","scopeHouse":"House","localOnly":"Fictional records held on this device. This version does not sync between devices.","statusOne":"1 thing in the house is past the middle of its plan.","statusMany":"{n} things in the house are past the middle of their plan.","ageOne":"in here 1 day","ageMany":"in here {n} days"},"demoZones":[{"id":"z1","kind":"own","label":"Top shelf"},{"id":"z2","kind":"mixed","label":"Door"},{"id":"z3","kind":"cold","label":"Freezer drawer"}],"lang":{"toggle":"中文","aria":"Switch to Chinese"},"shop":{"kicker":"BEFORE YOU SHOP","title":"Before you go,<br>three things to check.","eatFirst":"Eat these first","already":"Already in the house","room":"Where there is room","countOne":"1 item","countMany":"{n} items","note":"Nothing on this screen changes anything.","empty":"Nothing needs eating first right now."},"moveOut":{"entry":"I'm moving out","cancel":"Cancel","step1Kicker":"MOVING OUT · STEP 1 / 4","step1Title":"First — which ones<br>will you finish?","step1Lede":"Ticked ones stay yours. The rest get handed over next.","step1NextOne":"Next (1 to hand over)","step1NextMany":"Next ({n} to hand over)","step1None":"Nothing left to hand over","step2Kicker":"MOVING OUT · STEP 2 / 4","step2Title":"The rest —<br>let others take them.","step2Note":"This does not change ownership. They are still yours — others may now take them.","step2Next":"Next","step3Kicker":"MOVING OUT · STEP 3 / 4","step3Title":"Your zones<br>will free up.","step3Note":"Space can be handed over. Food and responsibility do not hand themselves over. That is why the previous step exists.","step3Done":"Finish handover","step4Kicker":"MOVING OUT · STEP 4 / 4 · HOUSE VIEW","step4Title":"This is what<br>the house sees.","step4Note":"Whatever is not taken does not vanish — it becomes \"not sure whose\" and stays in the house view.","step4Done":"Back to the house view","banner":"Someone is moving out","freeToTake":"FREE TO TAKE"},"setup":{"entry":"Set up the fridge","skip":"Skip for now","next":"Next","done":"Done","step1Kicker":"HOUSE SETUP · STEP 1 / 3","step1Title":"How is this fridge<br>divided up?","step1Lede":"Use whatever you already call them.","addPlace":"+ Add a place","placeHint":"Name this place","step2Kicker":"HOUSE SETUP · STEP 2 / 3","step2Title":"What kind is<br>each place?","step2Note":"Only places marked \"anyone can put things here\" ask about ownership when you add something. Personal zones do not ask — the place already says whose it is.","kindOwn":"Personal","kindMixed":"Anyone can put things here","kindCold":"Freezer","step3Kicker":"HOUSE SETUP · STEP 3 / 3","step3Title":"Shall we agree<br>on three things?","agree1":"Mark whose it is when you use a shared place","agree2":"Anyone may flag something nobody claims","agree3":"Give it 48 hours before handling someone else’s","step3Note":"Ticked ones appear at the foot of the house view as what you agreed — never as a rule the app enforces. Soft agreements have collapsed before; the app does not pretend it can hold them.","agreedHead":"What this house agreed"}},"zh":{"_meta":{"htmlLang":"zh-CN","title":"Commons Fridge · 功能原型 v1.6"},"disclosure":{"version":"功能原型 v1.6","scope":"研究者技术自测 · 未经参与者可用性测试"},"brand":{"eyebrow":"THE COMMONS FRIDGE","name":"共享冰箱公地","backToHome":"返回首页"},"footer":{"storage":"仅保存于本机浏览器","safety":"不判断食品安全","timing":"不设闹钟，不发通知","sync":"不在设备之间同步"},"reset":{"label":"复位虚构演示数据","confirm":"确定复位？现有虚构记录会被清空。","done":"虚构演示数据已复位"},"home":{"kicker":"两个实体入口","title":"站在冰箱前，<br>只做这一刻需要的事。","lede":"NFC 与 QR 进入同一网页的两个状态。不安装 App，不建立账号。","addTitle":"放入","addSub":"记录一件需要被看见的食物","manageTitle":"查看处理","manageSub":"更新归属、计划或清除记录","boundary":"<strong>证据边界：</strong>五场访谈支持问题与习惯框架；本网页仅完成研究者技术自测，尚未接受参与者可用性测试。","foundTitle":"看到一件不知道是谁的东西","foundSub":"记下一件没人认领的东西","shopTitle":"买菜前看一眼","shopSub":"先吃什么、屋内有什么、哪一区还有空间","new":"NEW","backThree":"← 返回三个入口"},"add":{"back":"← 返回两个入口","kicker":"放入","title":"刚买回来？<br>点一下就加一行。","lede":"不用一件一件填。点常见的，或用「其他」补。","mascotLine":"先放进来，我帮你记住它。","quickLabel":"常见的东西，点一下就加一行","quickPicks":["牛奶","剩菜","蔬菜","面包","酸奶","饮料"],"otherLabel":"+ 其他","otherPlaceholder":"写点什么","otherCommit":"加进这批","otherCancel":"取消","batchCountOne":"本次 1 件","batchCountMany":"本次 {n} 件","batchDefault":"这批默认归属","planLabel":"打算什么时候吃？","emptyHint":"还没有加任何东西","saveOne":"全部保存（1 件）","saveMany":"全部保存（{n} 件）","remove":"移除","counter":"{n} / {max}","groupSoon":"这些我通常尽快吃","groupOpen":"这些先不设计划","quickSoon":["牛奶","剩菜","肉"],"quickOpen":["面包","蔬菜","饮料"],"groupNote":"两组的默认档位都可以改，改了不提示。这说的是你打算怎么记，不是食物会怎样。"},"ownership":{"personal":"个人","shared":"共用","ask":"需询问","unknown":"不知道是谁的"},"plan":{"soon":"这几天吃","week":"这周内","open":"说不准"},"manage":{"back":"← 返回两个入口","kicker":"查看处理","title":"看见、更新，<br>然后让记录离开。","mascotLine":"一起回来看看，不催也不评判。","statusOne":"有 1 件东西的计划过了大半。","statusMany":"有 {n} 件东西的计划过了大半。","rescuedOne":"最近被救下 1 件","rescuedMany":"最近被救下 {n} 件","fishInvite":"处理掉它，企鹅就能吃到一条","filterLabel":"清单过滤","filterAll":"全部","filterPersonal":"个人","filterShared":"共用","filterSoon":"这几天要吃的","cardNote":"以下只显示使用者主动确认的状态。","emptyTitle":"这个视图现在没有项目。","emptyBody":"回到「放入」添加一条虚构记录。","emptyLink":"前往放入 →","edit":"更新","clear":"清除","editOwnership":"更新归属","editPlan":"打算什么时候吃？","saveUpdate":"保存更新","cancel":"取消","clearTitle":"从演示清单清除这项？","clearBody":"这不会处理真实食物，只会移除本机虚构记录。","clearConfirm":"确认清除","clearCancel":"保留","claim":"这是我的","hold":"我打算处理它","releaseHold":"先别动","holdOne":"有人打算处理它 · 还有 1 小时","holdMany":"有人打算处理它 · 还有 {n} 小时","holdOver":"有人打算处理它","handleNow":"处理掉它","handled":"已处理 · 这条回执 48 小时后消失","opened":"开了","openedNote":"开了之后重新起算 · 今天","pauseAll":"我这几天不在","resumeAll":"回来了","resumeOne":"只恢复这一件","pauseOne":"暂停这一件","pausedBanner":"计划已暂停。回来的时候点一下继续。","pausedChip":"已暂停","nothingNow":"现在没有东西需要注意。","toFreezer":"放进冷冻","thaw":"拿出来解冻","freezerNote":"放进冷冻＝取消当前计划，它变安静，不再排到前面。","offer":"谁想吃都可以拿","offerStop":"收回","offerToday":"今天之内","offerTwoDays":"这两天","offerAlways":"一直可以","offerGroup":"现在可以拿的","offerGroupKind":"有时限","offerPick":"开放多久？"},"toast":{"needDescription":"请先写一条简短描述","savedOne":"已保存 1 件到本机演示清单","savedMany":"已保存 {n} 件到本机演示清单","rowRemoved":"已从这批移除","updated":"记录已更新","cleared":"虚构记录已清除","fishEarned":"赶上了——企鹅得到一条鱼","recovered":"损坏的本机演示数据已清除并复位","claimed":"已标记为你的","held":"已挂起 48 小时","holdReleased":"保持原样","openedDone":"计划已从现在重新起算","pausedAll":"计划已暂停","resumedAll":"计划已继续","noted":"已记在本机","frozen":"已放进冷冻","thawed":"已拿出来解冻","offered":"已开放取用","offerStopped":"已收回","handedOver":"交接完成","setupDone":"冰箱已设置好"},"demoFish":3,"demoItems":[{"description":"鸡胸肉","ownership":"personal","plan":"soon","ageDays":3.4,"zone":"z1"},{"description":"燕麦奶","ownership":"personal","plan":"soon","ageDays":2.2,"zone":"z1"},{"description":"贴了标签的保鲜盒","ownership":"shared","plan":"week","ageDays":1,"zone":"z1"},{"description":"面包","ownership":"personal","plan":"open","zone":"z1"},{"description":"一瓶牛奶","ownership":"unknown","plan":"open","ageDays":87,"zone":"z2"},{"description":"速冻鸡腿","ownership":"unknown","plan":"open","ageDays":112,"zone":"z3"}],"zone":{"label":"这批放在哪一区","rowLabel":"区域","none":"未指定","new":"NEW","kindOwn":"个人区","kindMixed":"大家都能放","kindCold":"先到先用","mixedHint":"这一区大家都能放。标一下是谁的，别人才找得回来。","coldHint":"冷冻的先不设计划。","whose":"这一件是谁的？","roomLeft":"还有空间","full":"这一区满了","markFull":"标为已满","markRoom":"标为还有空间","freeing":"即将空出"},"found":{"back":"← 返回两个入口","kicker":"看到一件不知道是谁的东西","title":"把它记下来，<br>不用问任何人。","lede":"记录本身就让它重新被看见。没有人会被点名。","note":"归属锁定为「不知道是谁的」。这一条记录不会 @ 任何人，也不会催任何人认领。","saveOne":"记下来（1 件）","saveMany":"记下来（{n} 件）"},"house":{"scopeMine":"我的","scopeHouse":"屋内","localOnly":"这些是本机的虚构记录。此版本不在设备之间同步。","statusOne":"屋内有 1 件东西的计划过了大半。","statusMany":"屋内有 {n} 件东西的计划过了大半。","ageOne":"放了 1 天","ageMany":"放了 {n} 天"},"demoZones":[{"id":"z1","kind":"own","label":"上层"},{"id":"z2","kind":"mixed","label":"门侧"},{"id":"z3","kind":"cold","label":"冷冻抽屉"}],"lang":{"toggle":"EN","aria":"切换到英文"},"shop":{"kicker":"买菜前看一眼","title":"出门前，<br>三件事看一眼。","eatFirst":"需要先吃掉的","already":"屋内已经有的","room":"哪一区还有空间","countOne":"1 件","countMany":"{n} 件","note":"这一屏不改任何东西。","empty":"现在没有需要先吃掉的东西。"},"moveOut":{"entry":"我要搬走了","cancel":"取消","step1Kicker":"搬出交接 · 步骤 1 / 4","step1Title":"先说清楚，<br>哪些你会吃完。","step1Lede":"勾上的留给你自己。剩下的下一步交出去。","step1NextOne":"下一步（1 件要交出去）","step1NextMany":"下一步（{n} 件要交出去）","step1None":"没有要交出去的东西","step2Kicker":"搬出交接 · 步骤 2 / 4","step2Title":"剩下的，<br>让别人拿走。","step2Note":"这不改所有权。它们仍然是你的，只是现在别人可以拿。","step2Next":"下一步","step3Kicker":"搬出交接 · 步骤 3 / 4","step3Title":"你的位置<br>会空出来。","step3Note":"空间可以交接，食物和责任不会自动交接。所以上一步要单独走一遍。","step3Done":"完成交接","step4Kicker":"搬出交接 · 步骤 4 / 4 · 屋内视图","step4Title":"屋内现在<br>看到这些。","step4Note":"没被拿走的不会自动消失——它们会变成「不知道是谁的」，留在屋内视图里。","step4Done":"回到屋内视图","banner":"有人要搬走了","freeToTake":"可以直接拿"},"setup":{"entry":"设置这台冰箱","skip":"先跳过，之后再说","next":"下一步","done":"完成","step1Kicker":"房屋设置 · 步骤 1 / 3","step1Title":"这台冰箱<br>分成几块？","step1Lede":"用你们自己的叫法，不用改成我们的词。","addPlace":"＋ 加一块地方","placeHint":"给这块地方起个名","step2Kicker":"房屋设置 · 步骤 2 / 3","step2Title":"每块地方<br>是哪一种？","step2Note":"只有「大家都能放」的地方，录入时才会问一次归属。个人区不问——位置已经说明了是谁的。","kindOwn":"个人区","kindMixed":"大家都能放","kindCold":"冷冻","step3Kicker":"房屋设置 · 步骤 3 / 3","step3Title":"要不要<br>先说好三件事？","agree1":"大家都能放的地方，东西要标一下是谁的","agree2":"不知道是谁的东西，任何人都可以标出来","agree3":"打算处理别人的东西，先挂 48 小时","step3Note":"勾了的会显示在屋内视图底部，作为提示，不作为强制。软性约定被超量购买压垮过，系统不假装自己能强制执行。","agreedHead":"这间屋子说好的"}}};
+/* Commons Fridge · Functional Prototype v1.6
  *
  * v1.4：系统盯的是「用户自己声明的计划」。
  * v1.5：把「位置」补回来，让它同时承担所有权的载体与共享的面。
- *       屋内视图按区域组织，不按人组织——区域没有身份，因此全程无姓名、无行为历史。
+ * v1.6：补齐生命周期两端（冷冻 / 开放取用 / 搬出交接 / 入住设置 / 购物前查看），
+ *       并把两套语言一起打包，运行时可切换——很多看这份原型的人是中文读者。
  *
- * 状态仍是当前时间的纯函数，永不写回存储。没有定时器，没有通知。
+ * 状态仍是当前时间的纯函数，永不写回存储。没有定时器，没有通知，不在设备之间同步。
  */
 
 const STORAGE_KEY = 'commons-fridge-functional-v1';
 const FISH_KEY = 'commons-fridge-functional-v1-fish';
 const ZONES_KEY = 'commons-fridge-functional-v1-zones';
+const SETTINGS_KEY = 'commons-fridge-functional-v1-settings';
+const LANG_KEY = 'commons-fridge-functional-v1-lang';
 const MAX_DESCRIPTION = 42;
 const DAY_MS = 86400000;
 const HOUR_MS = 3600000;
@@ -363,14 +429,25 @@ const PLAN_DAYS = { soon: 3, week: 7, open: null };
 const MIDWAY_RATIO = 0.65;
 const STATE_ORDER = { overdue: 0, midway: 1, ontrack: 2, quiet: 3, paused: 4 };
 const FISH_RECENT_MS = 2 * DAY_MS;
-const HOLD_MS = 48 * HOUR_MS;      /* 宽限期：我打算处理它 → 48 小时无人反对 */
-const RECEIPT_MS = 48 * HOUR_MS;   /* 回执必须会过期，否则它就是行为历史 */
+const HOLD_MS = 48 * HOUR_MS;
+const RECEIPT_MS = 48 * HOUR_MS;
+const OFFER_ALWAYS = 'always';
 
-const LEGACY_OWNERSHIP = {
-  Personal: 'personal',
-  'Shared with house': 'shared',
-  'Ask first': 'ask'
-};
+const LEGACY_OWNERSHIP = { Personal: 'personal', 'Shared with house': 'shared', 'Ask first': 'ask' };
+
+/* ---------- 语言：两套表一起打包，运行时切换 ---------- */
+
+const LANGS = Object.keys(S);
+
+function initialLang() {
+  const saved = localStorage.getItem(LANG_KEY);
+  if (LANGS.includes(saved)) return saved;
+  const nav = (navigator.language || 'en').toLowerCase();
+  return nav.indexOf('zh') === 0 && LANGS.includes('zh') ? 'zh' : LANGS[0];
+}
+
+let LANG = initialLang();
+let T = S[LANG];
 
 const app = document.getElementById('app');
 const toast = document.getElementById('toast');
@@ -385,13 +462,11 @@ function normaliseOwnership(value) {
   if (LEGACY_OWNERSHIP[value]) return LEGACY_OWNERSHIP[value];
   return 'personal';
 }
-
 function normalisePlan(value) {
   if (PLAN_KEYS.includes(value)) return value;
   if (value === true || value === 'Review soon') return 'soon';
   return 'open';
 }
-
 /* 旧数据没有时间戳。设为「迁移这一刻」而不是某个过去时间——
    倒推会让用户升级后凭空看到一堆 overdue，那是系统制造的指责。 */
 function normalisePlanSetAt(value, plan, now) {
@@ -399,50 +474,75 @@ function normalisePlanSetAt(value, plan, now) {
   const parsed = Date.parse(value);
   return Number.isFinite(parsed) ? new Date(parsed).toISOString() : new Date(now).toISOString();
 }
-
-/* 旧记录没有 openedAt / pausedAt / holdUntil，就是 null，不要猜。 */
 function stamp(value) {
   const parsed = Date.parse(value);
   return Number.isFinite(parsed) ? new Date(parsed).toISOString() : null;
 }
+function normaliseOffer(value) {
+  if (value === OFFER_ALWAYS) return OFFER_ALWAYS;
+  return stamp(value);
+}
+
+function loadZonesSeed() {
+  return (T.demoZones || []).map((z) => ({ ...z, full: false, freeing: false }));
+}
 
 function loadZones() {
   const saved = localStorage.getItem(ZONES_KEY);
-  if (!saved) return (T.demoZones || []).map((z) => ({ ...z }));
+  const seed = loadZonesSeed;
+  if (!saved) return seed();
   try {
     const parsed = JSON.parse(saved);
     if (!Array.isArray(parsed)) throw new Error('zones must be an array');
-    return parsed
-      .map((z) => ({
-        id: String(z.id),
-        kind: ZONE_KINDS.includes(z.kind) ? z.kind : 'own',
-        label: String(z.label).slice(0, MAX_DESCRIPTION)
-      }))
-      .filter((z) => z.label);
+    return parsed.map((z) => ({
+      id: String(z.id),
+      kind: ZONE_KINDS.includes(z.kind) ? z.kind : 'own',
+      label: String(z.label).slice(0, MAX_DESCRIPTION),
+      full: z.full === true,
+      freeing: z.freeing === true
+    })).filter((z) => z.label);
   } catch (error) {
     localStorage.removeItem(ZONES_KEY);
-    return (T.demoZones || []).map((z) => ({ ...z }));
+    return seed();
+  }
+}
+
+function loadSettings() {
+  const fallback = { agreements: [false, false, false], setupDone: false, movingOut: false };
+  const saved = localStorage.getItem(SETTINGS_KEY);
+  if (!saved) return fallback;
+  try {
+    const parsed = JSON.parse(saved);
+    const a = Array.isArray(parsed.agreements) ? parsed.agreements : [];
+    return {
+      agreements: [0, 1, 2].map((i) => a[i] === true),
+      setupDone: parsed.setupDone === true,
+      movingOut: parsed.movingOut === true
+    };
+  } catch (error) {
+    localStorage.removeItem(SETTINGS_KEY);
+    return fallback;
   }
 }
 
 function initialItems() {
   const now = Date.now();
-  return T.demoItems.map((item, index) => ({
-    id: `demo-${index}`,
-    description: item.description,
-    ownership: normaliseOwnership(item.ownership),
-    plan: normalisePlan(item.plan),
-    /* 演示数据按 ageDays 回拨，否则展台上永远只看得到 ontrack，
-       整个机制在现场不可见，也拍不出来。 */
-    planSetAt: item.ageDays == null ? null : new Date(now - item.ageDays * DAY_MS).toISOString(),
-    zone: item.zone || null,
-    ageBase: item.ageDays == null ? null : new Date(now - item.ageDays * DAY_MS).toISOString(),
-    openedAt: null,
-    pausedAt: null,
-    pausedMs: 0,
-    holdUntil: null,
-    handledAt: null
-  }));
+  return T.demoItems.map((item, index) => {
+    const base = item.ageDays == null ? null : new Date(now - item.ageDays * DAY_MS).toISOString();
+    return {
+      id: `demo-${index}`,
+      description: item.description,
+      ownership: normaliseOwnership(item.ownership),
+      plan: normalisePlan(item.plan),
+      /* 演示数据按 ageDays 回拨，否则展台上永远只看得到 ontrack，
+         整个机制在现场不可见，也拍不出来。 */
+      planSetAt: base,
+      zone: item.zone || null,
+      ageBase: base || new Date(now).toISOString(),
+      openedAt: null, pausedAt: null, pausedMs: 0,
+      holdUntil: null, handledAt: null, offerUntil: null
+    };
+  });
 }
 
 function loadItems() {
@@ -460,15 +560,15 @@ function loadItems() {
         id: String(item.id),
         description: String(item.description).slice(0, MAX_DESCRIPTION),
         ownership: normaliseOwnership(item.ownership),
-        plan,
-        planSetAt,
+        plan, planSetAt,
         zone: item.zone ? String(item.zone) : null,
-        ageBase: stamp(item.ageBase) || planSetAt,
+        ageBase: stamp(item.ageBase) || planSetAt || new Date(now).toISOString(),
         openedAt: stamp(item.openedAt),
         pausedAt: stamp(item.pausedAt),
         pausedMs: Number.isFinite(pausedMs) && pausedMs >= 0 ? pausedMs : 0,
         holdUntil: stamp(item.holdUntil),
-        handledAt: stamp(item.handledAt)
+        handledAt: stamp(item.handledAt),
+        offerUntil: normaliseOffer(item.offerUntil)
       };
     });
   } catch (error) {
@@ -500,48 +600,41 @@ function planState(item, now) {
   if (!days) return 'quiet';
   const start = Date.parse(item.planSetAt);
   if (!Number.isFinite(start)) return 'quiet';
-  /* 暂停过的时间不计入——用户不在家不是失职。 */
   const elapsed = now - start - (item.pausedMs || 0);
   const ratio = elapsed / (days * DAY_MS);
   if (ratio >= 1) return 'overdue';
   if (ratio >= MIDWAY_RATIO) return 'midway';
   return 'ontrack';
 }
-
 function needsAttention(item, now) {
   const s = planState(item, now);
   return s === 'midway' || s === 'overdue';
 }
-
-function isHeld(item, now) {
-  return !!item.holdUntil && Date.parse(item.holdUntil) > now;
+function isHeld(item, now) { return !!item.holdUntil && Date.parse(item.holdUntil) > now; }
+function holdHoursLeft(item, now) { return Math.max(1, Math.ceil((Date.parse(item.holdUntil) - now) / HOUR_MS)); }
+function receiptVisible(item, now) { return !!item.handledAt && now - Date.parse(item.handledAt) < RECEIPT_MS; }
+/* 时限走完悄悄回到原状——不发通知、不提示物主、不留记录。 */
+function isOffered(item, now) {
+  if (item.offerUntil === OFFER_ALWAYS) return true;
+  return !!item.offerUntil && Date.parse(item.offerUntil) > now;
 }
-
-function holdHoursLeft(item, now) {
-  return Math.max(1, Math.ceil((Date.parse(item.holdUntil) - now) / HOUR_MS));
+function offerLabel(item) {
+  if (item.offerUntil === OFFER_ALWAYS) return T.manage.offerAlways;
+  const left = Date.parse(item.offerUntil) - Date.now();
+  return left > DAY_MS ? T.manage.offerTwoDays : T.manage.offerToday;
 }
-
-function receiptVisible(item, now) {
-  return !!item.handledAt && now - Date.parse(item.handledAt) < RECEIPT_MS;
-}
-
 function ageDays(item, now) {
   const base = Date.parse(item.ageBase || item.planSetAt);
   if (!Number.isFinite(base)) return null;
   return Math.max(0, Math.floor((now - base) / DAY_MS));
 }
-
 function sortedItems(items, now) {
   return items
     .map((item, index) => ({ item, index, order: STATE_ORDER[planState(item, now)] }))
     .sort((a, b) => (a.order - b.order) || (a.index - b.index))
     .map((entry) => entry.item);
 }
-
-function attentionCount(items, now) {
-  return items.filter((item) => needsAttention(item, now)).length;
-}
-
+function attentionCount(items, now) { return items.filter((item) => needsAttention(item, now)).length; }
 function penguinFace(items, now) {
   if (attentionCount(items, now) > 0) return 'alert';
   const last = state.fish.last ? Date.parse(state.fish.last) : NaN;
@@ -551,52 +644,27 @@ function penguinFace(items, now) {
 
 /* ---------- 区域 ---------- */
 
-function zoneById(id) {
-  return state.zones.find((z) => z.id === id) || null;
-}
-
-function zoneKind(id) {
-  const z = zoneById(id);
-  return z ? z.kind : null;
-}
-
-function zoneLabel(id) {
-  const z = zoneById(id);
-  return z ? z.label : T.zone.none;
-}
-
+function zoneById(id) { return state.zones.find((z) => z.id === id) || null; }
+function zoneKind(id) { const z = zoneById(id); return z ? z.kind : null; }
+function zoneLabel(id) { const z = zoneById(id); return z ? z.label : T.zone.none; }
 function kindCaption(kind) {
   if (kind === 'mixed') return T.zone.kindMixed;
   if (kind === 'cold') return T.zone.kindCold;
   return T.zone.kindOwn;
 }
-
-function firstColdZone() {
-  return state.zones.find((z) => z.kind === 'cold') || null;
-}
-
-/* 「我的」= 个人区 + 无区域的记录。屋内 = 全部。 */
-function scopeItems(now) {
-  if (state.scope === 'house') return state.items;
-  return state.items.filter((item) => !item.zone || zoneKind(item.zone) === 'own');
-}
+function firstColdZone() { return state.zones.find((z) => z.kind === 'cold') || null; }
+function myItems() { return state.items.filter((item) => !item.zone || zoneKind(item.zone) === 'own'); }
+function scopeItems() { return state.scope === 'house' ? state.items : myItems(); }
 
 /* ---------- state ---------- */
 
 const state = {
-  zones: [],
-  items: [],
-  fish: loadFish(),
-  draft: [],
-  batchDefault: 'personal',
-  batchZone: null,
-  otherOpen: false,
-  otherText: '',
-  scope: 'mine',
-  filter: 'all',
-  editingId: null,
-  pendingClearId: null,
-  whoseFor: null
+  zones: [], items: [], settings: loadSettings(), fish: loadFish(),
+  draft: [], batchDefault: 'personal', batchZone: null,
+  otherOpen: false, otherText: '',
+  scope: 'mine', filter: 'all',
+  editingId: null, pendingClearId: null, whoseFor: null, offerFor: null,
+  moveOut: null, setup: null
 };
 state.zones = loadZones();
 state.items = loadItems();
@@ -604,24 +672,17 @@ state.items = loadItems();
 function saveItems() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items)); }
 function saveFish() { localStorage.setItem(FISH_KEY, JSON.stringify(state.fish)); }
 function saveZones() { localStorage.setItem(ZONES_KEY, JSON.stringify(state.zones)); }
+function saveSettings() { localStorage.setItem(SETTINGS_KEY, JSON.stringify(state.settings)); }
 
-function getRoute() {
-  if (window.location.hash === '#add') return 'add';
-  if (window.location.hash === '#found') return 'found';
-  if (window.location.hash === '#manage') return 'manage';
-  return 'home';
-}
+const ROUTES = { '#add': 'add', '#found': 'found', '#manage': 'manage',
+                 '#shop': 'shop', '#moveout': 'moveout', '#setup': 'setup' };
+function getRoute() { return ROUTES[window.location.hash] || 'home'; }
 
 function escapeHTML(value) {
-  return String(value).replace(/[&<>'"]/g, (character) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
-  })[character]);
+  return String(value).replace(/[&<>'"]/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[c]);
 }
-
-function plural(one, many, n) {
-  return n === 1 ? one : many.replace('{n}', n);
-}
-
+function plural(one, many, n) { return n === 1 ? one : many.replace('{n}', n); }
 function showToast(message) {
   toast.textContent = message;
   toast.classList.add('is-visible');
@@ -647,56 +708,71 @@ function homeView() {
         <span><b>${T.home.manageTitle}</b><small>${T.home.manageSub}</small></span>
         <span class="arrow" aria-hidden="true">→</span>
       </a>
+      <a class="route-card is-shop" href="#shop">
+        <span class="route-icon" aria-hidden="true">◷</span>
+        <span><b>${T.home.shopTitle} <span class="tag-new">${T.home.new}</span></b><small>${T.home.shopSub}</small></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
       <a class="route-card is-found" href="#found">
         <span class="route-icon" aria-hidden="true">?</span>
         <span><b>${T.home.foundTitle}</b><small>${T.home.foundSub}</small></span>
         <span class="arrow" aria-hidden="true">→</span>
       </a>
     </div>
-    <p class="boundary-note">${T.home.boundary}</p>`;
+    <p class="boundary-note">${T.home.boundary}</p>
+    <div class="home-tools">
+      <a class="text-link" href="#setup">${T.setup.entry}</a>
+    </div>`;
 }
 
-/* ---------- 录入（放入 / 无主物共用一条流） ---------- */
+/* ---------- 录入 ---------- */
 
 function nextOwnership() {
   const last = state.draft[state.draft.length - 1];
   return last ? last.ownership : state.batchDefault;
 }
-
 function nextZone() {
   const last = state.draft[state.draft.length - 1];
   return last ? last.zone : state.batchZone;
 }
-
-function addDraft(description, found) {
+function addDraft(description, found, plan) {
   const text = String(description).trim().slice(0, MAX_DESCRIPTION);
   if (!text) { showToast(T.toast.needDescription); return false; }
-  const zone = found ? (state.zones.find((z) => z.kind === 'mixed') || {}).id || nextZone() : nextZone();
+  const zone = found ? ((state.zones.find((z) => z.kind === 'mixed') || {}).id || nextZone()) : nextZone();
   const kind = zoneKind(zone);
   state.draft.push({
     tmpId: `d-${draftCounter++}`,
     description: text,
     /* 混合区从 unknown 起步（E15）；无主物入口锁定 unknown（F3）。 */
     ownership: found ? 'unknown' : (kind === 'mixed' ? 'unknown' : nextOwnership()),
-    plan: kind === 'cold' ? 'open' : 'open',
+    plan: kind === 'cold' ? 'open' : (plan || 'open'),
     zone: zone || null
   });
   return true;
 }
+function cycle(list, current) { return list[(list.indexOf(current) + 1) % list.length]; }
 
-function cycle(list, current) {
-  return list[(list.indexOf(current) + 1) % list.length];
-}
-
+/* F14：两组默认档位不同。说的是记录意愿，不是食物状态。 */
 function quickPicks(found) {
   const action = found ? 'found-add' : 'quick-add';
-  const picks = T.add.quickPicks.map((label) => `
-    <button type="button" class="quick-pick" data-action="${action}" data-value="${escapeHTML(label)}">
-      ${escapeHTML(label)}
-    </button>`).join('');
-  return picks + `
-    <button type="button" class="quick-pick is-other" data-action="other-toggle"
-            aria-expanded="${state.otherOpen}">${T.add.otherLabel}</button>`;
+  const group = (labels, planKey, title) => `
+    <p class="quick-group-label">${title}</p>
+    <div class="quick-row">${labels.map((label) => `
+      <button type="button" class="quick-pick" data-action="${action}"
+              data-value="${escapeHTML(label)}|${planKey}">${escapeHTML(label)}</button>`).join('')}
+    </div>`;
+  if (found) {
+    const all = T.add.quickSoon.concat(T.add.quickOpen);
+    return `<div class="quick-row">${all.map((label) => `
+      <button type="button" class="quick-pick" data-action="${action}"
+              data-value="${escapeHTML(label)}|open">${escapeHTML(label)}</button>`).join('')}
+      <button type="button" class="quick-pick is-other" data-action="other-toggle"
+              aria-expanded="${state.otherOpen}">${T.add.otherLabel}</button></div>`;
+  }
+  return group(T.add.quickSoon, 'soon', T.add.groupSoon)
+    + group(T.add.quickOpen, 'open', T.add.groupOpen)
+    + `<div class="quick-row"><button type="button" class="quick-pick is-other"
+         data-action="other-toggle" aria-expanded="${state.otherOpen}">${T.add.otherLabel}</button></div>`;
 }
 
 function otherPanel(found) {
@@ -732,8 +808,7 @@ function whosePanel(row) {
 }
 
 function draftRow(row, found) {
-  const kind = zoneKind(row.zone);
-  const mixed = kind === 'mixed';
+  const mixed = zoneKind(row.zone) === 'mixed';
   return `
     <div class="draft-row-wrap">
       <div class="draft-row">
@@ -762,8 +837,7 @@ function draftRow(row, found) {
       ${mixed && !found ? whosePanel(row) : ''}
       ${mixed && !found && state.whoseFor !== row.tmpId ? `
         <button type="button" class="mixed-nudge" data-action="whose-open" data-value="${row.tmpId}">
-          ${T.zone.mixedHint}
-        </button>` : ''}
+          ${T.zone.mixedHint}</button>` : ''}
     </div>`;
 }
 
@@ -772,7 +846,6 @@ function batchDefaults() {
     <button type="button" role="radio" data-action="batch-default" data-value="${key}"
             aria-checked="${state.batchDefault === key}">${T.ownership[key]}</button>`).join('');
 }
-
 function zonePicker() {
   if (!state.zones.length) return '';
   const buttons = state.zones.map((z) => `
@@ -780,35 +853,32 @@ function zonePicker() {
             aria-checked="${state.batchZone === z.id}">${escapeHTML(z.label)}</button>`).join('');
   return `
     <div class="batch-default">
-      <p class="batch-default-label">${T.zone.label} <span class="tag-new">${T.zone.new}</span></p>
+      <p class="batch-default-label">${T.zone.label}</p>
       <div class="segmented three" role="radiogroup" aria-label="${T.zone.label}">${buttons}</div>
     </div>`;
 }
 
 function entryView(found) {
-  const S = found ? T.found : T.add;
+  const V = found ? T.found : T.add;
   const n = state.draft.length;
-  const saveLabel = found
-    ? plural(T.found.saveOne, T.found.saveMany, n)
-    : plural(T.add.saveOne, T.add.saveMany, n);
+  const saveLabel = found ? plural(T.found.saveOne, T.found.saveMany, n)
+                          : plural(T.add.saveOne, T.add.saveMany, n);
   return `
-    <a class="back-link" href="#home">${S.back}</a>
-    <p class="kicker">${S.kicker}</p>
-    <h1 id="route-title" tabindex="-1">${S.title}</h1>
-    <p class="lede">${S.lede}</p>
+    <a class="back-link" href="#home">${T.home.backThree}</a>
+    <p class="kicker">${V.kicker}</p>
+    <h1 id="route-title" tabindex="-1">${V.title}</h1>
+    <p class="lede">${V.lede}</p>
     ${found ? '' : `
     <div class="view-mascot">
       <span class="figure mascot m-add" role="img" aria-label="${T.add.mascotLine}"></span>
       <p>${T.add.mascotLine}</p>
     </div>`}
-
-    <p class="quick-label">${T.add.quickLabel}</p>
-    <div class="quick-row">${quickPicks(found)}</div>
+    ${quickPicks(found)}
     ${otherPanel(found)}
-
     ${n ? `<p class="batch-count">${plural(T.add.batchCountOne, T.add.batchCountMany, n)}</p>
     <div class="draft-list">${state.draft.map((row) => draftRow(row, found)).join('')}</div>
     ${found ? `<p class="found-note">${T.found.note}</p>` : `
+    <p class="group-note">${T.add.groupNote}</p>
     <div class="batch-default">
       <p class="batch-default-label">${T.add.batchDefault}</p>
       <div class="segmented three" role="radiogroup" aria-label="${T.add.batchDefault}">${batchDefaults()}</div>
@@ -823,31 +893,26 @@ function entryView(found) {
 /* ---------- 查看处理 ---------- */
 
 function filterItems(list) {
-  if (state.filter === 'personal') return list.filter((item) => item.ownership !== 'shared');
-  if (state.filter === 'shared') return list.filter((item) => item.ownership === 'shared');
-  if (state.filter === 'soon') return list.filter((item) => item.plan === 'soon');
+  if (state.filter === 'personal') return list.filter((i) => i.ownership !== 'shared');
+  if (state.filter === 'shared') return list.filter((i) => i.ownership === 'shared');
+  if (state.filter === 'soon') return list.filter((i) => i.plan === 'soon');
   return list;
 }
 
 function editPanel(item) {
   if (state.editingId !== item.id) return '';
-  const owners = OWNERSHIP_KEYS.map((key) =>
-    `<option value="${key}" ${item.ownership === key ? 'selected' : ''}>${T.ownership[key]}</option>`).join('');
-  const plans = PLAN_KEYS.map((key) =>
-    `<option value="${key}" ${item.plan === key ? 'selected' : ''}>${T.plan[key]}</option>`).join('');
+  const opts = (list, cur, label) => list.map((k) =>
+    `<option value="${k}" ${cur === k ? 'selected' : ''}>${label(k)}</option>`).join('');
   const zones = [`<option value="">${T.zone.none}</option>`].concat(state.zones.map((z) =>
     `<option value="${z.id}" ${item.zone === z.id ? 'selected' : ''}>${escapeHTML(z.label)}</option>`)).join('');
   return `
     <div class="edit-panel">
       <label class="field">${T.manage.editOwnership}
-        <select data-edit-ownership="${escapeHTML(item.id)}">${owners}</select>
-      </label>
+        <select data-edit-ownership="${escapeHTML(item.id)}">${opts(OWNERSHIP_KEYS, item.ownership, (k) => T.ownership[k])}</select></label>
       <label class="field">${T.manage.editPlan}
-        <select data-edit-plan="${escapeHTML(item.id)}">${plans}</select>
-      </label>
+        <select data-edit-plan="${escapeHTML(item.id)}">${opts(PLAN_KEYS, item.plan, (k) => T.plan[k])}</select></label>
       ${state.zones.length ? `<label class="field">${T.zone.rowLabel}
-        <select data-edit-zone="${escapeHTML(item.id)}">${zones}</select>
-      </label>` : ''}
+        <select data-edit-zone="${escapeHTML(item.id)}">${zones}</select></label>` : ''}
       <div class="actions">
         <button type="button" data-action="update-item" data-value="${escapeHTML(item.id)}">${T.manage.saveUpdate}</button>
         <button type="button" class="secondary" data-action="cancel-update">${T.manage.cancel}</button>
@@ -868,30 +933,40 @@ function clearPanel(item) {
     </div>`;
 }
 
+function offerPanel(item) {
+  if (state.offerFor !== item.id) return '';
+  const opts = [['today', T.manage.offerToday], ['two', T.manage.offerTwoDays], [OFFER_ALWAYS, T.manage.offerAlways]];
+  return `
+    <div class="whose-panel">
+      <p class="whose-label">${T.manage.offerPick}</p>
+      <div class="segmented three" role="radiogroup" aria-label="${T.manage.offerPick}">
+        ${opts.map(([k, l]) => `<button type="button" role="radio" data-action="offer-set"
+          data-value="${escapeHTML(item.id)}:${k}" aria-checked="false">${l}</button>`).join('')}
+      </div>
+    </div>`;
+}
+
 function itemCard(item, now) {
   const s = planState(item, now);
   const held = isHeld(item, now);
+  const offered = isOffered(item, now);
   const unknown = item.ownership === 'unknown';
   const id = escapeHTML(item.id);
+  const cold = zoneKind(item.zone) === 'cold';
 
   if (receiptVisible(item, now)) {
-    return `
-      <article class="item-card is-handled">
-        <h3>${escapeHTML(item.description)}</h3>
-        <p class="handled-note">${T.manage.handled}</p>
-      </article>`;
+    return `<article class="item-card is-handled"><h3>${escapeHTML(item.description)}</h3>
+      <p class="handled-note">${T.manage.handled}</p></article>`;
   }
 
   const bar = (s === 'midway' || s === 'overdue')
     ? `<span class="plan-bar${s === 'overdue' ? ' is-overdue' : ''}" aria-hidden="true"></span>`
     : (s === 'paused' ? '<span class="plan-bar is-paused" aria-hidden="true"></span>' : '');
-
   const planChip = `${item.openedAt ? `${T.manage.opened} · ` : ''}${T.plan[item.plan]}${s === 'paused' ? ` · ${T.manage.pausedChip}` : ''}`;
-  const days = unknown ? ageDays(item, now) : null;
+  const days = ageDays(item, now);
 
   const invite = (s === 'midway' || s === 'overdue') && !held
     ? `<p class="fish-invite"><span class="fish fish-outline" aria-hidden="true"></span>${T.manage.fishInvite}</p>` : '';
-
   const holdRow = held ? `
     <div class="hold-row">
       <p class="hold-line">${plural(T.manage.holdOne, T.manage.holdMany, holdHoursLeft(item, now))}</p>
@@ -900,11 +975,14 @@ function itemCard(item, now) {
 
   const canHold = (unknown || s === 'midway' || s === 'overdue') && !held;
   const holdDone = !!item.holdUntil && Date.parse(item.holdUntil) <= now;
-
   const actions = [
     unknown ? `<button type="button" class="secondary" data-action="claim-item" data-value="${id}">${T.manage.claim}</button>` : '',
     canHold ? `<button type="button" class="secondary" data-action="hold-item" data-value="${id}">${T.manage.hold}</button>` : '',
-    (!unknown && s !== 'paused') ? `<button type="button" class="secondary" data-action="mark-opened" data-value="${id}">${T.manage.opened}</button>` : '',
+    (!unknown && !cold && s !== 'paused') ? `<button type="button" class="secondary" data-action="mark-opened" data-value="${id}">${T.manage.opened}</button>` : '',
+    (!unknown && !cold && firstColdZone()) ? `<button type="button" class="secondary" data-action="to-freezer" data-value="${id}">${T.manage.toFreezer}</button>` : '',
+    cold ? `<button type="button" class="secondary" data-action="thaw-item" data-value="${id}">${T.manage.thaw}</button>` : '',
+    (!unknown && !offered) ? `<button type="button" class="secondary" data-action="offer-open" data-value="${id}">${T.manage.offer}</button>` : '',
+    offered ? `<button type="button" class="secondary" data-action="offer-stop" data-value="${id}">${T.manage.offerStop}</button>` : '',
     s === 'paused' ? `<button type="button" class="secondary" data-action="resume-item" data-value="${id}">${T.manage.resumeOne}</button>` : '',
     `<button type="button" class="secondary" data-action="edit-item" data-value="${id}">${T.manage.edit}</button>`,
     `<button type="button" class="${holdDone ? 'danger is-primary' : 'danger'}" data-action="clear-item" data-value="${id}">${holdDone ? T.manage.handleNow : T.manage.clear}</button>`
@@ -918,257 +996,392 @@ function itemCard(item, now) {
         <span class="chip${unknown ? ' chip-unknown' : ''}">${T.ownership[item.ownership]}</span>
         <span class="chip chip-plan is-${s}">${planChip}</span>
         ${item.zone ? `<span class="chip chip-zone">${escapeHTML(zoneLabel(item.zone))}</span>` : ''}
+        ${offered ? `<span class="chip chip-offer">${T.manage.offer} · ${offerLabel(item)}</span>` : ''}
       </div>
       ${days !== null ? `<p class="age-line">${plural(T.house.ageOne, T.house.ageMany, days)}</p>` : ''}
       ${item.openedAt ? `<p class="opened-note">${T.manage.openedNote}</p>` : ''}
-      ${holdRow}
-      ${invite}
+      ${holdRow}${invite}
       <div class="card-actions">${actions}</div>
-      ${editPanel(item)}
-      ${clearPanel(item)}
+      ${offerPanel(item)}${editPanel(item)}${clearPanel(item)}
     </article>`;
 }
 
 function commonsBlock(now, list) {
   const attention = attentionCount(list, now);
   const fish = state.fish.count;
-  const pausedAll = list.length > 0 && list.every((item) => item.pausedAt);
+  const pausedAll = list.length > 0 && list.every((i) => i.pausedAt);
   if (!attention && !fish && !pausedAll) return '';
   const face = pausedAll ? 'calm' : penguinFace(list, now);
   const one = state.scope === 'house' ? T.house.statusOne : T.manage.statusOne;
   const many = state.scope === 'house' ? T.house.statusMany : T.manage.statusMany;
-  const line = attention
-    ? `<p class="commons-line">${plural(one, many, attention)}</p>`
+  const line = attention ? `<p class="commons-line">${plural(one, many, attention)}</p>`
     : (pausedAll ? `<p class="commons-line">${T.manage.nothingNow}</p>` : '');
-  const fishRow = fish
-    ? `<div class="fish-row">${'<span class="fish fish-solid" aria-hidden="true"></span>'.repeat(Math.min(fish, 5))}
-        <span class="fish-count">${plural(T.manage.rescuedOne, T.manage.rescuedMany, fish)}</span></div>` : '';
-  return `
-    <div class="commons-block">
-      <div class="commons-head">
-        <span class="figure mascot m-${face}" role="img" aria-label="${T.manage.mascotLine}"></span>
-        ${line}
-      </div>
-      ${fishRow}
-    </div>`;
+  const fishRow = fish ? `<div class="fish-row">${'<span class="fish fish-solid" aria-hidden="true"></span>'.repeat(Math.min(fish, 5))}
+      <span class="fish-count">${plural(T.manage.rescuedOne, T.manage.rescuedMany, fish)}</span></div>` : '';
+  return `<div class="commons-block"><div class="commons-head">
+      <span class="figure mascot m-${face}" role="img" aria-label="${T.manage.mascotLine}"></span>
+      ${line}</div>${fishRow}</div>`;
 }
 
-function zoneGroups(list, now) {
-  const groups = state.zones.map((z) => ({
-    zone: z,
-    items: sortedItems(list.filter((item) => item.zone === z.id), now)
-  }));
-  const loose = sortedItems(list.filter((item) => !item.zone || !zoneById(item.zone)), now);
-  if (loose.length) groups.push({ zone: null, items: loose });
-  return groups.filter((g) => g.items.length);
+function agreementsBlock() {
+  const on = state.settings.agreements;
+  if (!on.some(Boolean)) return '';
+  const rows = [T.setup.agree1, T.setup.agree2, T.setup.agree3]
+    .filter((_, i) => on[i]).map((t) => `<li>${t}</li>`).join('');
+  return `<div class="agreed-block"><p class="agreed-head">${T.setup.agreedHead}</p><ul>${rows}</ul></div>`;
 }
 
 function manageView() {
   const now = Date.now();
-  const inScope = scopeItems(now);
+  const inScope = scopeItems();
   const list = filterItems(inScope);
-  const pausedAll = inScope.length > 0 && inScope.every((item) => item.pausedAt);
+  const pausedAll = inScope.length > 0 && inScope.every((i) => i.pausedAt);
+  const offered = state.scope === 'house' ? sortedItems(list.filter((i) => isOffered(i, now)), now) : [];
+  const rest = list.filter((i) => offered.indexOf(i) === -1);
 
   const scopeToggle = `
     <div class="segmented two scope" role="radiogroup" aria-label="${T.house.scopeMine} / ${T.house.scopeHouse}">
-      <button type="button" role="radio" data-action="set-scope" data-value="mine"
-              aria-checked="${state.scope === 'mine'}">${T.house.scopeMine}</button>
-      <button type="button" role="radio" data-action="set-scope" data-value="house"
-              aria-checked="${state.scope === 'house'}">${T.house.scopeHouse}</button>
+      <button type="button" role="radio" data-action="set-scope" data-value="mine" aria-checked="${state.scope === 'mine'}">${T.house.scopeMine}</button>
+      <button type="button" role="radio" data-action="set-scope" data-value="house" aria-checked="${state.scope === 'house'}">${T.house.scopeHouse}</button>
     </div>`;
-
   /* 屋内视图会让人以为数据在设备之间流动。它不流动——界面必须自己说出来。 */
   const disclosure = state.scope === 'house'
     ? `<p class="local-only" role="note"><span class="local-only-mark" aria-hidden="true">!</span>${T.house.localOnly}</p>` : '';
-
+  const movingBanner = (state.scope === 'house' && state.settings.movingOut)
+    ? `<p class="moving-banner">${T.moveOut.banner}</p>` : '';
   const pauseBanner = pausedAll ? `
-    <div class="pause-banner">
-      <p>${T.manage.pausedBanner}</p>
-      <button type="button" data-action="resume-all">${T.manage.resumeAll}</button>
-    </div>` : '';
-
-  const seg = [
-    ['all', T.manage.filterAll],
-    ['personal', T.manage.filterPersonal],
-    ['shared', T.manage.filterShared],
-    ['soon', T.manage.filterSoon]
-  ].map(([key, label]) => `
-    <button type="button" role="radio" data-action="set-filter" data-value="${key}"
-            aria-checked="${state.filter === key}">${label}</button>`).join('');
-
+    <div class="pause-banner"><p>${T.manage.pausedBanner}</p>
+      <button type="button" data-action="resume-all">${T.manage.resumeAll}</button></div>` : '';
+  const seg = [['all', T.manage.filterAll], ['personal', T.manage.filterPersonal],
+               ['shared', T.manage.filterShared], ['soon', T.manage.filterSoon]]
+    .map(([k, l]) => `<button type="button" role="radio" data-action="set-filter" data-value="${k}"
+      aria-checked="${state.filter === k}">${l}</button>`).join('');
   const empty = `<div class="empty-state">
       <span class="figure mascot m-calm" aria-hidden="true"></span>
-      <strong>${T.manage.emptyTitle}</strong>
-      <p>${T.manage.emptyBody}</p>
-      <a class="back-link" href="#add">${T.manage.emptyLink}</a>
-    </div>`;
+      <strong>${T.manage.emptyTitle}</strong><p>${T.manage.emptyBody}</p>
+      <a class="back-link" href="#add">${T.manage.emptyLink}</a></div>`;
 
   let body;
-  if (!list.length) {
-    body = empty;
-  } else if (state.scope === 'house') {
-    body = zoneGroups(list, now).map((g) => `
+  if (!list.length) body = empty;
+  else if (state.scope === 'house') {
+    const offerGroup = offered.length ? `
+      <section class="zone-group is-offer">
+        <h2 class="zone-head"><span class="zone-name">${T.manage.offerGroup}</span>
+          <span class="zone-kind">${T.manage.offerGroupKind}</span></h2>
+        ${offered.map((i) => itemCard(i, now)).join('')}</section>` : '';
+    body = offerGroup + zoneGroups(rest, now).map((g) => `
       <section class="zone-group">
         <h2 class="zone-head">
           <span class="zone-name">${escapeHTML(g.zone ? g.zone.label : T.zone.none)}</span>
-          <span class="zone-kind">${g.zone ? kindCaption(g.zone.kind) : ''}</span>
-        </h2>
-        ${g.items.map((item) => itemCard(item, now)).join('')}
-      </section>`).join('');
-  } else {
-    body = sortedItems(list, now).map((item) => itemCard(item, now)).join('');
-  }
+          <span class="zone-kind">${g.zone ? (g.zone.freeing ? T.zone.freeing : kindCaption(g.zone.kind)) : ''}</span>
+        </h2>${g.items.map((i) => itemCard(i, now)).join('')}</section>`).join('');
+  } else body = sortedItems(list, now).map((i) => itemCard(i, now)).join('');
 
   return `
-    <a class="back-link" href="#home">${T.manage.back}</a>
+    <a class="back-link" href="#home">${T.home.backThree}</a>
     <p class="kicker">${T.manage.kicker}</p>
     <h1 id="route-title" tabindex="-1">${T.manage.title}</h1>
-    ${scopeToggle}
-    ${disclosure}
-    ${pauseBanner}
-    ${commonsBlock(now, inScope)}
+    ${scopeToggle}${disclosure}${movingBanner}${pauseBanner}${commonsBlock(now, inScope)}
     <div class="segmented four" role="radiogroup" aria-label="${T.manage.filterLabel}">${seg}</div>
     ${list.length ? `<p class="card-note">${T.manage.cardNote}</p>` : ''}
     <div class="item-list">${body}</div>
-    ${inScope.length && !pausedAll ? `
-      <div class="actions single away">
-        <button type="button" class="secondary" data-action="pause-all">${T.manage.pauseAll}</button>
-      </div>` : ''}`;
+    ${state.scope === 'house' ? agreementsBlock() : ''}
+    ${inScope.length && !pausedAll ? `<div class="actions single away">
+      <button type="button" class="secondary" data-action="pause-all">${T.manage.pauseAll}</button></div>` : ''}
+    <div class="actions single away">
+      <button type="button" class="secondary" data-action="moveout-start">${T.moveOut.entry}</button></div>`;
+}
+
+function zoneGroups(list, now) {
+  const groups = state.zones.map((z) => ({ zone: z, items: sortedItems(list.filter((i) => i.zone === z.id), now) }));
+  const loose = sortedItems(list.filter((i) => !i.zone || !zoneById(i.zone)), now);
+  if (loose.length) groups.push({ zone: null, items: loose });
+  return groups.filter((g) => g.items.length);
+}
+
+/* ---------- F13 买菜前看一眼：只读，不改任何东西 ---------- */
+
+function shopView() {
+  const now = Date.now();
+  const first = sortedItems(state.items.filter((i) => needsAttention(i, now) || i.plan === 'soon'), now).slice(0, 5);
+  const counts = state.zones.map((z) => ({ z, n: state.items.filter((i) => i.zone === z.id).length }))
+    .filter((r) => r.n > 0);
+  return `
+    <a class="back-link" href="#home">${T.home.backThree}</a>
+    <p class="kicker">${T.shop.kicker}</p>
+    <h1 id="route-title" tabindex="-1">${T.shop.title}</h1>
+    <section class="shop-block">
+      <h2 class="shop-head">${T.shop.eatFirst}</h2>
+      ${first.length ? first.map((i) => `
+        <div class="shop-row">
+          <span class="shop-name">${escapeHTML(i.description)}</span>
+          <span class="chip chip-plan is-${planState(i, now)}">${T.plan[i.plan]}</span>
+          <span class="age-line">${plural(T.house.ageOne, T.house.ageMany, ageDays(i, now))}</span>
+        </div>`).join('') : `<p class="shop-empty">${T.shop.empty}</p>`}
+    </section>
+    <section class="shop-block">
+      <h2 class="shop-head">${T.shop.already}</h2>
+      ${counts.map((r) => `<div class="shop-row">
+        <span class="shop-name">${escapeHTML(r.z.label)}</span>
+        <span class="shop-count">${plural(T.shop.countOne, T.shop.countMany, r.n)}</span></div>`).join('')}
+    </section>
+    <section class="shop-block">
+      <h2 class="shop-head">${T.shop.room}</h2>
+      ${state.zones.map((z) => `<div class="shop-row">
+        <span class="shop-name">${escapeHTML(z.label)}</span>
+        <span class="chip ${z.full ? 'chip-unknown' : ''}">${z.full ? T.zone.full : T.zone.roomLeft}</span>
+        <button type="button" class="mini" data-action="toggle-full" data-value="${z.id}">${z.full ? T.zone.markRoom : T.zone.markFull}</button>
+        </div>`).join('')}
+    </section>
+    <p class="shop-note">${T.shop.note}</p>`;
+}
+
+/* ---------- F9 搬出交接 ---------- */
+
+function moveOutView() {
+  const now = Date.now();
+  const M = state.moveOut || { step: 1, keep: {} };
+  const mine = myItems();
+  const handing = mine.filter((i) => !M.keep[i.id]);
+  const back = `<button type="button" class="back-link as-button" data-action="moveout-cancel">${T.moveOut.cancel}</button>`;
+  if (M.step === 1) {
+    return `${back}<p class="kicker">${T.moveOut.step1Kicker}</p>
+      <h1 id="route-title" tabindex="-1">${T.moveOut.step1Title}</h1>
+      <p class="lede">${T.moveOut.step1Lede}</p>
+      <div class="pick-list">${mine.map((i) => `
+        <button type="button" class="pick-row ${M.keep[i.id] ? 'is-on' : ''}"
+                data-action="moveout-toggle" data-value="${escapeHTML(i.id)}" aria-pressed="${!!M.keep[i.id]}">
+          <span class="pick-box" aria-hidden="true">${M.keep[i.id] ? '✓' : ''}</span>
+          <span class="pick-name">${escapeHTML(i.description)}</span>
+          <span class="chip chip-zone">${escapeHTML(zoneLabel(i.zone))}</span>
+        </button>`).join('')}</div>
+      <div class="actions single"><button type="button" data-action="moveout-next"
+        ${handing.length ? '' : 'disabled aria-disabled="true"'}>
+        ${handing.length ? plural(T.moveOut.step1NextOne, T.moveOut.step1NextMany, handing.length) : T.moveOut.step1None}
+      </button></div>`;
+  }
+  if (M.step === 2) {
+    return `${back}<p class="kicker">${T.moveOut.step2Kicker}</p>
+      <h1 id="route-title" tabindex="-1">${T.moveOut.step2Title}</h1>
+      <div class="item-list">${handing.map((i) => `
+        <article class="item-card"><h3>${escapeHTML(i.description)}</h3>
+          <div class="item-meta"><span class="chip">${T.ownership[i.ownership]}</span>
+          <span class="chip chip-offer">${T.manage.offer}</span>
+          <span class="chip chip-zone">${T.manage.offerAlways}</span></div></article>`).join('')}</div>
+      <p class="found-note">${T.moveOut.step2Note}</p>
+      <div class="actions single"><button type="button" data-action="moveout-next">${T.moveOut.step2Next}</button></div>`;
+  }
+  if (M.step === 3) {
+    const zs = state.zones.filter((z) => z.kind === 'own' || z.kind === 'cold');
+    return `${back}<p class="kicker">${T.moveOut.step3Kicker}</p>
+      <h1 id="route-title" tabindex="-1">${T.moveOut.step3Title}</h1>
+      <div class="item-list">${zs.map((z) => `
+        <article class="item-card"><h3>${escapeHTML(z.label)}</h3>
+          <div class="item-meta"><span class="chip chip-unknown">${T.zone.freeing}</span></div></article>`).join('')}</div>
+      <p class="found-note">${T.moveOut.step3Note}</p>
+      <div class="actions single"><button type="button" data-action="moveout-finish">${T.moveOut.step3Done}</button></div>`;
+  }
+  const offered = state.items.filter((i) => isOffered(i, now));
+  return `${back}<p class="kicker">${T.moveOut.step4Kicker}</p>
+    <h1 id="route-title" tabindex="-1">${T.moveOut.step4Title}</h1>
+    <p class="local-only" role="note"><span class="local-only-mark" aria-hidden="true">!</span>${T.house.localOnly}</p>
+    <p class="moving-banner">${T.moveOut.banner}</p>
+    <section class="zone-group is-offer">
+      <h2 class="zone-head"><span class="zone-name">${T.moveOut.freeToTake}</span></h2>
+      ${offered.map((i) => `<article class="item-card"><h3>${escapeHTML(i.description)}</h3>
+        <div class="item-meta"><span class="chip chip-offer">${T.manage.offer}</span>
+        <span class="chip chip-zone">${offerLabel(i)}</span></div></article>`).join('')}
+    </section>
+    <p class="found-note">${T.moveOut.step4Note}</p>
+    <div class="actions single"><a class="button-link" href="#manage" data-action="moveout-done">${T.moveOut.step4Done}</a></div>`;
+}
+
+/* ---------- F10 入住期房屋设置 ---------- */
+
+function setupView() {
+  const U = state.setup || { step: 1, zones: state.zones.map((z) => ({ ...z })), agreements: state.settings.agreements.slice() };
+  if (U.step === 1) {
+    return `<p class="kicker">${T.setup.step1Kicker}</p>
+      <h1 id="route-title" tabindex="-1">${T.setup.step1Title}</h1>
+      <p class="lede">${T.setup.step1Lede}</p>
+      <div class="pick-list">${U.zones.map((z, i) => `
+        <div class="draft-row"><span class="grip" aria-hidden="true">☰</span>
+          <span class="draft-body"><input class="zone-input" type="text" maxlength="${MAX_DESCRIPTION}"
+            data-setup-label="${i}" value="${escapeHTML(z.label)}" placeholder="${T.setup.placeHint}"></span>
+          <button type="button" class="row-remove" data-action="setup-remove" data-value="${i}">✕</button>
+        </div>`).join('')}</div>
+      <div class="actions"><button type="button" class="secondary" data-action="setup-add">${T.setup.addPlace}</button></div>
+      <div class="actions single"><button type="button" data-action="setup-next">${T.setup.next}</button></div>
+      <div class="home-tools"><a class="text-link" href="#home" data-action="setup-skip">${T.setup.skip}</a></div>`;
+  }
+  if (U.step === 2) {
+    return `<p class="kicker">${T.setup.step2Kicker}</p>
+      <h1 id="route-title" tabindex="-1">${T.setup.step2Title}</h1>
+      <div class="pick-list">${U.zones.map((z, i) => `
+        <div class="draft-row"><span class="draft-body"><span class="draft-name">${escapeHTML(z.label)}</span></span>
+          <button type="button" class="mini is-set" data-action="setup-kind" data-value="${i}">
+            ${T.setup['kind' + z.kind.charAt(0).toUpperCase() + z.kind.slice(1)]} <span aria-hidden="true">▾</span>
+          </button></div>`).join('')}</div>
+      <p class="found-note">${T.setup.step2Note}</p>
+      <div class="actions single"><button type="button" data-action="setup-next">${T.setup.next}</button></div>`;
+  }
+  const rows = [T.setup.agree1, T.setup.agree2, T.setup.agree3].map((t, i) => `
+    <button type="button" class="pick-row ${U.agreements[i] ? 'is-on' : ''}" data-action="setup-agree"
+            data-value="${i}" aria-pressed="${!!U.agreements[i]}">
+      <span class="pick-box" aria-hidden="true">${U.agreements[i] ? '✓' : ''}</span>
+      <span class="pick-name">${t}</span></button>`).join('');
+  return `<p class="kicker">${T.setup.step3Kicker}</p>
+    <h1 id="route-title" tabindex="-1">${T.setup.step3Title}</h1>
+    <div class="pick-list">${rows}</div>
+    <p class="found-note">${T.setup.step3Note}</p>
+    <div class="actions single"><button type="button" data-action="setup-finish">${T.setup.done}</button></div>`;
 }
 
 /* ---------- render ---------- */
 
+function renderChrome() {
+  document.documentElement.lang = T._meta.htmlLang;
+  document.title = T._meta.title;
+  const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+  set('disclosure-version', T.disclosure.version);
+  set('disclosure-scope', T.disclosure.scope);
+  set('brand-eyebrow', T.brand.eyebrow);
+  set('brand-name', T.brand.name);
+  set('footer-storage', T.footer.storage);
+  set('footer-safety', T.footer.safety);
+  set('footer-timing', T.footer.timing);
+  set('footer-sync', T.footer.sync);
+  const brand = document.getElementById('brand-link');
+  if (brand) brand.setAttribute('aria-label', T.brand.backToHome);
+  const reset = document.getElementById('reset-button');
+  if (reset) { reset.title = T.reset.label; reset.setAttribute('aria-label', T.reset.label); }
+  const lang = document.getElementById('lang-button');
+  if (lang) { lang.textContent = T.lang.toggle; lang.title = T.lang.aria; lang.setAttribute('aria-label', T.lang.aria); }
+}
+
 function render({ focusHeading = false } = {}) {
+  renderChrome();
   const route = getRoute();
   app.innerHTML = route === 'add' ? entryView(false)
     : route === 'found' ? entryView(true)
     : route === 'manage' ? manageView()
+    : route === 'shop' ? shopView()
+    : route === 'moveout' ? moveOutView()
+    : route === 'setup' ? setupView()
     : homeView();
   if (focusHeading) document.getElementById('route-title')?.focus({ preventScroll: true });
 }
 
 function resetDemo() {
   if (!window.confirm(T.reset.confirm)) return;
-  localStorage.removeItem(STORAGE_KEY);
-  localStorage.removeItem(FISH_KEY);
-  localStorage.removeItem(ZONES_KEY);
+  [STORAGE_KEY, FISH_KEY, ZONES_KEY, SETTINGS_KEY].forEach((k) => localStorage.removeItem(k));
   state.zones = loadZones();
+  state.settings = loadSettings();
   state.items = initialItems();
   state.fish = loadFish();
-  state.draft = [];
-  state.batchDefault = 'personal';
-  state.batchZone = null;
-  state.otherOpen = false;
-  state.otherText = '';
-  state.scope = 'mine';
-  state.filter = 'all';
-  state.editingId = null;
-  state.pendingClearId = null;
-  state.whoseFor = null;
+  Object.assign(state, { draft: [], batchDefault: 'personal', batchZone: null, otherOpen: false,
+    otherText: '', scope: 'mine', filter: 'all', editingId: null, pendingClearId: null,
+    whoseFor: null, offerFor: null, moveOut: null, setup: null });
   render();
   showToast(T.reset.done);
 }
 
 /* ---------- actions ---------- */
 
-function findItem(id) { return state.items.find((candidate) => candidate.id === id); }
-function findRow(id) { return state.draft.find((candidate) => candidate.tmpId === id); }
+const findItem = (id) => state.items.find((c) => c.id === id);
+const findRow = (id) => state.draft.find((c) => c.tmpId === id);
 
 function commitBatch(found) {
   if (!state.draft.length) return;
   const now = Date.now();
   const iso = new Date(now).toISOString();
   const fresh = state.draft.map((row, index) => ({
-    id: `item-${now}-${index}`,
-    description: row.description,
-    ownership: row.ownership,
-    plan: row.plan,
-    planSetAt: row.plan === 'open' ? null : iso,
-    zone: row.zone || null,
-    ageBase: iso,
-    openedAt: null,
-    pausedAt: null,
-    pausedMs: 0,
-    holdUntil: null,
-    handledAt: null
+    id: `item-${now}-${index}`, description: row.description, ownership: row.ownership,
+    plan: row.plan, planSetAt: row.plan === 'open' ? null : iso, zone: row.zone || null,
+    ageBase: iso, openedAt: null, pausedAt: null, pausedMs: 0,
+    holdUntil: null, handledAt: null, offerUntil: null
   }));
   const n = fresh.length;
   state.items = fresh.concat(state.items);
-  state.draft = [];
-  state.otherOpen = false;
-  state.otherText = '';
-  state.whoseFor = null;
+  Object.assign(state, { draft: [], otherOpen: false, otherText: '', whoseFor: null });
   saveItems();
   window.location.hash = '#manage';
   showToast(found ? T.toast.noted : plural(T.toast.savedOne, T.toast.savedMany, n));
 }
 
 function handleAction(action, value) {
-  if (action === 'quick-add') { if (addDraft(value, false)) render(); return; }
-  if (action === 'found-add') { if (addDraft(value, true)) render(); return; }
-
-  if (action === 'other-toggle') {
-    state.otherOpen = !state.otherOpen;
+  /* ---- 语言 ---- */
+  if (action === 'toggle-lang') {
+    /* 只有「用户一件都没动过」时才把演示数据换成新语言的那一套。
+       用户自己录入的描述是内容，不是界面文字，永远不翻译、不覆盖。 */
+    const untouchedItems = state.items.length > 0 && state.items.every((i) => i.id.indexOf('demo-') === 0);
+    const untouchedZones = !state.settings.setupDone
+      && state.zones.every((z) => (T.demoZones || []).some((d) => d.id === z.id && d.label === z.label));
+    LANG = LANGS[(LANGS.indexOf(LANG) + 1) % LANGS.length];
+    T = S[LANG];
+    localStorage.setItem(LANG_KEY, LANG);
+    if (untouchedZones) { state.zones = loadZonesSeed(); saveZones(); }
+    if (untouchedItems) { state.items = initialItems(); saveItems(); }
+    state.editingId = null;
+    state.pendingClearId = null;
     render();
+    return;
+  }
+
+  if (action === 'quick-add' || action === 'found-add') {
+    const [label, plan] = value.split('|');
+    if (addDraft(label, action === 'found-add', plan)) render();
+    return;
+  }
+  if (action === 'other-toggle') {
+    state.otherOpen = !state.otherOpen; render();
     if (state.otherOpen) document.getElementById('other-input')?.focus();
     return;
   }
   if (action === 'other-commit' || action === 'found-commit') {
-    if (addDraft(state.otherText, action === 'found-commit')) {
+    if (addDraft(state.otherText, action === 'found-commit', 'open')) {
       state.otherText = ''; render(); document.getElementById('other-input')?.focus();
     }
     return;
   }
   if (action === 'other-cancel') { state.otherOpen = false; state.otherText = ''; render(); return; }
-
   if (action === 'row-remove') {
-    state.draft = state.draft.filter((row) => row.tmpId !== value);
+    state.draft = state.draft.filter((r) => r.tmpId !== value);
     render(); showToast(T.toast.rowRemoved); return;
   }
-  if (action === 'row-ownership') {
-    const row = findRow(value);
-    if (row) { row.ownership = cycle(OWNERSHIP_KEYS, row.ownership); render(); }
-    return;
-  }
-  if (action === 'row-plan') {
-    const row = findRow(value);
-    if (row) { row.plan = cycle(PLAN_KEYS, row.plan); render(); }
-    return;
-  }
+  if (action === 'row-ownership') { const r = findRow(value); if (r) { r.ownership = cycle(OWNERSHIP_KEYS, r.ownership); render(); } return; }
+  if (action === 'row-plan') { const r = findRow(value); if (r) { r.plan = cycle(PLAN_KEYS, r.plan); render(); } return; }
   if (action === 'row-zone') {
-    const row = findRow(value);
-    if (!row) return;
+    const r = findRow(value); if (!r) return;
     const ids = [null].concat(state.zones.map((z) => z.id));
-    row.zone = ids[(ids.indexOf(row.zone) + 1) % ids.length];
-    /* 混合区从 unknown 起步（E15）；冷冻区先不设计划（F7 入口）。 */
-    const kind = zoneKind(row.zone);
-    if (kind === 'mixed' && row.ownership !== 'unknown') row.ownership = 'unknown';
-    if (kind === 'cold') row.plan = 'open';
+    r.zone = ids[(ids.indexOf(r.zone) + 1) % ids.length];
+    const kind = zoneKind(r.zone);
+    if (kind === 'mixed' && r.ownership !== 'unknown') r.ownership = 'unknown';
+    if (kind === 'cold') r.plan = 'open';
     render(); return;
   }
   if (action === 'whose-open') { state.whoseFor = value; render(); return; }
   if (action === 'row-set-owner') {
     const [tmpId, key] = value.split(':');
-    const row = findRow(tmpId);
-    if (row) { row.ownership = normaliseOwnership(key); state.whoseFor = null; render(); }
+    const r = findRow(tmpId);
+    if (r) { r.ownership = normaliseOwnership(key); state.whoseFor = null; render(); }
     return;
   }
   if (action === 'batch-default') {
     state.batchDefault = value;
-    state.draft.forEach((row) => { if (zoneKind(row.zone) !== 'mixed') row.ownership = value; });
+    state.draft.forEach((r) => { if (zoneKind(r.zone) !== 'mixed') r.ownership = value; });
     render(); return;
   }
   if (action === 'batch-zone') {
     state.batchZone = state.batchZone === value ? null : value;
-    state.draft.forEach((row) => {
-      row.zone = state.batchZone;
-      const kind = zoneKind(row.zone);
-      if (kind === 'mixed') row.ownership = 'unknown';
-      if (kind === 'cold') row.plan = 'open';
+    state.draft.forEach((r) => {
+      r.zone = state.batchZone;
+      const kind = zoneKind(r.zone);
+      if (kind === 'mixed') r.ownership = 'unknown';
+      if (kind === 'cold') r.plan = 'open';
     });
     render(); return;
   }
-
   if (action === 'save-batch') { commitBatch(false); return; }
   if (action === 'save-found') { commitBatch(true); return; }
 
@@ -1178,109 +1391,162 @@ function handleAction(action, value) {
   if (action === 'cancel-update') { state.editingId = null; render(); return; }
 
   if (action === 'claim-item') {
-    const item = findItem(value);
-    if (!item) return;
-    item.ownership = 'personal';
-    state.editingId = value;
+    const i = findItem(value); if (!i) return;
+    i.ownership = 'personal'; state.editingId = value;
     saveItems(); render(); showToast(T.toast.claimed); return;
   }
-
+  /* 主语永远是「有人」。不记录是谁挂的，也不记录是谁点的「先别动」。 */
   if (action === 'hold-item') {
-    const item = findItem(value);
-    if (!item) return;
-    /* 主语永远是「有人」。不记录是谁挂的。 */
-    item.holdUntil = new Date(Date.now() + HOLD_MS).toISOString();
+    const i = findItem(value); if (!i) return;
+    i.holdUntil = new Date(Date.now() + HOLD_MS).toISOString();
     saveItems(); render(); showToast(T.toast.held); return;
   }
   if (action === 'release-hold') {
-    const item = findItem(value);
-    if (!item) return;
-    item.holdUntil = null;              /* 也不记录是谁点的「先别动」 */
-    saveItems(); render(); showToast(T.toast.holdReleased); return;
+    const i = findItem(value); if (!i) return;
+    i.holdUntil = null; saveItems(); render(); showToast(T.toast.holdReleased); return;
   }
-
   if (action === 'mark-opened') {
-    const item = findItem(value);
-    if (!item) return;
+    const i = findItem(value); if (!i) return;
     const iso = new Date().toISOString();
-    item.openedAt = iso;
     /* 失效点是开封，不是购买——计划从这一刻重新起算。 */
-    item.planSetAt = iso;
-    item.pausedMs = 0;
-    if (item.plan === 'open') item.plan = 'soon';
+    i.openedAt = iso; i.planSetAt = iso; i.pausedMs = 0;
+    if (i.plan === 'open') i.plan = 'soon';
     saveItems(); render(); showToast(T.toast.openedDone); return;
+  }
+  /* F7 放进冷冻＝取消当前计划。界面一个字都不说冷冻能放多久。 */
+  if (action === 'to-freezer') {
+    const i = findItem(value); const cold = firstColdZone();
+    if (!i || !cold) return;
+    i.zone = cold.id; i.plan = 'open'; i.planSetAt = null; i.pausedAt = null; i.pausedMs = 0;
+    saveItems(); render(); showToast(T.toast.frozen); return;
+  }
+  if (action === 'thaw-item') {
+    const i = findItem(value); if (!i) return;
+    i.zone = null; state.editingId = value;
+    saveItems(); render(); showToast(T.toast.thawed); return;
+  }
+  /* F8 开放取用不改 ownership：共用＝这是大家的；可以拿＝这是我的，但现在你可以拿。 */
+  if (action === 'offer-open') { state.offerFor = value; render(); return; }
+  if (action === 'offer-set') {
+    const [id, span] = value.split(':');
+    const i = findItem(id); if (!i) return;
+    i.offerUntil = span === OFFER_ALWAYS ? OFFER_ALWAYS
+      : new Date(Date.now() + (span === 'two' ? 2 * DAY_MS : DAY_MS)).toISOString();
+    state.offerFor = null;
+    saveItems(); render(); showToast(T.toast.offered); return;
+  }
+  if (action === 'offer-stop') {
+    const i = findItem(value); if (!i) return;
+    i.offerUntil = null; saveItems(); render(); showToast(T.toast.offerStopped); return;
   }
 
   if (action === 'pause-all') {
     const iso = new Date().toISOString();
-    scopeItems(Date.now()).forEach((item) => { if (!item.pausedAt) item.pausedAt = iso; });
+    scopeItems().forEach((i) => { if (!i.pausedAt) i.pausedAt = iso; });
     saveItems(); render(); showToast(T.toast.pausedAll); return;
   }
   if (action === 'resume-all') {
     const now = Date.now();
-    state.items.forEach((item) => {
-      if (item.pausedAt) {
-        item.pausedMs = (item.pausedMs || 0) + (now - Date.parse(item.pausedAt));
-        item.pausedAt = null;
-      }
+    state.items.forEach((i) => {
+      if (i.pausedAt) { i.pausedMs = (i.pausedMs || 0) + (now - Date.parse(i.pausedAt)); i.pausedAt = null; }
     });
     saveItems(); render(); showToast(T.toast.resumedAll); return;
   }
   if (action === 'resume-item') {
-    const item = findItem(value);
-    if (!item || !item.pausedAt) return;
-    item.pausedMs = (item.pausedMs || 0) + (Date.now() - Date.parse(item.pausedAt));
-    item.pausedAt = null;
-    saveItems(); render(); return;
+    const i = findItem(value); if (!i || !i.pausedAt) return;
+    i.pausedMs = (i.pausedMs || 0) + (Date.now() - Date.parse(i.pausedAt));
+    i.pausedAt = null; saveItems(); render(); return;
+  }
+  if (action === 'toggle-full') {
+    const z = zoneById(value); if (!z) return;
+    z.full = !z.full; saveZones(); render(); return;
   }
 
   if (action === 'update-item') {
-    const item = findItem(value);
-    if (!item) return;
+    const i = findItem(value); if (!i) return;
     const owner = document.querySelector(`[data-edit-ownership="${CSS.escape(value)}"]`);
     const plan = document.querySelector(`[data-edit-plan="${CSS.escape(value)}"]`);
     const zone = document.querySelector(`[data-edit-zone="${CSS.escape(value)}"]`);
-    if (owner) item.ownership = normaliseOwnership(owner.value);
-    if (zone) item.zone = zone.value || null;
+    if (owner) i.ownership = normaliseOwnership(owner.value);
+    if (zone) i.zone = zone.value || null;
     if (plan) {
-      const nextPlan = normalisePlan(plan.value);
-      /* 改档＝用户重新承诺一次，计时从头开始。 */
-      if (nextPlan !== item.plan) {
-        item.plan = nextPlan;
-        item.planSetAt = nextPlan === 'open' ? null : new Date().toISOString();
-        item.pausedMs = 0;
-      }
+      const next = normalisePlan(plan.value);
+      if (next !== i.plan) { i.plan = next; i.planSetAt = next === 'open' ? null : new Date().toISOString(); i.pausedMs = 0; }
     }
-    state.editingId = null;
-    saveItems(); render(); showToast(T.toast.updated); return;
+    state.editingId = null; saveItems(); render(); showToast(T.toast.updated); return;
   }
-
   if (action === 'clear-item') { state.pendingClearId = value; state.editingId = null; render(); return; }
   if (action === 'cancel-clear') { state.pendingClearId = null; render(); return; }
-
   if (action === 'confirm-clear') {
     const now = Date.now();
-    const item = findItem(value);
-    const earned = item ? needsAttention(item, now) : false;
-    const wasUnknown = item ? item.ownership === 'unknown' : false;
-    if (item && (wasUnknown || item.holdUntil)) {
-      /* 无主物与被挂起过的东西：留一条会过期的回执，让别人知道这件事有人接了。
-         48 小时后自动消失——永久的「谁处理了什么」就是行为历史。 */
-      item.handledAt = new Date(now).toISOString();
-      item.holdUntil = null;
-    } else {
-      state.items = state.items.filter((candidate) => candidate.id !== value);
-    }
-    state.pendingClearId = null;
-    saveItems();
-    if (earned) {
-      state.fish.count += 1;
-      state.fish.last = new Date(now).toISOString();
-      saveFish();
-    }
-    render();
-    showToast(earned ? T.toast.fishEarned : T.toast.cleared);
+    const i = findItem(value);
+    const earned = i ? needsAttention(i, now) : false;
+    if (i && (i.ownership === 'unknown' || i.holdUntil)) {
+      /* 回执 48 小时后自动消失——永久的「谁处理了什么」就是行为历史。 */
+      i.handledAt = new Date(now).toISOString(); i.holdUntil = null;
+    } else state.items = state.items.filter((c) => c.id !== value);
+    state.pendingClearId = null; saveItems();
+    if (earned) { state.fish.count += 1; state.fish.last = new Date(now).toISOString(); saveFish(); }
+    render(); showToast(earned ? T.toast.fishEarned : T.toast.cleared); return;
+  }
+
+  /* ---- F9 搬出交接 ---- */
+  if (action === 'moveout-start') { state.moveOut = { step: 1, keep: {} }; window.location.hash = '#moveout'; return; }
+  if (action === 'moveout-cancel') { state.moveOut = null; window.location.hash = '#manage'; return; }
+  if (action === 'moveout-toggle') {
+    const M = state.moveOut; if (!M) return;
+    M.keep[value] = !M.keep[value]; render(); return;
+  }
+  if (action === 'moveout-next') { const M = state.moveOut; if (!M) return; M.step += 1; render(); return; }
+  if (action === 'moveout-finish') {
+    const M = state.moveOut; if (!M) return;
+    /* 步骤 2 复用开放取用，时限「一直可以」——人已经走了，没人能再来改时限。
+       不改 ownership：可以共享不等于转移所有权。 */
+    myItems().forEach((i) => { if (!M.keep[i.id]) i.offerUntil = OFFER_ALWAYS; });
+    state.zones.forEach((z) => { if (z.kind === 'own' || z.kind === 'cold') z.freeing = true; });
+    state.settings.movingOut = true;
+    M.step = 4;
+    saveItems(); saveZones(); saveSettings(); render(); showToast(T.toast.handedOver); return;
+  }
+  if (action === 'moveout-done') { state.moveOut = null; state.scope = 'house'; return; }
+
+  /* ---- F10 房屋设置 ---- */
+  if (action === 'setup-add') {
+    const U = state.setup; if (!U) return;
+    U.zones.push({ id: `z${Date.now()}`, kind: 'own', label: '', full: false, freeing: false });
+    render(); return;
+  }
+  if (action === 'setup-remove') {
+    const U = state.setup; if (!U) return;
+    U.zones.splice(Number(value), 1); render(); return;
+  }
+  if (action === 'setup-kind') {
+    const U = state.setup; if (!U) return;
+    const z = U.zones[Number(value)];
+    if (z) { z.kind = cycle(ZONE_KINDS, z.kind); render(); }
     return;
+  }
+  if (action === 'setup-next') {
+    const U = state.setup; if (!U) return;
+    if (U.step === 1) U.zones = U.zones.filter((z) => String(z.label).trim());
+    U.step += 1; render(); return;
+  }
+  if (action === 'setup-agree') {
+    const U = state.setup; if (!U) return;
+    const i = Number(value); U.agreements[i] = !U.agreements[i]; render(); return;
+  }
+  if (action === 'setup-skip') { state.setup = null; return; }
+  if (action === 'setup-finish') {
+    const U = state.setup; if (!U) return;
+    state.zones = U.zones.filter((z) => String(z.label).trim())
+      .map((z) => ({ id: z.id, kind: z.kind, label: String(z.label).trim().slice(0, MAX_DESCRIPTION),
+                     full: z.full === true, freeing: z.freeing === true }));
+    state.settings.agreements = U.agreements.slice(0, 3).map((v) => v === true);
+    state.settings.setupDone = true;
+    state.setup = null;
+    saveZones(); saveSettings();
+    window.location.hash = '#home';
+    showToast(T.toast.setupDone); return;
   }
 
   if (action === 'reset-demo') resetDemo();
@@ -1290,11 +1556,12 @@ document.addEventListener('input', (event) => {
   if (event.target.id === 'other-input') {
     state.otherText = event.target.value;
     const counter = app.querySelector('.other-panel .counter');
-    if (counter) {
-      counter.textContent = T.add.counter
-        .replace('{n}', state.otherText.length)
-        .replace('{max}', MAX_DESCRIPTION);
-    }
+    if (counter) counter.textContent = T.add.counter.replace('{n}', state.otherText.length).replace('{max}', MAX_DESCRIPTION);
+  }
+  const idx = event.target.getAttribute && event.target.getAttribute('data-setup-label');
+  if (idx !== null && idx !== undefined && state.setup) {
+    const z = state.setup.zones[Number(idx)];
+    if (z) z.label = event.target.value;
   }
 });
 
@@ -1311,7 +1578,15 @@ document.addEventListener('click', (event) => {
   handleAction(control.dataset.action, control.dataset.value || '');
 });
 
-window.addEventListener('hashchange', () => render({ focusHeading: true }));
+window.addEventListener('hashchange', () => {
+  const route = getRoute();
+  if (route === 'moveout' && !state.moveOut) state.moveOut = { step: 1, keep: {} };
+  if (route === 'setup' && !state.setup) {
+    state.setup = { step: 1, zones: state.zones.map((z) => ({ ...z })), agreements: state.settings.agreements.slice() };
+  }
+  render({ focusHeading: true });
+});
+
 render();
 if (storageRecovered) showToast(T.toast.recovered);
 </script>

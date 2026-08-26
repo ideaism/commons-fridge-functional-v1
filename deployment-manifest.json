@@ -1,21 +1,25 @@
 {
-  "name": "Commons Fridge Functional Prototype v1.5 (English build)",
+  "name": "Commons Fridge Functional Prototype v1.6 (bilingual build)",
   "published": "2026-08-26",
-  "supersedes": "v1.4 English build, published 2026-08-26, sha256 9111fd3f4d63f7a8d4f6b60596fe79e7256932bbe7194d13581a8debf0b30aff",
-  "sourceSha256": "c423db7cd87397b1584316ff551d54a889690a2f3850394dda08ecf670fc2c0d",
-  "language": "en",
-  "routes": { "home": "./", "add": "./#add", "found": "./#found", "manage": "./#manage" },
+  "supersedes": "v1.5 English build, published 2026-08-26, sha256 c423db7cd87397b1584316ff551d54a889690a2f3850394dda08ecf670fc2c0d",
+  "sourceSha256": "b42d3f9ffbe808e9d242e32a4a5c8b086383188b37b470c2a4ed8b06761d74c7",
+  "languages": ["en", "zh"],
+  "languageNote": "Both language tables ship in the same file and are switched at runtime from the header. The choice is remembered in localStorage; the first visit follows the browser language.",
+  "routes": { "home": "./", "add": "./#add", "found": "./#found", "manage": "./#manage", "beforeYouShop": "./#shop", "moveOut": "./#moveout", "setup": "./#setup" },
   "storageKeys": {
     "items": "commons-fridge-functional-v1",
     "zones": "commons-fridge-functional-v1-zones",
-    "fish": "commons-fridge-functional-v1-fish"
+    "settings": "commons-fridge-functional-v1-settings",
+    "fish": "commons-fridge-functional-v1-fish",
+    "language": "commons-fridge-functional-v1-lang"
   },
   "evidenceBoundary": "Researcher-tested technical demonstrator; not participant usability validation.",
   "notes": [
     "Routes are URL hash fragments resolved in the browser; the server returns the same document for all of them. Correct routing must be confirmed on a real phone.",
-    "Ownership, plan and zone kind are all persisted as stable keys, so records saved by v1.0, v1.2 and v1.4 migrate automatically.",
-    "The House view groups records by zone, never by person. There are no names, avatars, initials or permanent record of who did what; the handled receipt clears itself after 48 hours.",
+    "Ownership, plan and zone kind are persisted as stable keys, so records saved by v1.0, v1.2, v1.4 and v1.5 migrate automatically. Fields introduced later stay empty on older records rather than being guessed.",
+    "The House view groups records by zone, never by person. No names, avatars or initials anywhere; the handled receipt clears itself after 48 hours so no history of who did what accumulates.",
     "Nothing is synced. The House view shows fictional records held in this one browser, and the interface says so on screen rather than in a footnote.",
+    "Switching language re-seeds the demo records only while they are untouched; anything the viewer typed is left exactly as they wrote it.",
     "No camera, upload, account, analytics, timer or notification API."
   ]
 }
