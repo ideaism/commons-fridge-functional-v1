@@ -1,19 +1,16 @@
 {
-  "name": "Commons Fridge Functional Prototype v1.2 (Chinese build)",
-  "published": "2026-08-22",
-  "supersedes": "v1.0, published 2026-08-21, sha256 619332ed7b1bf9587b15ce5e3dd1ea84e2d7e537299ca6f4bae189a2dd5b329f",
-  "sourceSha256": "425dcda056fb3fce5c16a84f7d7f21943634d3f5d33f06c9f4e0edcc6219da3e",
-  "language": "zh-CN",
-  "routes": {
-    "home": "./",
-    "add": "./#add",
-    "manage": "./#manage"
-  },
+  "name": "Commons Fridge Functional Prototype v1.4 (English build)",
+  "published": "2026-08-26",
+  "supersedes": "v1.2 Chinese build, published 2026-08-22, sha256 425dcda056fb3fce5c16a84f7d7f21943634d3f5d33f06c9f4e0edcc6219da3e",
+  "sourceSha256": "9111fd3f4d63f7a8d4f6b60596fe79e7256932bbe7194d13581a8debf0b30aff",
+  "language": "en",
+  "routes": { "home": "./", "add": "./#add", "manage": "./#manage" },
   "storageKey": "commons-fridge-functional-v1",
   "evidenceBoundary": "Researcher-tested technical demonstrator; not participant usability validation.",
   "notes": [
     "Routes are URL hash fragments resolved in the browser; the server returns the same document for all three. Correct routing must be confirmed on a real phone.",
-    "Ownership is stored as stable keys (personal / shared / ask), so records saved by v1.0 and v1.1 migrate automatically.",
+    "Ownership is stored as stable keys (personal / shared / ask) and plans as stable keys (soon / week / open), so records saved by v1.0, v1.1 and v1.2 migrate automatically.",
+    "Plan state is derived from the user's own declared plan, never from an expiry date. The build contains no timer, no notification API and no food-safety inference.",
     "No camera, upload, account, analytics or external runtime dependency."
   ]
 }
