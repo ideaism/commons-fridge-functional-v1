@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='5' y='2' width='22' height='28' rx='4' fill='%23f3f0e7' stroke='%2326302b' stroke-width='2'/%3E%3Cpath d='M5 12h22M22 6v3M22 16v5' stroke='%23506b5b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
-<title>Commons Fridge · Functional Prototype v1.4</title>
+<title>Commons Fridge · Functional Prototype v1.5</title>
 <style>:root{
   --paper:#f3f0e7;
   --card:#fffdf6;
@@ -229,11 +229,92 @@ button.row-remove:hover{background:transparent;color:var(--danger)}
 /* 免责条是 position:fixed；英文比中文长，务必给它留够高度，否则会盖住 app-header */
 .prototype-disclosure{line-height:1.45}
 @media (max-width:420px){body{padding-top:70px}}
+
+
+/* ==================== v1.5 ==================== */
+
+.segmented.two{grid-template-columns:repeat(2,1fr)}
+.segmented.scope{margin:16px 0 12px}
+.segmented.four button{font-size:11px}
+
+/* 屋内视图的常驻披露——不可折叠。系统没有的能力，界面不许暗示 */
+.local-only{display:flex;align-items:flex-start;gap:9px;margin:0 0 14px;padding:10px 12px;
+  border:2px dashed #8d968f;border-radius:9px 12px 8px 11px;background:var(--paper);
+  color:var(--muted);font-size:12px;line-height:1.5}
+.local-only-mark{display:grid;place-items:center;width:18px;height:18px;flex:none;margin-top:1px;
+  border:2px solid var(--muted);border-radius:50%;font-size:11px;font-weight:800}
+
+/* 区域分组 */
+.zone-group{margin:0 0 20px}
+.zone-head{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin:0 0 9px;
+  padding-bottom:6px;border-bottom:2px solid var(--ink)}
+.zone-name{font-size:15px;font-weight:800}
+.zone-kind{font:700 9.5px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--sage)}
+.zone-group .item-card{margin-bottom:10px}
+.zone-group .item-card:last-child{margin-bottom:0}
+
+/* unknown 归属：虚线 + muted，刻意不用 danger */
+.chip-unknown{border-style:dashed;border-color:#8d968f;background:transparent;color:var(--muted)}
+.chip-zone{border-color:#8d968f;background:var(--paper);color:var(--muted)}
+.age-line{margin:7px 0 0;font:600 11.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+  color:var(--muted);font-variant-numeric:tabular-nums}
+.opened-note{margin:6px 0 0;font-size:11px;color:var(--sage)}
+
+/* 宽限期：整体降饱和 + 一条细边。主语永远是「有人」 */
+.item-card.is-held{background:#f7f6f1;border-color:#98a29a}
+.hold-row{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap;
+  margin:9px 0 0;padding:8px 10px;border-left:3px solid var(--sage);background:var(--sage-soft);
+  border-radius:0 8px 8px 0}
+.hold-line{margin:0;font-size:12px;font-weight:640;color:#355044;line-height:1.4}
+.hold-row button{min-height:32px;padding:4px 10px;font-size:11px}
+button.danger.is-primary{background:var(--danger);color:white;border-color:var(--danger)}
+
+/* 已处理回执：一行轻文字，48 小时后消失 */
+.item-card.is-handled{background:var(--paper);border-style:dashed;border-color:#98a29a}
+.handled-note{margin:6px 0 0;font:700 10px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.07em;color:var(--muted)}
+
+/* 暂停 */
+.plan-bar.is-paused{background:#c3cbc3;width:5px}
+.pause-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  margin:0 0 14px;padding:11px 13px;border:2px dashed #8d968f;border-radius:9px 12px 8px 11px;
+  background:var(--paper)}
+.pause-banner p{margin:0;font-size:13px;color:var(--muted);line-height:1.5}
+.pause-banner button{min-height:36px;padding:6px 14px;font-size:12px}
+.actions.away{margin-top:18px}
+
+/* 混合区补归属 */
+.mixed-nudge{display:block;width:100%;min-height:0;margin:6px 0 0;padding:8px 10px;
+  border:2px dashed var(--amber);border-radius:8px;background:var(--amber-soft);
+  color:#7a5520;font-size:11.5px;font-weight:640;text-align:left;line-height:1.45}
+.mixed-nudge:hover{background:#f0dcc0}
+.whose-panel{margin:6px 0 0;padding:10px;border:2px solid var(--ink);
+  border-radius:9px 12px 8px 11px;background:var(--paper)}
+.whose-hint{margin:0 0 8px;font-size:11.5px;color:var(--muted);line-height:1.45}
+.whose-label{margin:0 0 7px;font-size:11.5px;font-weight:720}
+.draft-row-wrap{display:block}
+.draft-list{gap:10px}
+
+.tag-new{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:3px;
+  background:var(--sage);color:white;font:700 9px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.08em;vertical-align:1px}
+
+.route-card.is-found .route-icon{font-size:24px;font-weight:800;color:var(--muted);
+  border-style:dashed;border-color:#8d968f}
+.found-note{margin:14px 0 0;padding:10px 12px;border-left:3px solid var(--sage);
+  background:var(--sage-soft);border-radius:0 8px 8px 0;font-size:12px;color:#355044;line-height:1.5}
+button.mini[disabled]{opacity:1;cursor:default;border-style:dashed}
+
+@media (max-width:380px){
+  .segmented.four button{font-size:9.5px}
+  .zone-name{font-size:14px}
+}
 </style>
 </head>
 <body>
 <div class="prototype-disclosure" role="note">
-  <span>Functional Prototype v1.4</span>
+  <span>Functional Prototype v1.5</span>
   <strong>Researcher self-test · not tested with participants</strong>
 </div>
 <main class="device-shell" aria-labelledby="route-title">
@@ -251,33 +332,40 @@ button.row-remove:hover{background:transparent;color:var(--danger)}
     <span>Does not judge food safety</span>
     <span aria-hidden="true">·</span>
     <span>No alarms, no notifications</span>
+    <span aria-hidden="true">·</span>
+    <span>Does not sync between devices</span>
   </footer>
 </main>
 <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-<script>const T = {"disclosure":{"version":"Functional Prototype v1.4","scope":"Researcher self-test · not tested with participants"},"brand":{"eyebrow":"THE COMMONS FRIDGE","name":"The Commons Fridge","backToHome":"Back to home"},"footer":{"storage":"Saved only in this browser","safety":"Does not judge food safety","timing":"No alarms, no notifications"},"reset":{"label":"Reset the fictional demo data","confirm":"Reset? The current fictional records will be cleared.","done":"Fictional demo data reset"},"home":{"kicker":"TWO PHYSICAL ENTRY POINTS","title":"At the fridge,<br>do only what this moment needs.","lede":"NFC and QR open two states of the same page. No app to install, no account to create.","addTitle":"Put in","addSub":"Note something that needs to be seen","manageTitle":"Check and handle","manageSub":"Update ownership, plan, or clear the record","boundary":"<strong>Evidence boundary:</strong> five interviews support the problem and habit framing. This page has passed researcher technical self-testing only and has not been usability-tested with participants."},"add":{"back":"← Back to the two entry points","kicker":"PUT IN","title":"Just back from the shop?<br>Tap once to add a line.","lede":"No need to enter them one at a time. Tap a common item, or use Other.","mascotLine":"Put it in — I'll remember it for you.","quickLabel":"Common items — tap one to add a line","quickPicks":["Milk","Leftovers","Vegetables","Bread","Yoghurt","Drinks"],"otherLabel":"+ Other","otherPlaceholder":"Write something","otherCommit":"Add to this batch","otherCancel":"Cancel","batchCountOne":"1 item in this batch","batchCountMany":"{n} items in this batch","batchDefault":"Default owner for this batch","planLabel":"When do you plan to eat it?","emptyHint":"Nothing added yet","saveOne":"Save all (1 item)","saveMany":"Save all ({n} items)","remove":"Remove","counter":"{n} / {max}"},"ownership":{"personal":"Personal","shared":"Shared","ask":"Ask first"},"plan":{"soon":"Eating soon","week":"This week","open":"Not sure"},"manage":{"back":"← Back to the two entry points","kicker":"CHECK AND HANDLE","title":"See it, update it,<br>then let the record go.","mascotLine":"Let's look together — no nagging, no judging.","statusOne":"1 thing is past the middle of its plan.","statusMany":"{n} things are past the middle of their plan.","rescuedOne":"1 rescued recently","rescuedMany":"{n} rescued recently","fishInvite":"Handle it and the penguin gets a fish","filterLabel":"Filter list","filterAll":"All","filterPersonal":"Personal","filterShared":"Shared","filterSoon":"Eating soon","cardNote":"Only states a user has actively confirmed are shown.","emptyTitle":"Nothing in this view right now.","emptyBody":"Go back to Put in to add a fictional record.","emptyLink":"Go to Put in →","edit":"Update","clear":"Clear","editOwnership":"Update ownership","editPlan":"When do you plan to eat it?","saveUpdate":"Save update","cancel":"Cancel","clearTitle":"Clear this from the demo list?","clearBody":"This does not handle real food. It only removes the fictional record held on this device.","clearConfirm":"Confirm clear","clearCancel":"Keep"},"toast":{"needDescription":"Write a short description first","savedOne":"Saved 1 item to the demo list on this device","savedMany":"Saved {n} items to the demo list on this device","rowRemoved":"Removed from this batch","updated":"Record updated","cleared":"Fictional record cleared","fishEarned":"Rescued in time — the penguin got a fish","recovered":"Corrupted local demo data was cleared and reset"},"demoFish":3,"demoItems":[{"description":"Chicken breast","ownership":"personal","plan":"soon","ageDays":3.4},{"description":"Oat milk","ownership":"personal","plan":"soon","ageDays":2.2},{"description":"Labelled leftovers box","ownership":"shared","plan":"week","ageDays":1},{"description":"Bread","ownership":"personal","plan":"open"}]};
-/* Commons Fridge · Functional Prototype v1.4
+<script>const T = {"disclosure":{"version":"Functional Prototype v1.5","scope":"Researcher self-test · not tested with participants"},"brand":{"eyebrow":"THE COMMONS FRIDGE","name":"The Commons Fridge","backToHome":"Back to home"},"footer":{"storage":"Saved only in this browser","safety":"Does not judge food safety","timing":"No alarms, no notifications","sync":"Does not sync between devices"},"reset":{"label":"Reset the fictional demo data","confirm":"Reset? The current fictional records will be cleared.","done":"Fictional demo data reset"},"home":{"kicker":"TWO PHYSICAL ENTRY POINTS","title":"At the fridge,<br>do only what this moment needs.","lede":"NFC and QR open two states of the same page. No app to install, no account to create.","addTitle":"Put in","addSub":"Note something that needs to be seen","manageTitle":"Check and handle","manageSub":"Update ownership, plan, or clear the record","boundary":"<strong>Evidence boundary:</strong> five interviews support the problem and habit framing. This page has passed researcher technical self-testing only and has not been usability-tested with participants.","foundTitle":"Found something","foundSub":"Note something nobody has claimed"},"add":{"back":"← Back to the two entry points","kicker":"PUT IN","title":"Just back from the shop?<br>Tap once to add a line.","lede":"No need to enter them one at a time. Tap a common item, or use Other.","mascotLine":"Put it in — I'll remember it for you.","quickLabel":"Common items — tap one to add a line","quickPicks":["Milk","Leftovers","Vegetables","Bread","Yoghurt","Drinks"],"otherLabel":"+ Other","otherPlaceholder":"Write something","otherCommit":"Add to this batch","otherCancel":"Cancel","batchCountOne":"1 item in this batch","batchCountMany":"{n} items in this batch","batchDefault":"Default owner for this batch","planLabel":"When do you plan to eat it?","emptyHint":"Nothing added yet","saveOne":"Save all (1 item)","saveMany":"Save all ({n} items)","remove":"Remove","counter":"{n} / {max}"},"ownership":{"personal":"Personal","shared":"Shared","ask":"Ask first","unknown":"Not sure whose"},"plan":{"soon":"Eating soon","week":"This week","open":"Not sure"},"manage":{"back":"← Back to the two entry points","kicker":"CHECK AND HANDLE","title":"See it, update it,<br>then let the record go.","mascotLine":"Let's look together — no nagging, no judging.","statusOne":"1 thing is past the middle of its plan.","statusMany":"{n} things are past the middle of their plan.","rescuedOne":"1 rescued recently","rescuedMany":"{n} rescued recently","fishInvite":"Handle it and the penguin gets a fish","filterLabel":"Filter list","filterAll":"All","filterPersonal":"Personal","filterShared":"Shared","filterSoon":"Eating soon","cardNote":"Only states a user has actively confirmed are shown.","emptyTitle":"Nothing in this view right now.","emptyBody":"Go back to Put in to add a fictional record.","emptyLink":"Go to Put in →","edit":"Update","clear":"Clear","editOwnership":"Update ownership","editPlan":"When do you plan to eat it?","saveUpdate":"Save update","cancel":"Cancel","clearTitle":"Clear this from the demo list?","clearBody":"This does not handle real food. It only removes the fictional record held on this device.","clearConfirm":"Confirm clear","clearCancel":"Keep","claim":"This is mine","hold":"I will handle this","releaseHold":"Leave it","holdOne":"Someone plans to handle this · 1 hour left","holdMany":"Someone plans to handle this · {n} hours left","holdOver":"Someone planned to handle this","handleNow":"Handle it","handled":"HANDLED · this receipt disappears after 48 hours","opened":"Opened","openedNote":"restarted when opened · today","pauseAll":"I'm away","resumeAll":"I am back","resumeOne":"Resume just this","pauseOne":"Pause this one","pausedBanner":"Plans are paused. Tap when you are back.","pausedChip":"paused","nothingNow":"Nothing needs attention right now."},"toast":{"needDescription":"Write a short description first","savedOne":"Saved 1 item to the demo list on this device","savedMany":"Saved {n} items to the demo list on this device","rowRemoved":"Removed from this batch","updated":"Record updated","cleared":"Fictional record cleared","fishEarned":"Rescued in time — the penguin got a fish","recovered":"Corrupted local demo data was cleared and reset","claimed":"Marked as yours","held":"Held for 48 hours","holdReleased":"Left as it was","openedDone":"Plan restarted from now","pausedAll":"Plans paused","resumedAll":"Plans running again","noted":"Noted on this device"},"demoFish":3,"demoItems":[{"description":"Chicken breast","ownership":"personal","plan":"soon","ageDays":3.4,"zone":"z1"},{"description":"Oat milk","ownership":"personal","plan":"soon","ageDays":2.2,"zone":"z1"},{"description":"Labelled leftovers box","ownership":"shared","plan":"week","ageDays":1,"zone":"z1"},{"description":"Bread","ownership":"personal","plan":"open","zone":"z1"},{"description":"A bottle of milk","ownership":"unknown","plan":"open","ageDays":87,"zone":"z2"},{"description":"Frozen chicken legs","ownership":"unknown","plan":"open","ageDays":112,"zone":"z3"}],"zone":{"label":"Where does this batch go?","rowLabel":"Zone","none":"Unspecified","new":"NEW","kindOwn":"PERSONAL","kindMixed":"ANYONE CAN PUT THINGS HERE","kindCold":"FIRST COME FIRST SERVED","mixedHint":"Anyone can put things in this area. Mark whose it is so it can find its way back.","coldHint":"Frozen things start with no plan.","whose":"Whose is this one?"},"found":{"back":"← Back to the two entry points","kicker":"FOUND SOMETHING","title":"Note it down.<br>No need to ask anyone.","lede":"The record itself makes it visible again. Nobody gets named.","note":"Ownership is locked to \"not sure whose\". This record does not tag anyone, and nobody is chased to claim it.","saveOne":"Note it down (1 item)","saveMany":"Note it down ({n} items)"},"house":{"scopeMine":"Mine","scopeHouse":"House","localOnly":"Fictional records held on this device. This version does not sync between devices.","statusOne":"1 thing in the house is past the middle of its plan.","statusMany":"{n} things in the house are past the middle of their plan.","ageOne":"in here 1 day","ageMany":"in here {n} days"},"demoZones":[{"id":"z1","kind":"own","label":"Top shelf"},{"id":"z2","kind":"mixed","label":"Door"},{"id":"z3","kind":"cold","label":"Freezer drawer"}]};
+/* Commons Fridge · Functional Prototype v1.5
  *
  * 语言无关的应用逻辑。所有面向用户的文字都来自构建时注入的 T（strings.json）。
  *
- * v1.4 的核心改动：系统盯的对象从「食物」换成「用户自己声明的计划」。
- * 因此没有保质期、没有食品安全判断、没有定时器、没有通知。
- * 状态由纯函数按当前时间计算，永不写回存储。
+ * v1.4：系统盯的是「用户自己声明的计划」。
+ * v1.5：把「位置」补回来，让它同时承担所有权的载体与共享的面。
+ *       屋内视图按区域组织，不按人组织——区域没有身份，因此全程无姓名、无行为历史。
+ *
+ * 状态仍是当前时间的纯函数，永不写回存储。没有定时器，没有通知。
  */
 
 const STORAGE_KEY = 'commons-fridge-functional-v1';
 const FISH_KEY = 'commons-fridge-functional-v1-fish';
+const ZONES_KEY = 'commons-fridge-functional-v1-zones';
 const MAX_DESCRIPTION = 42;
 const DAY_MS = 86400000;
+const HOUR_MS = 3600000;
 
-const OWNERSHIP_KEYS = ['personal', 'shared', 'ask'];
+const OWNERSHIP_KEYS = ['personal', 'shared', 'ask', 'unknown'];
 const PLAN_KEYS = ['soon', 'week', 'open'];
+const ZONE_KINDS = ['own', 'mixed', 'cold'];
 const PLAN_DAYS = { soon: 3, week: 7, open: null };
 const MIDWAY_RATIO = 0.65;
-const STATE_ORDER = { overdue: 0, midway: 1, ontrack: 2, quiet: 3 };
+const STATE_ORDER = { overdue: 0, midway: 1, ontrack: 2, quiet: 3, paused: 4 };
 const FISH_RECENT_MS = 2 * DAY_MS;
+const HOLD_MS = 48 * HOUR_MS;      /* 宽限期：我打算处理它 → 48 小时无人反对 */
+const RECEIPT_MS = 48 * HOUR_MS;   /* 回执必须会过期，否则它就是行为历史 */
 
-/* v1.0 / v1.1 把英文显示文案直接存进了 localStorage。
-   保留这张映射表，旧数据才不会在升级后丢失。 */
 const LEGACY_OWNERSHIP = {
   Personal: 'personal',
   'Shared with house': 'shared',
@@ -298,8 +386,6 @@ function normaliseOwnership(value) {
   return 'personal';
 }
 
-/* 同时吃 v1.4 的 plan 与 v1.0/v1.2 的 review。
-   v1.0 存字符串 'Review soon' / null；v1.2 存布尔。 */
 function normalisePlan(value) {
   if (PLAN_KEYS.includes(value)) return value;
   if (value === true || value === 'Review soon') return 'soon';
@@ -314,6 +400,31 @@ function normalisePlanSetAt(value, plan, now) {
   return Number.isFinite(parsed) ? new Date(parsed).toISOString() : new Date(now).toISOString();
 }
 
+/* 旧记录没有 openedAt / pausedAt / holdUntil，就是 null，不要猜。 */
+function stamp(value) {
+  const parsed = Date.parse(value);
+  return Number.isFinite(parsed) ? new Date(parsed).toISOString() : null;
+}
+
+function loadZones() {
+  const saved = localStorage.getItem(ZONES_KEY);
+  if (!saved) return (T.demoZones || []).map((z) => ({ ...z }));
+  try {
+    const parsed = JSON.parse(saved);
+    if (!Array.isArray(parsed)) throw new Error('zones must be an array');
+    return parsed
+      .map((z) => ({
+        id: String(z.id),
+        kind: ZONE_KINDS.includes(z.kind) ? z.kind : 'own',
+        label: String(z.label).slice(0, MAX_DESCRIPTION)
+      }))
+      .filter((z) => z.label);
+  } catch (error) {
+    localStorage.removeItem(ZONES_KEY);
+    return (T.demoZones || []).map((z) => ({ ...z }));
+  }
+}
+
 function initialItems() {
   const now = Date.now();
   return T.demoItems.map((item, index) => ({
@@ -322,8 +433,15 @@ function initialItems() {
     ownership: normaliseOwnership(item.ownership),
     plan: normalisePlan(item.plan),
     /* 演示数据按 ageDays 回拨，否则展台上永远只看得到 ontrack，
-       整个机制在现场不可见。 */
-    planSetAt: item.ageDays == null ? null : new Date(now - item.ageDays * DAY_MS).toISOString()
+       整个机制在现场不可见，也拍不出来。 */
+    planSetAt: item.ageDays == null ? null : new Date(now - item.ageDays * DAY_MS).toISOString(),
+    zone: item.zone || null,
+    ageBase: item.ageDays == null ? null : new Date(now - item.ageDays * DAY_MS).toISOString(),
+    openedAt: null,
+    pausedAt: null,
+    pausedMs: 0,
+    holdUntil: null,
+    handledAt: null
   }));
 }
 
@@ -336,12 +454,21 @@ function loadItems() {
     if (!Array.isArray(parsed)) throw new Error('items must be an array');
     return parsed.map((item) => {
       const plan = normalisePlan(item.plan !== undefined ? item.plan : item.review);
+      const planSetAt = normalisePlanSetAt(item.planSetAt, plan, now);
+      const pausedMs = Number(item.pausedMs);
       return {
         id: String(item.id),
         description: String(item.description).slice(0, MAX_DESCRIPTION),
         ownership: normaliseOwnership(item.ownership),
         plan,
-        planSetAt: normalisePlanSetAt(item.planSetAt, plan, now)
+        planSetAt,
+        zone: item.zone ? String(item.zone) : null,
+        ageBase: stamp(item.ageBase) || planSetAt,
+        openedAt: stamp(item.openedAt),
+        pausedAt: stamp(item.pausedAt),
+        pausedMs: Number.isFinite(pausedMs) && pausedMs >= 0 ? pausedMs : 0,
+        holdUntil: stamp(item.holdUntil),
+        handledAt: stamp(item.handledAt)
       };
     });
   } catch (error) {
@@ -367,12 +494,15 @@ function loadFish() {
 /* ---------- 状态：纯函数，不写回存储 ---------- */
 
 function planState(item, now) {
+  if (item.pausedAt) return 'paused';
   if (item.plan === 'open' || !item.planSetAt) return 'quiet';
   const days = PLAN_DAYS[item.plan];
   if (!days) return 'quiet';
   const start = Date.parse(item.planSetAt);
   if (!Number.isFinite(start)) return 'quiet';
-  const ratio = (now - start) / (days * DAY_MS);
+  /* 暂停过的时间不计入——用户不在家不是失职。 */
+  const elapsed = now - start - (item.pausedMs || 0);
+  const ratio = elapsed / (days * DAY_MS);
   if (ratio >= 1) return 'overdue';
   if (ratio >= MIDWAY_RATIO) return 'midway';
   return 'ontrack';
@@ -381,6 +511,24 @@ function planState(item, now) {
 function needsAttention(item, now) {
   const s = planState(item, now);
   return s === 'midway' || s === 'overdue';
+}
+
+function isHeld(item, now) {
+  return !!item.holdUntil && Date.parse(item.holdUntil) > now;
+}
+
+function holdHoursLeft(item, now) {
+  return Math.max(1, Math.ceil((Date.parse(item.holdUntil) - now) / HOUR_MS));
+}
+
+function receiptVisible(item, now) {
+  return !!item.handledAt && now - Date.parse(item.handledAt) < RECEIPT_MS;
+}
+
+function ageDays(item, now) {
+  const base = Date.parse(item.ageBase || item.planSetAt);
+  if (!Number.isFinite(base)) return null;
+  return Math.max(0, Math.floor((now - base) / DAY_MS));
 }
 
 function sortedItems(items, now) {
@@ -394,8 +542,6 @@ function attentionCount(items, now) {
   return items.filter((item) => needsAttention(item, now)).length;
 }
 
-/* 优先级：需要注意 > 最近有人照看 > 平静。
-   企鹅永不低于基线——没有难过、没有生病、没有被冷落。 */
 function penguinFace(items, now) {
   if (attentionCount(items, now) > 0) return 'alert';
   const last = state.fish.last ? Date.parse(state.fish.last) : NaN;
@@ -403,30 +549,65 @@ function penguinFace(items, now) {
   return 'calm';
 }
 
+/* ---------- 区域 ---------- */
+
+function zoneById(id) {
+  return state.zones.find((z) => z.id === id) || null;
+}
+
+function zoneKind(id) {
+  const z = zoneById(id);
+  return z ? z.kind : null;
+}
+
+function zoneLabel(id) {
+  const z = zoneById(id);
+  return z ? z.label : T.zone.none;
+}
+
+function kindCaption(kind) {
+  if (kind === 'mixed') return T.zone.kindMixed;
+  if (kind === 'cold') return T.zone.kindCold;
+  return T.zone.kindOwn;
+}
+
+function firstColdZone() {
+  return state.zones.find((z) => z.kind === 'cold') || null;
+}
+
+/* 「我的」= 个人区 + 无区域的记录。屋内 = 全部。 */
+function scopeItems(now) {
+  if (state.scope === 'house') return state.items;
+  return state.items.filter((item) => !item.zone || zoneKind(item.zone) === 'own');
+}
+
 /* ---------- state ---------- */
 
 const state = {
-  items: loadItems(),
+  zones: [],
+  items: [],
   fish: loadFish(),
   draft: [],
   batchDefault: 'personal',
+  batchZone: null,
   otherOpen: false,
   otherText: '',
+  scope: 'mine',
   filter: 'all',
   editingId: null,
-  pendingClearId: null
+  pendingClearId: null,
+  whoseFor: null
 };
+state.zones = loadZones();
+state.items = loadItems();
 
-function saveItems() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items));
-}
-
-function saveFish() {
-  localStorage.setItem(FISH_KEY, JSON.stringify(state.fish));
-}
+function saveItems() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items)); }
+function saveFish() { localStorage.setItem(FISH_KEY, JSON.stringify(state.fish)); }
+function saveZones() { localStorage.setItem(ZONES_KEY, JSON.stringify(state.zones)); }
 
 function getRoute() {
   if (window.location.hash === '#add') return 'add';
+  if (window.location.hash === '#found') return 'found';
   if (window.location.hash === '#manage') return 'manage';
   return 'home';
 }
@@ -466,25 +647,39 @@ function homeView() {
         <span><b>${T.home.manageTitle}</b><small>${T.home.manageSub}</small></span>
         <span class="arrow" aria-hidden="true">→</span>
       </a>
+      <a class="route-card is-found" href="#found">
+        <span class="route-icon" aria-hidden="true">?</span>
+        <span><b>${T.home.foundTitle}</b><small>${T.home.foundSub}</small></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
     </div>
     <p class="boundary-note">${T.home.boundary}</p>`;
 }
 
-/* ---------- add：批量录入 ---------- */
+/* ---------- 录入（放入 / 无主物共用一条流） ---------- */
 
 function nextOwnership() {
   const last = state.draft[state.draft.length - 1];
   return last ? last.ownership : state.batchDefault;
 }
 
-function addDraft(description) {
+function nextZone() {
+  const last = state.draft[state.draft.length - 1];
+  return last ? last.zone : state.batchZone;
+}
+
+function addDraft(description, found) {
   const text = String(description).trim().slice(0, MAX_DESCRIPTION);
   if (!text) { showToast(T.toast.needDescription); return false; }
+  const zone = found ? (state.zones.find((z) => z.kind === 'mixed') || {}).id || nextZone() : nextZone();
+  const kind = zoneKind(zone);
   state.draft.push({
     tmpId: `d-${draftCounter++}`,
     description: text,
-    ownership: nextOwnership(),
-    plan: 'open'
+    /* 混合区从 unknown 起步（E15）；无主物入口锁定 unknown（F3）。 */
+    ownership: found ? 'unknown' : (kind === 'mixed' ? 'unknown' : nextOwnership()),
+    plan: kind === 'cold' ? 'open' : 'open',
+    zone: zone || null
   });
   return true;
 }
@@ -493,9 +688,10 @@ function cycle(list, current) {
   return list[(list.indexOf(current) + 1) % list.length];
 }
 
-function quickPicks() {
+function quickPicks(found) {
+  const action = found ? 'found-add' : 'quick-add';
   const picks = T.add.quickPicks.map((label) => `
-    <button type="button" class="quick-pick" data-action="quick-add" data-value="${escapeHTML(label)}">
+    <button type="button" class="quick-pick" data-action="${action}" data-value="${escapeHTML(label)}">
       ${escapeHTML(label)}
     </button>`).join('');
   return picks + `
@@ -503,7 +699,7 @@ function quickPicks() {
             aria-expanded="${state.otherOpen}">${T.add.otherLabel}</button>`;
 }
 
-function otherPanel() {
+function otherPanel(found) {
   if (!state.otherOpen) return '';
   return `
     <div class="other-panel">
@@ -516,77 +712,121 @@ function otherPanel() {
                value="${escapeHTML(state.otherText)}" placeholder="${escapeHTML(T.add.otherPlaceholder)}">
       </label>
       <div class="actions">
-        <button type="button" data-action="other-commit">${T.add.otherCommit}</button>
+        <button type="button" data-action="${found ? 'found-commit' : 'other-commit'}">${T.add.otherCommit}</button>
         <button type="button" class="secondary" data-action="other-cancel">${T.add.otherCancel}</button>
       </div>
     </div>`;
 }
 
-function draftRow(row) {
+function whosePanel(row) {
+  if (state.whoseFor !== row.tmpId) return '';
+  const buttons = OWNERSHIP_KEYS.map((key) => `
+    <button type="button" data-action="row-set-owner" data-value="${row.tmpId}:${key}"
+            aria-checked="${row.ownership === key}" role="radio">${T.ownership[key]}</button>`).join('');
   return `
-    <div class="draft-row">
-      <span class="grip" aria-hidden="true">☰</span>
-      <span class="draft-body">
-        <span class="draft-name">${escapeHTML(row.description)}</span>
-        <span class="draft-selects">
-          <button type="button" class="mini" data-action="row-ownership" data-value="${row.tmpId}">
-            ${T.ownership[row.ownership]} <span aria-hidden="true">▾</span>
-          </button>
-          <button type="button" class="mini ${row.plan === 'open' ? 'is-open' : 'is-set'}"
-                  data-action="row-plan" data-value="${row.tmpId}">
-            ${T.plan[row.plan]} <span aria-hidden="true">▾</span>
-          </button>
+    <div class="whose-panel">
+      <p class="whose-hint">${T.zone.mixedHint}</p>
+      <p class="whose-label">${T.zone.whose}</p>
+      <div class="segmented four" role="radiogroup" aria-label="${T.zone.whose}">${buttons}</div>
+    </div>`;
+}
+
+function draftRow(row, found) {
+  const kind = zoneKind(row.zone);
+  const mixed = kind === 'mixed';
+  return `
+    <div class="draft-row-wrap">
+      <div class="draft-row">
+        <span class="grip" aria-hidden="true">☰</span>
+        <span class="draft-body">
+          <span class="draft-name">${escapeHTML(row.description)}</span>
+          <span class="draft-selects">
+            <button type="button" class="mini ${row.ownership === 'unknown' ? 'is-open' : ''}"
+                    ${found ? 'disabled aria-disabled="true"' : `data-action="row-ownership" data-value="${row.tmpId}"`}>
+              ${T.ownership[row.ownership]}${found ? '' : ' <span aria-hidden="true">▾</span>'}
+            </button>
+            <button type="button" class="mini ${row.plan === 'open' ? 'is-open' : 'is-set'}"
+                    data-action="row-plan" data-value="${row.tmpId}">
+              ${T.plan[row.plan]} <span aria-hidden="true">▾</span>
+            </button>
+            ${state.zones.length ? `
+            <button type="button" class="mini ${row.zone ? 'is-set' : 'is-open'}"
+                    data-action="row-zone" data-value="${row.tmpId}">
+              ${escapeHTML(zoneLabel(row.zone))} <span aria-hidden="true">▾</span>
+            </button>` : ''}
+          </span>
         </span>
-      </span>
-      <button type="button" class="row-remove" data-action="row-remove" data-value="${row.tmpId}"
-              aria-label="${T.add.remove}">✕</button>
+        <button type="button" class="row-remove" data-action="row-remove" data-value="${row.tmpId}"
+                aria-label="${T.add.remove}">✕</button>
+      </div>
+      ${mixed && !found ? whosePanel(row) : ''}
+      ${mixed && !found && state.whoseFor !== row.tmpId ? `
+        <button type="button" class="mixed-nudge" data-action="whose-open" data-value="${row.tmpId}">
+          ${T.zone.mixedHint}
+        </button>` : ''}
     </div>`;
 }
 
 function batchDefaults() {
-  return OWNERSHIP_KEYS.map((key) => `
+  return ['personal', 'shared', 'ask'].map((key) => `
     <button type="button" role="radio" data-action="batch-default" data-value="${key}"
             aria-checked="${state.batchDefault === key}">${T.ownership[key]}</button>`).join('');
 }
 
-function addView() {
-  const n = state.draft.length;
+function zonePicker() {
+  if (!state.zones.length) return '';
+  const buttons = state.zones.map((z) => `
+    <button type="button" role="radio" data-action="batch-zone" data-value="${z.id}"
+            aria-checked="${state.batchZone === z.id}">${escapeHTML(z.label)}</button>`).join('');
   return `
-    <a class="back-link" href="#home">${T.add.back}</a>
-    <p class="kicker">${T.add.kicker}</p>
-    <h1 id="route-title" tabindex="-1">${T.add.title}</h1>
-    <p class="lede">${T.add.lede}</p>
+    <div class="batch-default">
+      <p class="batch-default-label">${T.zone.label} <span class="tag-new">${T.zone.new}</span></p>
+      <div class="segmented three" role="radiogroup" aria-label="${T.zone.label}">${buttons}</div>
+    </div>`;
+}
+
+function entryView(found) {
+  const S = found ? T.found : T.add;
+  const n = state.draft.length;
+  const saveLabel = found
+    ? plural(T.found.saveOne, T.found.saveMany, n)
+    : plural(T.add.saveOne, T.add.saveMany, n);
+  return `
+    <a class="back-link" href="#home">${S.back}</a>
+    <p class="kicker">${S.kicker}</p>
+    <h1 id="route-title" tabindex="-1">${S.title}</h1>
+    <p class="lede">${S.lede}</p>
+    ${found ? '' : `
     <div class="view-mascot">
       <span class="figure mascot m-add" role="img" aria-label="${T.add.mascotLine}"></span>
       <p>${T.add.mascotLine}</p>
-    </div>
+    </div>`}
 
     <p class="quick-label">${T.add.quickLabel}</p>
-    <div class="quick-row">${quickPicks()}</div>
-    ${otherPanel()}
+    <div class="quick-row">${quickPicks(found)}</div>
+    ${otherPanel(found)}
 
     ${n ? `<p class="batch-count">${plural(T.add.batchCountOne, T.add.batchCountMany, n)}</p>
-    <div class="draft-list">${state.draft.map(draftRow).join('')}</div>
-
+    <div class="draft-list">${state.draft.map((row) => draftRow(row, found)).join('')}</div>
+    ${found ? `<p class="found-note">${T.found.note}</p>` : `
     <div class="batch-default">
       <p class="batch-default-label">${T.add.batchDefault}</p>
       <div class="segmented three" role="radiogroup" aria-label="${T.add.batchDefault}">${batchDefaults()}</div>
     </div>
-
+    ${zonePicker()}`}
     <div class="actions single">
-      <button type="button" data-action="save-batch">${plural(T.add.saveOne, T.add.saveMany, n)}</button>
+      <button type="button" data-action="${found ? 'save-found' : 'save-batch'}">${saveLabel}</button>
     </div>`
     : `<div class="batch-empty">${T.add.emptyHint}</div>`}`;
 }
 
-/* ---------- manage ---------- */
+/* ---------- 查看处理 ---------- */
 
-function filteredItems(now) {
-  const sorted = sortedItems(state.items, now);
-  if (state.filter === 'personal') return sorted.filter((item) => item.ownership !== 'shared');
-  if (state.filter === 'shared') return sorted.filter((item) => item.ownership === 'shared');
-  if (state.filter === 'soon') return sorted.filter((item) => item.plan === 'soon');
-  return sorted;
+function filterItems(list) {
+  if (state.filter === 'personal') return list.filter((item) => item.ownership !== 'shared');
+  if (state.filter === 'shared') return list.filter((item) => item.ownership === 'shared');
+  if (state.filter === 'soon') return list.filter((item) => item.plan === 'soon');
+  return list;
 }
 
 function editPanel(item) {
@@ -595,6 +835,8 @@ function editPanel(item) {
     `<option value="${key}" ${item.ownership === key ? 'selected' : ''}>${T.ownership[key]}</option>`).join('');
   const plans = PLAN_KEYS.map((key) =>
     `<option value="${key}" ${item.plan === key ? 'selected' : ''}>${T.plan[key]}</option>`).join('');
+  const zones = [`<option value="">${T.zone.none}</option>`].concat(state.zones.map((z) =>
+    `<option value="${z.id}" ${item.zone === z.id ? 'selected' : ''}>${escapeHTML(z.label)}</option>`)).join('');
   return `
     <div class="edit-panel">
       <label class="field">${T.manage.editOwnership}
@@ -603,6 +845,9 @@ function editPanel(item) {
       <label class="field">${T.manage.editPlan}
         <select data-edit-plan="${escapeHTML(item.id)}">${plans}</select>
       </label>
+      ${state.zones.length ? `<label class="field">${T.zone.rowLabel}
+        <select data-edit-zone="${escapeHTML(item.id)}">${zones}</select>
+      </label>` : ''}
       <div class="actions">
         <button type="button" data-action="update-item" data-value="${escapeHTML(item.id)}">${T.manage.saveUpdate}</button>
         <button type="button" class="secondary" data-action="cancel-update">${T.manage.cancel}</button>
@@ -625,37 +870,76 @@ function clearPanel(item) {
 
 function itemCard(item, now) {
   const s = planState(item, now);
+  const held = isHeld(item, now);
+  const unknown = item.ownership === 'unknown';
+  const id = escapeHTML(item.id);
+
+  if (receiptVisible(item, now)) {
+    return `
+      <article class="item-card is-handled">
+        <h3>${escapeHTML(item.description)}</h3>
+        <p class="handled-note">${T.manage.handled}</p>
+      </article>`;
+  }
+
   const bar = (s === 'midway' || s === 'overdue')
-    ? `<span class="plan-bar${s === 'overdue' ? ' is-overdue' : ''}" aria-hidden="true"></span>` : '';
-  const invite = (s === 'midway' || s === 'overdue')
+    ? `<span class="plan-bar${s === 'overdue' ? ' is-overdue' : ''}" aria-hidden="true"></span>`
+    : (s === 'paused' ? '<span class="plan-bar is-paused" aria-hidden="true"></span>' : '');
+
+  const planChip = `${item.openedAt ? `${T.manage.opened} · ` : ''}${T.plan[item.plan]}${s === 'paused' ? ` · ${T.manage.pausedChip}` : ''}`;
+  const days = unknown ? ageDays(item, now) : null;
+
+  const invite = (s === 'midway' || s === 'overdue') && !held
     ? `<p class="fish-invite"><span class="fish fish-outline" aria-hidden="true"></span>${T.manage.fishInvite}</p>` : '';
+
+  const holdRow = held ? `
+    <div class="hold-row">
+      <p class="hold-line">${plural(T.manage.holdOne, T.manage.holdMany, holdHoursLeft(item, now))}</p>
+      <button type="button" class="secondary" data-action="release-hold" data-value="${id}">${T.manage.releaseHold}</button>
+    </div>` : '';
+
+  const canHold = (unknown || s === 'midway' || s === 'overdue') && !held;
+  const holdDone = !!item.holdUntil && Date.parse(item.holdUntil) <= now;
+
+  const actions = [
+    unknown ? `<button type="button" class="secondary" data-action="claim-item" data-value="${id}">${T.manage.claim}</button>` : '',
+    canHold ? `<button type="button" class="secondary" data-action="hold-item" data-value="${id}">${T.manage.hold}</button>` : '',
+    (!unknown && s !== 'paused') ? `<button type="button" class="secondary" data-action="mark-opened" data-value="${id}">${T.manage.opened}</button>` : '',
+    s === 'paused' ? `<button type="button" class="secondary" data-action="resume-item" data-value="${id}">${T.manage.resumeOne}</button>` : '',
+    `<button type="button" class="secondary" data-action="edit-item" data-value="${id}">${T.manage.edit}</button>`,
+    `<button type="button" class="${holdDone ? 'danger is-primary' : 'danger'}" data-action="clear-item" data-value="${id}">${holdDone ? T.manage.handleNow : T.manage.clear}</button>`
+  ].filter(Boolean).join('');
+
   return `
-    <article class="item-card state-${s}">
+    <article class="item-card state-${s}${held ? ' is-held' : ''}">
       ${bar}
       <h3>${escapeHTML(item.description)}</h3>
       <div class="item-meta">
-        <span class="chip">${T.ownership[item.ownership]}</span>
-        <span class="chip chip-plan is-${s}">${T.plan[item.plan]}</span>
+        <span class="chip${unknown ? ' chip-unknown' : ''}">${T.ownership[item.ownership]}</span>
+        <span class="chip chip-plan is-${s}">${planChip}</span>
+        ${item.zone ? `<span class="chip chip-zone">${escapeHTML(zoneLabel(item.zone))}</span>` : ''}
       </div>
+      ${days !== null ? `<p class="age-line">${plural(T.house.ageOne, T.house.ageMany, days)}</p>` : ''}
+      ${item.openedAt ? `<p class="opened-note">${T.manage.openedNote}</p>` : ''}
+      ${holdRow}
       ${invite}
-      <div class="card-actions">
-        <button type="button" class="secondary" data-action="edit-item" data-value="${escapeHTML(item.id)}">${T.manage.edit}</button>
-        <button type="button" class="danger" data-action="clear-item" data-value="${escapeHTML(item.id)}">${T.manage.clear}</button>
-      </div>
+      <div class="card-actions">${actions}</div>
       ${editPanel(item)}
       ${clearPanel(item)}
     </article>`;
 }
 
-/* 企鹅 + 状态行 + 鱼。主语永远是计划或食物，永远不是人。
-   0 件时整块消失——不写「一切正常」，系统安静时应当真的安静。 */
-function commonsBlock(now) {
-  const attention = attentionCount(state.items, now);
+function commonsBlock(now, list) {
+  const attention = attentionCount(list, now);
   const fish = state.fish.count;
-  if (!attention && !fish) return '';
-  const face = penguinFace(state.items, now);
+  const pausedAll = list.length > 0 && list.every((item) => item.pausedAt);
+  if (!attention && !fish && !pausedAll) return '';
+  const face = pausedAll ? 'calm' : penguinFace(list, now);
+  const one = state.scope === 'house' ? T.house.statusOne : T.manage.statusOne;
+  const many = state.scope === 'house' ? T.house.statusMany : T.manage.statusMany;
   const line = attention
-    ? `<p class="commons-line">${plural(T.manage.statusOne, T.manage.statusMany, attention)}</p>` : '';
+    ? `<p class="commons-line">${plural(one, many, attention)}</p>`
+    : (pausedAll ? `<p class="commons-line">${T.manage.nothingNow}</p>` : '');
   const fishRow = fish
     ? `<div class="fish-row">${'<span class="fish fish-solid" aria-hidden="true"></span>'.repeat(Math.min(fish, 5))}
         <span class="fish-count">${plural(T.manage.rescuedOne, T.manage.rescuedMany, fish)}</span></div>` : '';
@@ -669,9 +953,40 @@ function commonsBlock(now) {
     </div>`;
 }
 
+function zoneGroups(list, now) {
+  const groups = state.zones.map((z) => ({
+    zone: z,
+    items: sortedItems(list.filter((item) => item.zone === z.id), now)
+  }));
+  const loose = sortedItems(list.filter((item) => !item.zone || !zoneById(item.zone)), now);
+  if (loose.length) groups.push({ zone: null, items: loose });
+  return groups.filter((g) => g.items.length);
+}
+
 function manageView() {
   const now = Date.now();
-  const items = filteredItems(now);
+  const inScope = scopeItems(now);
+  const list = filterItems(inScope);
+  const pausedAll = inScope.length > 0 && inScope.every((item) => item.pausedAt);
+
+  const scopeToggle = `
+    <div class="segmented two scope" role="radiogroup" aria-label="${T.house.scopeMine} / ${T.house.scopeHouse}">
+      <button type="button" role="radio" data-action="set-scope" data-value="mine"
+              aria-checked="${state.scope === 'mine'}">${T.house.scopeMine}</button>
+      <button type="button" role="radio" data-action="set-scope" data-value="house"
+              aria-checked="${state.scope === 'house'}">${T.house.scopeHouse}</button>
+    </div>`;
+
+  /* 屋内视图会让人以为数据在设备之间流动。它不流动——界面必须自己说出来。 */
+  const disclosure = state.scope === 'house'
+    ? `<p class="local-only" role="note"><span class="local-only-mark" aria-hidden="true">!</span>${T.house.localOnly}</p>` : '';
+
+  const pauseBanner = pausedAll ? `
+    <div class="pause-banner">
+      <p>${T.manage.pausedBanner}</p>
+      <button type="button" data-action="resume-all">${T.manage.resumeAll}</button>
+    </div>` : '';
+
   const seg = [
     ['all', T.manage.filterAll],
     ['personal', T.manage.filterPersonal],
@@ -688,21 +1003,47 @@ function manageView() {
       <a class="back-link" href="#add">${T.manage.emptyLink}</a>
     </div>`;
 
+  let body;
+  if (!list.length) {
+    body = empty;
+  } else if (state.scope === 'house') {
+    body = zoneGroups(list, now).map((g) => `
+      <section class="zone-group">
+        <h2 class="zone-head">
+          <span class="zone-name">${escapeHTML(g.zone ? g.zone.label : T.zone.none)}</span>
+          <span class="zone-kind">${g.zone ? kindCaption(g.zone.kind) : ''}</span>
+        </h2>
+        ${g.items.map((item) => itemCard(item, now)).join('')}
+      </section>`).join('');
+  } else {
+    body = sortedItems(list, now).map((item) => itemCard(item, now)).join('');
+  }
+
   return `
     <a class="back-link" href="#home">${T.manage.back}</a>
     <p class="kicker">${T.manage.kicker}</p>
     <h1 id="route-title" tabindex="-1">${T.manage.title}</h1>
-    ${commonsBlock(now)}
+    ${scopeToggle}
+    ${disclosure}
+    ${pauseBanner}
+    ${commonsBlock(now, inScope)}
     <div class="segmented four" role="radiogroup" aria-label="${T.manage.filterLabel}">${seg}</div>
-    ${items.length ? `<p class="card-note">${T.manage.cardNote}</p>` : ''}
-    <div class="item-list">${items.length ? items.map((item) => itemCard(item, now)).join('') : empty}</div>`;
+    ${list.length ? `<p class="card-note">${T.manage.cardNote}</p>` : ''}
+    <div class="item-list">${body}</div>
+    ${inScope.length && !pausedAll ? `
+      <div class="actions single away">
+        <button type="button" class="secondary" data-action="pause-all">${T.manage.pauseAll}</button>
+      </div>` : ''}`;
 }
 
 /* ---------- render ---------- */
 
 function render({ focusHeading = false } = {}) {
   const route = getRoute();
-  app.innerHTML = route === 'add' ? addView() : route === 'manage' ? manageView() : homeView();
+  app.innerHTML = route === 'add' ? entryView(false)
+    : route === 'found' ? entryView(true)
+    : route === 'manage' ? manageView()
+    : homeView();
   if (focusHeading) document.getElementById('route-title')?.focus({ preventScroll: true });
 }
 
@@ -710,23 +1051,61 @@ function resetDemo() {
   if (!window.confirm(T.reset.confirm)) return;
   localStorage.removeItem(STORAGE_KEY);
   localStorage.removeItem(FISH_KEY);
+  localStorage.removeItem(ZONES_KEY);
+  state.zones = loadZones();
   state.items = initialItems();
   state.fish = loadFish();
   state.draft = [];
   state.batchDefault = 'personal';
+  state.batchZone = null;
   state.otherOpen = false;
   state.otherText = '';
+  state.scope = 'mine';
   state.filter = 'all';
   state.editingId = null;
   state.pendingClearId = null;
+  state.whoseFor = null;
   render();
   showToast(T.reset.done);
 }
 
 /* ---------- actions ---------- */
 
+function findItem(id) { return state.items.find((candidate) => candidate.id === id); }
+function findRow(id) { return state.draft.find((candidate) => candidate.tmpId === id); }
+
+function commitBatch(found) {
+  if (!state.draft.length) return;
+  const now = Date.now();
+  const iso = new Date(now).toISOString();
+  const fresh = state.draft.map((row, index) => ({
+    id: `item-${now}-${index}`,
+    description: row.description,
+    ownership: row.ownership,
+    plan: row.plan,
+    planSetAt: row.plan === 'open' ? null : iso,
+    zone: row.zone || null,
+    ageBase: iso,
+    openedAt: null,
+    pausedAt: null,
+    pausedMs: 0,
+    holdUntil: null,
+    handledAt: null
+  }));
+  const n = fresh.length;
+  state.items = fresh.concat(state.items);
+  state.draft = [];
+  state.otherOpen = false;
+  state.otherText = '';
+  state.whoseFor = null;
+  saveItems();
+  window.location.hash = '#manage';
+  showToast(found ? T.toast.noted : plural(T.toast.savedOne, T.toast.savedMany, n));
+}
+
 function handleAction(action, value) {
-  if (action === 'quick-add') { if (addDraft(value)) render(); return; }
+  if (action === 'quick-add') { if (addDraft(value, false)) render(); return; }
+  if (action === 'found-add') { if (addDraft(value, true)) render(); return; }
 
   if (action === 'other-toggle') {
     state.otherOpen = !state.otherOpen;
@@ -734,80 +1113,146 @@ function handleAction(action, value) {
     if (state.otherOpen) document.getElementById('other-input')?.focus();
     return;
   }
-  if (action === 'other-commit') {
-    if (addDraft(state.otherText)) { state.otherText = ''; render(); document.getElementById('other-input')?.focus(); }
+  if (action === 'other-commit' || action === 'found-commit') {
+    if (addDraft(state.otherText, action === 'found-commit')) {
+      state.otherText = ''; render(); document.getElementById('other-input')?.focus();
+    }
     return;
   }
   if (action === 'other-cancel') { state.otherOpen = false; state.otherText = ''; render(); return; }
 
   if (action === 'row-remove') {
     state.draft = state.draft.filter((row) => row.tmpId !== value);
-    render();
-    showToast(T.toast.rowRemoved);
-    return;
+    render(); showToast(T.toast.rowRemoved); return;
   }
   if (action === 'row-ownership') {
-    const row = state.draft.find((candidate) => candidate.tmpId === value);
+    const row = findRow(value);
     if (row) { row.ownership = cycle(OWNERSHIP_KEYS, row.ownership); render(); }
     return;
   }
   if (action === 'row-plan') {
-    const row = state.draft.find((candidate) => candidate.tmpId === value);
+    const row = findRow(value);
     if (row) { row.plan = cycle(PLAN_KEYS, row.plan); render(); }
+    return;
+  }
+  if (action === 'row-zone') {
+    const row = findRow(value);
+    if (!row) return;
+    const ids = [null].concat(state.zones.map((z) => z.id));
+    row.zone = ids[(ids.indexOf(row.zone) + 1) % ids.length];
+    /* 混合区从 unknown 起步（E15）；冷冻区先不设计划（F7 入口）。 */
+    const kind = zoneKind(row.zone);
+    if (kind === 'mixed' && row.ownership !== 'unknown') row.ownership = 'unknown';
+    if (kind === 'cold') row.plan = 'open';
+    render(); return;
+  }
+  if (action === 'whose-open') { state.whoseFor = value; render(); return; }
+  if (action === 'row-set-owner') {
+    const [tmpId, key] = value.split(':');
+    const row = findRow(tmpId);
+    if (row) { row.ownership = normaliseOwnership(key); state.whoseFor = null; render(); }
     return;
   }
   if (action === 'batch-default') {
     state.batchDefault = value;
-    state.draft.forEach((row) => { row.ownership = value; });
-    render();
-    return;
+    state.draft.forEach((row) => { if (zoneKind(row.zone) !== 'mixed') row.ownership = value; });
+    render(); return;
+  }
+  if (action === 'batch-zone') {
+    state.batchZone = state.batchZone === value ? null : value;
+    state.draft.forEach((row) => {
+      row.zone = state.batchZone;
+      const kind = zoneKind(row.zone);
+      if (kind === 'mixed') row.ownership = 'unknown';
+      if (kind === 'cold') row.plan = 'open';
+    });
+    render(); return;
   }
 
-  if (action === 'save-batch') {
-    if (!state.draft.length) return;
-    const now = Date.now();
-    const stamp = new Date(now).toISOString();
-    /* 新录入排在前面：刚放进去的最容易需要确认。
-       id 带索引，避免同一毫秒内批量保存产生重复。 */
-    const fresh = state.draft.map((row, index) => ({
-      id: `item-${now}-${index}`,
-      description: row.description,
-      ownership: row.ownership,
-      plan: row.plan,
-      planSetAt: row.plan === 'open' ? null : stamp
-    }));
-    const n = fresh.length;
-    state.items = fresh.concat(state.items);
-    state.draft = [];
-    state.otherOpen = false;
-    state.otherText = '';
-    saveItems();
-    window.location.hash = '#manage';
-    showToast(plural(T.toast.savedOne, T.toast.savedMany, n));
-    return;
-  }
+  if (action === 'save-batch') { commitBatch(false); return; }
+  if (action === 'save-found') { commitBatch(true); return; }
 
+  if (action === 'set-scope') { state.scope = value; state.editingId = null; state.pendingClearId = null; render(); return; }
   if (action === 'set-filter') { state.filter = value; render(); return; }
   if (action === 'edit-item') { state.editingId = value; state.pendingClearId = null; render(); return; }
   if (action === 'cancel-update') { state.editingId = null; render(); return; }
 
+  if (action === 'claim-item') {
+    const item = findItem(value);
+    if (!item) return;
+    item.ownership = 'personal';
+    state.editingId = value;
+    saveItems(); render(); showToast(T.toast.claimed); return;
+  }
+
+  if (action === 'hold-item') {
+    const item = findItem(value);
+    if (!item) return;
+    /* 主语永远是「有人」。不记录是谁挂的。 */
+    item.holdUntil = new Date(Date.now() + HOLD_MS).toISOString();
+    saveItems(); render(); showToast(T.toast.held); return;
+  }
+  if (action === 'release-hold') {
+    const item = findItem(value);
+    if (!item) return;
+    item.holdUntil = null;              /* 也不记录是谁点的「先别动」 */
+    saveItems(); render(); showToast(T.toast.holdReleased); return;
+  }
+
+  if (action === 'mark-opened') {
+    const item = findItem(value);
+    if (!item) return;
+    const iso = new Date().toISOString();
+    item.openedAt = iso;
+    /* 失效点是开封，不是购买——计划从这一刻重新起算。 */
+    item.planSetAt = iso;
+    item.pausedMs = 0;
+    if (item.plan === 'open') item.plan = 'soon';
+    saveItems(); render(); showToast(T.toast.openedDone); return;
+  }
+
+  if (action === 'pause-all') {
+    const iso = new Date().toISOString();
+    scopeItems(Date.now()).forEach((item) => { if (!item.pausedAt) item.pausedAt = iso; });
+    saveItems(); render(); showToast(T.toast.pausedAll); return;
+  }
+  if (action === 'resume-all') {
+    const now = Date.now();
+    state.items.forEach((item) => {
+      if (item.pausedAt) {
+        item.pausedMs = (item.pausedMs || 0) + (now - Date.parse(item.pausedAt));
+        item.pausedAt = null;
+      }
+    });
+    saveItems(); render(); showToast(T.toast.resumedAll); return;
+  }
+  if (action === 'resume-item') {
+    const item = findItem(value);
+    if (!item || !item.pausedAt) return;
+    item.pausedMs = (item.pausedMs || 0) + (Date.now() - Date.parse(item.pausedAt));
+    item.pausedAt = null;
+    saveItems(); render(); return;
+  }
+
   if (action === 'update-item') {
-    const item = state.items.find((candidate) => candidate.id === value);
+    const item = findItem(value);
     if (!item) return;
     const owner = document.querySelector(`[data-edit-ownership="${CSS.escape(value)}"]`);
     const plan = document.querySelector(`[data-edit-plan="${CSS.escape(value)}"]`);
-    item.ownership = normaliseOwnership(owner.value);
-    const nextPlan = normalisePlan(plan.value);
-    /* 改档＝用户重新承诺一次，计时从头开始。 */
-    if (nextPlan !== item.plan) {
-      item.plan = nextPlan;
-      item.planSetAt = nextPlan === 'open' ? null : new Date().toISOString();
+    const zone = document.querySelector(`[data-edit-zone="${CSS.escape(value)}"]`);
+    if (owner) item.ownership = normaliseOwnership(owner.value);
+    if (zone) item.zone = zone.value || null;
+    if (plan) {
+      const nextPlan = normalisePlan(plan.value);
+      /* 改档＝用户重新承诺一次，计时从头开始。 */
+      if (nextPlan !== item.plan) {
+        item.plan = nextPlan;
+        item.planSetAt = nextPlan === 'open' ? null : new Date().toISOString();
+        item.pausedMs = 0;
+      }
     }
     state.editingId = null;
-    saveItems();
-    render();
-    showToast(T.toast.updated);
-    return;
+    saveItems(); render(); showToast(T.toast.updated); return;
   }
 
   if (action === 'clear-item') { state.pendingClearId = value; state.editingId = null; render(); return; }
@@ -815,11 +1260,17 @@ function handleAction(action, value) {
 
   if (action === 'confirm-clear') {
     const now = Date.now();
-    const item = state.items.find((candidate) => candidate.id === value);
-    /* 鱼 ＝ 被救下来的食物。谁处理的都算，不分归属。
-       计划还没过大半就清掉的，不算「救」，也不扣任何东西。 */
+    const item = findItem(value);
     const earned = item ? needsAttention(item, now) : false;
-    state.items = state.items.filter((candidate) => candidate.id !== value);
+    const wasUnknown = item ? item.ownership === 'unknown' : false;
+    if (item && (wasUnknown || item.holdUntil)) {
+      /* 无主物与被挂起过的东西：留一条会过期的回执，让别人知道这件事有人接了。
+         48 小时后自动消失——永久的「谁处理了什么」就是行为历史。 */
+      item.handledAt = new Date(now).toISOString();
+      item.holdUntil = null;
+    } else {
+      state.items = state.items.filter((candidate) => candidate.id !== value);
+    }
     state.pendingClearId = null;
     saveItems();
     if (earned) {
@@ -850,7 +1301,7 @@ document.addEventListener('input', (event) => {
 document.addEventListener('keydown', (event) => {
   if (event.target.id === 'other-input' && event.key === 'Enter') {
     event.preventDefault();
-    handleAction('other-commit', '');
+    handleAction(getRoute() === 'found' ? 'found-commit' : 'other-commit', '');
   }
 });
 

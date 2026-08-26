@@ -1,16 +1,21 @@
 {
-  "name": "Commons Fridge Functional Prototype v1.4 (English build)",
+  "name": "Commons Fridge Functional Prototype v1.5 (English build)",
   "published": "2026-08-26",
-  "supersedes": "v1.2 Chinese build, published 2026-08-22, sha256 425dcda056fb3fce5c16a84f7d7f21943634d3f5d33f06c9f4e0edcc6219da3e",
-  "sourceSha256": "9111fd3f4d63f7a8d4f6b60596fe79e7256932bbe7194d13581a8debf0b30aff",
+  "supersedes": "v1.4 English build, published 2026-08-26, sha256 9111fd3f4d63f7a8d4f6b60596fe79e7256932bbe7194d13581a8debf0b30aff",
+  "sourceSha256": "c423db7cd87397b1584316ff551d54a889690a2f3850394dda08ecf670fc2c0d",
   "language": "en",
-  "routes": { "home": "./", "add": "./#add", "manage": "./#manage" },
-  "storageKey": "commons-fridge-functional-v1",
+  "routes": { "home": "./", "add": "./#add", "found": "./#found", "manage": "./#manage" },
+  "storageKeys": {
+    "items": "commons-fridge-functional-v1",
+    "zones": "commons-fridge-functional-v1-zones",
+    "fish": "commons-fridge-functional-v1-fish"
+  },
   "evidenceBoundary": "Researcher-tested technical demonstrator; not participant usability validation.",
   "notes": [
-    "Routes are URL hash fragments resolved in the browser; the server returns the same document for all three. Correct routing must be confirmed on a real phone.",
-    "Ownership is stored as stable keys (personal / shared / ask) and plans as stable keys (soon / week / open), so records saved by v1.0, v1.1 and v1.2 migrate automatically.",
-    "Plan state is derived from the user's own declared plan, never from an expiry date. The build contains no timer, no notification API and no food-safety inference.",
-    "No camera, upload, account, analytics or external runtime dependency."
+    "Routes are URL hash fragments resolved in the browser; the server returns the same document for all of them. Correct routing must be confirmed on a real phone.",
+    "Ownership, plan and zone kind are all persisted as stable keys, so records saved by v1.0, v1.2 and v1.4 migrate automatically.",
+    "The House view groups records by zone, never by person. There are no names, avatars, initials or permanent record of who did what; the handled receipt clears itself after 48 hours.",
+    "Nothing is synced. The House view shows fictional records held in this one browser, and the interface says so on screen rather than in a footnote.",
+    "No camera, upload, account, analytics, timer or notification API."
   ]
 }
