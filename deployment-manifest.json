@@ -1,8 +1,10 @@
 {
   "name": "Commons Fridge Functional Prototype v1.6 (bilingual build)",
   "published": "2026-08-26",
+  "republished": "2026-08-27",
   "supersedes": "v1.5 English build, published 2026-08-26, sha256 c423db7cd87397b1584316ff551d54a889690a2f3850394dda08ecf670fc2c0d",
-  "sourceSha256": "b42d3f9ffbe808e9d242e32a4a5c8b086383188b37b470c2a4ed8b06761d74c7",
+  "sourceSha256": "16c6ebe7f49eced82484939f4d330b0aad0f984311777fc9dd33eedde4d5eefa",
+  "republishNote": "Re-published 2026-08-27 under the same version name. The only change is illustration: the two home entries added in v1.6 — before you shop, and found something — carried typographic glyphs while put-in and check-and-handle carried the penguin. All four now carry the character. No route, record, string or capability changed, so the version number did not move; the file bytes did, and the previous build was sha256 b42d3f9ffbe808e9d242e32a4a5c8b086383188b37b470c2a4ed8b06761d74c7.",
   "languages": ["en", "zh"],
   "languageNote": "Both language tables ship in the same file and are switched at runtime from the header. The choice is remembered in localStorage; the first visit follows the browser language.",
   "routes": { "home": "./", "add": "./#add", "found": "./#found", "manage": "./#manage", "beforeYouShop": "./#shop", "moveOut": "./#moveout", "setup": "./#setup" },

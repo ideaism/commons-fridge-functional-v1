@@ -43,8 +43,9 @@ Ownership, plan and zone kind are persisted as stable keys rather than display t
 ## Source snapshot
 
 - Version: Functional Prototype v1.6, bilingual build
-- Source SHA-256: `b42d3f9ffbe808e9d242e32a4a5c8b086383188b37b470c2a4ed8b06761d74c7`
-- Published: 2026-08-26
+- Source SHA-256: `16c6ebe7f49eced82484939f4d330b0aad0f984311777fc9dd33eedde4d5eefa`
+- Published: 2026-08-26, re-published 2026-08-27 (illustration only — see below)
+- Previous build: `b42d3f9f…`
 - Supersedes: v1.5 English build (`c423db7c…`, published 2026-08-26)
 
 ## Version history
@@ -56,5 +57,6 @@ Ownership, plan and zone kind are persisted as stable keys rather than display t
 | v1.4 | 2026-08-26 | English build. Reminder flag replaced by user-declared plans; batch entry; attention-first sorting; shared mascot. |
 | v1.5 | 2026-08-26 | Zones carrying ownership; House view grouped by area; found-something entry; 48-hour grace period and self-erasing receipt; opened-restarts-the-plan; away mode. |
 | v1.6 | 2026-08-26 | Bilingual in one file, switchable from the header. Freezer, time-limited offering, move-out handover, tenancy setup, before-you-shop view, days in the fridge, per-zone fullness, split quick entry. |
+| v1.6 · re-published | 2026-08-27 | Illustration only. *Before you shop* and *found something* had shipped with typographic glyphs (`◷` and `?`) while the two original entries carried the penguin; all four home entries now carry the character. No route, record, string or capability changed, so the version number did not move — but the file did, and that is why this row exists. |
 
 The complete academic project remains in a separate private repository.
