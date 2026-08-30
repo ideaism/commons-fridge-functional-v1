@@ -373,6 +373,60 @@ button.mini[disabled]{opacity:1;cursor:default;border-style:dashed}
 .shop-empty{margin:0;padding:14px 0;color:var(--muted);font-size:13px}
 .shop-note{margin:20px 0 0;padding:10px 12px;border-left:3px solid #8d968f;background:var(--paper);
   border-radius:0 8px 8px 0;font-size:12px;color:var(--muted);line-height:1.5}
+
+/* ---------- F15 位置照片 ----------
+   屋里有两台冰箱时，「混合区」这个词答不出东西在哪。照片答得出。
+   它只指位置：不做识别，也从不参与所有权或计划的判断。 */
+.visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.photo-panel{margin:14px 0 4px;border:2px solid var(--ink);border-radius:12px;
+  padding:12px;background:var(--paper)}
+.photo-hint{margin:-2px 0 10px;color:var(--muted);font-size:11.5px;line-height:1.5}
+.photo-note{margin:10px 0 0;color:var(--muted);font-size:11.5px;line-height:1.5}
+.photo-preview{display:flex;align-items:flex-start;gap:11px}
+.photo-preview-side{display:flex;flex-direction:column;gap:8px;flex:1;min-width:0}
+.photo-batch-note{color:var(--muted);font-size:11.5px;line-height:1.45}
+.photo-preview-side button{min-height:40px;font-size:12px;align-self:flex-start}
+.photo-thumb{padding:0;border:2px solid var(--ink);border-radius:10px;overflow:hidden;
+  background:var(--paper);line-height:0;flex:none;cursor:zoom-in;
+  box-shadow:2px 3px 0 rgba(0,0,0,.12)}
+.photo-thumb img{display:block;width:104px;height:104px;object-fit:cover}
+.card-photo{margin:9px 0 2px}
+.card-photo .photo-thumb img{width:88px;height:88px}
+/* 空位不是装饰，是把代价说出来：别人知道有这件东西，不知道去哪找。 */
+.photo-slot{display:flex;align-items:center;gap:9px;width:100%;margin:9px 0 2px;
+  border:2px dashed var(--sage);border-radius:11px;background:var(--sage-soft);
+  padding:9px 11px;min-height:52px;text-align:left;font:inherit;color:var(--muted);
+  font-size:11.5px;line-height:1.4;cursor:pointer}
+.photo-slot-mark{flex:none;width:26px;height:22px;border:2px solid var(--sage);border-radius:5px;
+  position:relative;background:var(--paper)}
+.photo-slot-mark::after{content:"";position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
+  width:9px;height:9px;border:2px solid var(--sage);border-radius:50%}
+.photo-slot-text{flex:1;min-width:0}
+.photo-slot-cta{flex:none;font-weight:680;color:var(--ink);text-decoration:underline}
+.photo-edit-label{margin:2px 0 0;font-size:12px;font-weight:650}
+.photo-viewer{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:14px;padding:20px;
+  background:rgba(20,26,23,.86);cursor:zoom-out}
+.photo-viewer img{max-width:100%;max-height:76vh;object-fit:contain;
+  border:2px solid var(--paper);border-radius:12px;background:var(--paper)}
+.photo-close{min-height:44px;padding:0 20px;border:2px solid var(--paper);border-radius:9px;
+  background:var(--paper);color:var(--ink);font:inherit;font-weight:680;cursor:pointer}
+@media (max-width:360px){
+  .photo-thumb img{width:88px;height:88px}
+  .card-photo .photo-thumb img{width:74px;height:74px}
+  .photo-slot-cta{display:none}
+}
+
+/* 具体位置：跟着记录走的那半个「在哪」。区域 chip 说哪一区，它说哪一层、哪一台。 */
+.spot-block{margin:0 0 14px;padding:0 0 12px;border-bottom:1px dashed #b7bfb8}
+.quick-pick.is-chosen{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.quick-pick.is-clear{border-style:dashed;color:var(--muted)}
+.chip-spot{border-style:solid;background:var(--sage-soft);border-color:var(--sage);
+  font-weight:650;position:relative;padding-left:22px}
+.chip-spot::before{content:"";position:absolute;left:9px;top:50%;width:7px;height:7px;
+  margin-top:-3px;border:2px solid var(--sage);border-radius:50% 50% 50% 0;transform:rotate(-45deg)}
+.spot-empty{margin:8px 0 0;color:var(--muted);font-size:11.5px;line-height:1.45}
 </style>
 </head>
 <body>
@@ -403,13 +457,25 @@ button.mini[disabled]{opacity:1;cursor:default;border-style:dashed}
   </footer>
 </main>
 <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-<script>const S = {"en":{"_meta":{"htmlLang":"en","title":"Commons Fridge · Functional Prototype v1.6"},"disclosure":{"version":"Functional Prototype v1.6","scope":"Researcher self-test · not tested with participants"},"brand":{"eyebrow":"THE COMMONS FRIDGE","name":"The Commons Fridge","backToHome":"Back to home"},"footer":{"storage":"Saved only in this browser","safety":"Does not judge food safety","timing":"No alarms, no notifications","sync":"Does not sync between devices"},"reset":{"label":"Reset the fictional demo data","confirm":"Reset? The current fictional records will be cleared.","done":"Fictional demo data reset"},"home":{"kicker":"TWO PHYSICAL ENTRY POINTS","title":"At the fridge,<br>do only what this moment needs.","lede":"NFC and QR open two states of the same page. No app to install, no account to create.","addTitle":"Put in","addSub":"Note something that needs to be seen","manageTitle":"Check and handle","manageSub":"Update ownership, plan, or clear the record","boundary":"<strong>Evidence boundary:</strong> five interviews support the problem and habit framing. This page has passed researcher technical self-testing only and has not been usability-tested with participants.","foundTitle":"Found something","foundSub":"Note something nobody has claimed","shopTitle":"Before you shop","shopSub":"What to eat first, what the house has, where there is room","new":"NEW","backThree":"← Back to the three entry points"},"add":{"back":"← Back to the two entry points","kicker":"PUT IN","title":"Just back from the shop?<br>Tap once to add a line.","lede":"No need to enter them one at a time. Tap a common item, or use Other.","mascotLine":"Put it in — I'll remember it for you.","quickLabel":"Common items — tap one to add a line","quickPicks":["Milk","Leftovers","Vegetables","Bread","Yoghurt","Drinks"],"otherLabel":"+ Other","otherPlaceholder":"Write something","otherCommit":"Add to this batch","otherCancel":"Cancel","batchCountOne":"1 item in this batch","batchCountMany":"{n} items in this batch","batchDefault":"Default owner for this batch","planLabel":"When do you plan to eat it?","emptyHint":"Nothing added yet","saveOne":"Save all (1 item)","saveMany":"Save all ({n} items)","remove":"Remove","counter":"{n} / {max}","groupSoon":"These I usually eat soon","groupOpen":"These I leave open","quickSoon":["Milk","Leftovers","Meat"],"quickOpen":["Bread","Vegetables","Drinks"],"groupNote":"Both defaults can be changed, and changing one says nothing. This is about how you plan to note things, not about the food."},"ownership":{"personal":"Personal","shared":"Shared","ask":"Ask first","unknown":"Not sure whose"},"plan":{"soon":"Eating soon","week":"This week","open":"Not sure"},"manage":{"back":"← Back to the two entry points","kicker":"CHECK AND HANDLE","title":"See it, update it,<br>then let the record go.","mascotLine":"Let's look together — no nagging, no judging.","statusOne":"1 thing is past the middle of its plan.","statusMany":"{n} things are past the middle of their plan.","rescuedOne":"1 rescued recently","rescuedMany":"{n} rescued recently","fishInvite":"Handle it and the penguin gets a fish","filterLabel":"Filter list","filterAll":"All","filterPersonal":"Personal","filterShared":"Shared","filterSoon":"Eating soon","cardNote":"Only states a user has actively confirmed are shown.","emptyTitle":"Nothing in this view right now.","emptyBody":"Go back to Put in to add a fictional record.","emptyLink":"Go to Put in →","edit":"Update","clear":"Clear","editOwnership":"Update ownership","editPlan":"When do you plan to eat it?","saveUpdate":"Save update","cancel":"Cancel","clearTitle":"Clear this from the demo list?","clearBody":"This does not handle real food. It only removes the fictional record held on this device.","clearConfirm":"Confirm clear","clearCancel":"Keep","claim":"This is mine","hold":"I will handle this","releaseHold":"Leave it","holdOne":"Someone plans to handle this · 1 hour left","holdMany":"Someone plans to handle this · {n} hours left","holdOver":"Someone planned to handle this","handleNow":"Handle it","handled":"HANDLED · this receipt disappears after 48 hours","opened":"Opened","openedNote":"restarted when opened · today","pauseAll":"I'm away","resumeAll":"I am back","resumeOne":"Resume just this","pauseOne":"Pause this one","pausedBanner":"Plans are paused. Tap when you are back.","pausedChip":"paused","nothingNow":"Nothing needs attention right now.","toFreezer":"Move to freezer","thaw":"Take out to thaw","freezerNote":"Moving it to the freezer cancels the current plan. It goes quiet and stops surfacing.","offer":"Anyone can take this","offerStop":"Stop offering","offerToday":"Today only","offerTwoDays":"Next two days","offerAlways":"No time limit","offerGroup":"Free to take right now","offerGroupKind":"TIME-LIMITED","offerPick":"For how long?"},"toast":{"needDescription":"Write a short description first","savedOne":"Saved 1 item to the demo list on this device","savedMany":"Saved {n} items to the demo list on this device","rowRemoved":"Removed from this batch","updated":"Record updated","cleared":"Fictional record cleared","fishEarned":"Rescued in time — the penguin got a fish","recovered":"Corrupted local demo data was cleared and reset","claimed":"Marked as yours","held":"Held for 48 hours","holdReleased":"Left as it was","openedDone":"Plan restarted from now","pausedAll":"Plans paused","resumedAll":"Plans running again","noted":"Noted on this device","frozen":"Moved to the freezer","thawed":"Taken out to thaw","offered":"Open for anyone to take","offerStopped":"No longer offered","handedOver":"Handover finished","setupDone":"Fridge set up"},"demoFish":3,"demoItems":[{"description":"Chicken breast","ownership":"personal","plan":"soon","ageDays":3.4,"zone":"z1"},{"description":"Oat milk","ownership":"personal","plan":"soon","ageDays":2.2,"zone":"z1"},{"description":"Labelled leftovers box","ownership":"shared","plan":"week","ageDays":1,"zone":"z1"},{"description":"Bread","ownership":"personal","plan":"open","zone":"z1"},{"description":"A bottle of milk","ownership":"unknown","plan":"open","ageDays":87,"zone":"z2"},{"description":"Frozen chicken legs","ownership":"unknown","plan":"open","ageDays":112,"zone":"z3"}],"zone":{"label":"Where does this batch go?","rowLabel":"Zone","none":"Unspecified","new":"NEW","kindOwn":"PERSONAL","kindMixed":"ANYONE CAN PUT THINGS HERE","kindCold":"FIRST COME FIRST SERVED","mixedHint":"Anyone can put things in this area. Mark whose it is so it can find its way back.","coldHint":"Frozen things start with no plan.","whose":"Whose is this one?","roomLeft":"room left","full":"this one is full","markFull":"Mark as full","markRoom":"Mark as having room","freeing":"freeing up"},"found":{"back":"← Back to the two entry points","kicker":"FOUND SOMETHING","title":"Note it down.<br>No need to ask anyone.","lede":"The record itself makes it visible again. Nobody gets named.","note":"Ownership is locked to \"not sure whose\". This record does not tag anyone, and nobody is chased to claim it.","saveOne":"Note it down (1 item)","saveMany":"Note it down ({n} items)"},"house":{"scopeMine":"Mine","scopeHouse":"House","localOnly":"Fictional records held on this device. This version does not sync between devices.","statusOne":"1 thing in the house is past the middle of its plan.","statusMany":"{n} things in the house are past the middle of their plan.","ageOne":"in here 1 day","ageMany":"in here {n} days"},"demoZones":[{"id":"z1","kind":"own","label":"Top shelf"},{"id":"z2","kind":"mixed","label":"Door"},{"id":"z3","kind":"cold","label":"Freezer drawer"}],"lang":{"toggle":"中文","aria":"Switch to Chinese"},"shop":{"kicker":"BEFORE YOU SHOP","title":"Before you go,<br>three things to check.","eatFirst":"Eat these first","already":"Already in the house","room":"Where there is room","countOne":"1 item","countMany":"{n} items","note":"Nothing on this screen changes anything.","empty":"Nothing needs eating first right now."},"moveOut":{"entry":"I'm moving out","cancel":"Cancel","step1Kicker":"MOVING OUT · STEP 1 / 4","step1Title":"First — which ones<br>will you finish?","step1Lede":"Ticked ones stay yours. The rest get handed over next.","step1NextOne":"Next (1 to hand over)","step1NextMany":"Next ({n} to hand over)","step1None":"Nothing left to hand over","step2Kicker":"MOVING OUT · STEP 2 / 4","step2Title":"The rest —<br>let others take them.","step2Note":"This does not change ownership. They are still yours — others may now take them.","step2Next":"Next","step3Kicker":"MOVING OUT · STEP 3 / 4","step3Title":"Your zones<br>will free up.","step3Note":"Space can be handed over. Food and responsibility do not hand themselves over. That is why the previous step exists.","step3Done":"Finish handover","step4Kicker":"MOVING OUT · STEP 4 / 4 · HOUSE VIEW","step4Title":"This is what<br>the house sees.","step4Note":"Whatever is not taken does not vanish — it becomes \"not sure whose\" and stays in the house view.","step4Done":"Back to the house view","banner":"Someone is moving out","freeToTake":"FREE TO TAKE"},"setup":{"entry":"Set up the fridge","skip":"Skip for now","next":"Next","done":"Done","step1Kicker":"HOUSE SETUP · STEP 1 / 3","step1Title":"How is this fridge<br>divided up?","step1Lede":"Use whatever you already call them.","addPlace":"+ Add a place","placeHint":"Name this place","step2Kicker":"HOUSE SETUP · STEP 2 / 3","step2Title":"What kind is<br>each place?","step2Note":"Only places marked \"anyone can put things here\" ask about ownership when you add something. Personal zones do not ask — the place already says whose it is.","kindOwn":"Personal","kindMixed":"Anyone can put things here","kindCold":"Freezer","step3Kicker":"HOUSE SETUP · STEP 3 / 3","step3Title":"Shall we agree<br>on three things?","agree1":"Mark whose it is when you use a shared place","agree2":"Anyone may flag something nobody claims","agree3":"Give it 48 hours before handling someone else’s","step3Note":"Ticked ones appear at the foot of the house view as what you agreed — never as a rule the app enforces. Soft agreements have collapsed before; the app does not pretend it can hold them.","agreedHead":"What this house agreed"}},"zh":{"_meta":{"htmlLang":"zh-CN","title":"Commons Fridge · 功能原型 v1.6"},"disclosure":{"version":"功能原型 v1.6","scope":"研究者技术自测 · 未经参与者可用性测试"},"brand":{"eyebrow":"THE COMMONS FRIDGE","name":"共享冰箱公地","backToHome":"返回首页"},"footer":{"storage":"仅保存于本机浏览器","safety":"不判断食品安全","timing":"不设闹钟，不发通知","sync":"不在设备之间同步"},"reset":{"label":"复位虚构演示数据","confirm":"确定复位？现有虚构记录会被清空。","done":"虚构演示数据已复位"},"home":{"kicker":"两个实体入口","title":"站在冰箱前，<br>只做这一刻需要的事。","lede":"NFC 与 QR 进入同一网页的两个状态。不安装 App，不建立账号。","addTitle":"放入","addSub":"记录一件需要被看见的食物","manageTitle":"查看处理","manageSub":"更新归属、计划或清除记录","boundary":"<strong>证据边界：</strong>五场访谈支持问题与习惯框架；本网页仅完成研究者技术自测，尚未接受参与者可用性测试。","foundTitle":"看到一件不知道是谁的东西","foundSub":"记下一件没人认领的东西","shopTitle":"买菜前看一眼","shopSub":"先吃什么、屋内有什么、哪一区还有空间","new":"NEW","backThree":"← 返回三个入口"},"add":{"back":"← 返回两个入口","kicker":"放入","title":"刚买回来？<br>点一下就加一行。","lede":"不用一件一件填。点常见的，或用「其他」补。","mascotLine":"先放进来，我帮你记住它。","quickLabel":"常见的东西，点一下就加一行","quickPicks":["牛奶","剩菜","蔬菜","面包","酸奶","饮料"],"otherLabel":"+ 其他","otherPlaceholder":"写点什么","otherCommit":"加进这批","otherCancel":"取消","batchCountOne":"本次 1 件","batchCountMany":"本次 {n} 件","batchDefault":"这批默认归属","planLabel":"打算什么时候吃？","emptyHint":"还没有加任何东西","saveOne":"全部保存（1 件）","saveMany":"全部保存（{n} 件）","remove":"移除","counter":"{n} / {max}","groupSoon":"这些我通常尽快吃","groupOpen":"这些先不设计划","quickSoon":["牛奶","剩菜","肉"],"quickOpen":["面包","蔬菜","饮料"],"groupNote":"两组的默认档位都可以改，改了不提示。这说的是你打算怎么记，不是食物会怎样。"},"ownership":{"personal":"个人","shared":"共用","ask":"需询问","unknown":"不知道是谁的"},"plan":{"soon":"这几天吃","week":"这周内","open":"说不准"},"manage":{"back":"← 返回两个入口","kicker":"查看处理","title":"看见、更新，<br>然后让记录离开。","mascotLine":"一起回来看看，不催也不评判。","statusOne":"有 1 件东西的计划过了大半。","statusMany":"有 {n} 件东西的计划过了大半。","rescuedOne":"最近被救下 1 件","rescuedMany":"最近被救下 {n} 件","fishInvite":"处理掉它，企鹅就能吃到一条","filterLabel":"清单过滤","filterAll":"全部","filterPersonal":"个人","filterShared":"共用","filterSoon":"这几天要吃的","cardNote":"以下只显示使用者主动确认的状态。","emptyTitle":"这个视图现在没有项目。","emptyBody":"回到「放入」添加一条虚构记录。","emptyLink":"前往放入 →","edit":"更新","clear":"清除","editOwnership":"更新归属","editPlan":"打算什么时候吃？","saveUpdate":"保存更新","cancel":"取消","clearTitle":"从演示清单清除这项？","clearBody":"这不会处理真实食物，只会移除本机虚构记录。","clearConfirm":"确认清除","clearCancel":"保留","claim":"这是我的","hold":"我打算处理它","releaseHold":"先别动","holdOne":"有人打算处理它 · 还有 1 小时","holdMany":"有人打算处理它 · 还有 {n} 小时","holdOver":"有人打算处理它","handleNow":"处理掉它","handled":"已处理 · 这条回执 48 小时后消失","opened":"开了","openedNote":"开了之后重新起算 · 今天","pauseAll":"我这几天不在","resumeAll":"回来了","resumeOne":"只恢复这一件","pauseOne":"暂停这一件","pausedBanner":"计划已暂停。回来的时候点一下继续。","pausedChip":"已暂停","nothingNow":"现在没有东西需要注意。","toFreezer":"放进冷冻","thaw":"拿出来解冻","freezerNote":"放进冷冻＝取消当前计划，它变安静，不再排到前面。","offer":"谁想吃都可以拿","offerStop":"收回","offerToday":"今天之内","offerTwoDays":"这两天","offerAlways":"一直可以","offerGroup":"现在可以拿的","offerGroupKind":"有时限","offerPick":"开放多久？"},"toast":{"needDescription":"请先写一条简短描述","savedOne":"已保存 1 件到本机演示清单","savedMany":"已保存 {n} 件到本机演示清单","rowRemoved":"已从这批移除","updated":"记录已更新","cleared":"虚构记录已清除","fishEarned":"赶上了——企鹅得到一条鱼","recovered":"损坏的本机演示数据已清除并复位","claimed":"已标记为你的","held":"已挂起 48 小时","holdReleased":"保持原样","openedDone":"计划已从现在重新起算","pausedAll":"计划已暂停","resumedAll":"计划已继续","noted":"已记在本机","frozen":"已放进冷冻","thawed":"已拿出来解冻","offered":"已开放取用","offerStopped":"已收回","handedOver":"交接完成","setupDone":"冰箱已设置好"},"demoFish":3,"demoItems":[{"description":"鸡胸肉","ownership":"personal","plan":"soon","ageDays":3.4,"zone":"z1"},{"description":"燕麦奶","ownership":"personal","plan":"soon","ageDays":2.2,"zone":"z1"},{"description":"贴了标签的保鲜盒","ownership":"shared","plan":"week","ageDays":1,"zone":"z1"},{"description":"面包","ownership":"personal","plan":"open","zone":"z1"},{"description":"一瓶牛奶","ownership":"unknown","plan":"open","ageDays":87,"zone":"z2"},{"description":"速冻鸡腿","ownership":"unknown","plan":"open","ageDays":112,"zone":"z3"}],"zone":{"label":"这批放在哪一区","rowLabel":"区域","none":"未指定","new":"NEW","kindOwn":"个人区","kindMixed":"大家都能放","kindCold":"先到先用","mixedHint":"这一区大家都能放。标一下是谁的，别人才找得回来。","coldHint":"冷冻的先不设计划。","whose":"这一件是谁的？","roomLeft":"还有空间","full":"这一区满了","markFull":"标为已满","markRoom":"标为还有空间","freeing":"即将空出"},"found":{"back":"← 返回两个入口","kicker":"看到一件不知道是谁的东西","title":"把它记下来，<br>不用问任何人。","lede":"记录本身就让它重新被看见。没有人会被点名。","note":"归属锁定为「不知道是谁的」。这一条记录不会 @ 任何人，也不会催任何人认领。","saveOne":"记下来（1 件）","saveMany":"记下来（{n} 件）"},"house":{"scopeMine":"我的","scopeHouse":"屋内","localOnly":"这些是本机的虚构记录。此版本不在设备之间同步。","statusOne":"屋内有 1 件东西的计划过了大半。","statusMany":"屋内有 {n} 件东西的计划过了大半。","ageOne":"放了 1 天","ageMany":"放了 {n} 天"},"demoZones":[{"id":"z1","kind":"own","label":"上层"},{"id":"z2","kind":"mixed","label":"门侧"},{"id":"z3","kind":"cold","label":"冷冻抽屉"}],"lang":{"toggle":"EN","aria":"切换到英文"},"shop":{"kicker":"买菜前看一眼","title":"出门前，<br>三件事看一眼。","eatFirst":"需要先吃掉的","already":"屋内已经有的","room":"哪一区还有空间","countOne":"1 件","countMany":"{n} 件","note":"这一屏不改任何东西。","empty":"现在没有需要先吃掉的东西。"},"moveOut":{"entry":"我要搬走了","cancel":"取消","step1Kicker":"搬出交接 · 步骤 1 / 4","step1Title":"先说清楚，<br>哪些你会吃完。","step1Lede":"勾上的留给你自己。剩下的下一步交出去。","step1NextOne":"下一步（1 件要交出去）","step1NextMany":"下一步（{n} 件要交出去）","step1None":"没有要交出去的东西","step2Kicker":"搬出交接 · 步骤 2 / 4","step2Title":"剩下的，<br>让别人拿走。","step2Note":"这不改所有权。它们仍然是你的，只是现在别人可以拿。","step2Next":"下一步","step3Kicker":"搬出交接 · 步骤 3 / 4","step3Title":"你的位置<br>会空出来。","step3Note":"空间可以交接，食物和责任不会自动交接。所以上一步要单独走一遍。","step3Done":"完成交接","step4Kicker":"搬出交接 · 步骤 4 / 4 · 屋内视图","step4Title":"屋内现在<br>看到这些。","step4Note":"没被拿走的不会自动消失——它们会变成「不知道是谁的」，留在屋内视图里。","step4Done":"回到屋内视图","banner":"有人要搬走了","freeToTake":"可以直接拿"},"setup":{"entry":"设置这台冰箱","skip":"先跳过，之后再说","next":"下一步","done":"完成","step1Kicker":"房屋设置 · 步骤 1 / 3","step1Title":"这台冰箱<br>分成几块？","step1Lede":"用你们自己的叫法，不用改成我们的词。","addPlace":"＋ 加一块地方","placeHint":"给这块地方起个名","step2Kicker":"房屋设置 · 步骤 2 / 3","step2Title":"每块地方<br>是哪一种？","step2Note":"只有「大家都能放」的地方，录入时才会问一次归属。个人区不问——位置已经说明了是谁的。","kindOwn":"个人区","kindMixed":"大家都能放","kindCold":"冷冻","step3Kicker":"房屋设置 · 步骤 3 / 3","step3Title":"要不要<br>先说好三件事？","agree1":"大家都能放的地方，东西要标一下是谁的","agree2":"不知道是谁的东西，任何人都可以标出来","agree3":"打算处理别人的东西，先挂 48 小时","step3Note":"勾了的会显示在屋内视图底部，作为提示，不作为强制。软性约定被超量购买压垮过，系统不假装自己能强制执行。","agreedHead":"这间屋子说好的"}}};
-/* Commons Fridge · Functional Prototype v1.6
+<!-- 位置照片的两个入口。放在 shell 里而不是随视图重绘，change 监听器才挂得住一次。
+     两个都不带 name、不在任何 form 里，页面上没有任何一条上传路径。 -->
+<input id="photo-camera" class="visually-hidden" type="file" accept="image/*" capture="environment">
+<input id="photo-library" class="visually-hidden" type="file" accept="image/*">
+<script>const S = {"en":{"_meta":{"htmlLang":"en","title":"Commons Fridge · Functional Prototype v1.7"},"disclosure":{"version":"Functional Prototype v1.7","scope":"Researcher self-test · not tested with participants"},"brand":{"eyebrow":"THE COMMONS FRIDGE","name":"The Commons Fridge","backToHome":"Back to home"},"footer":{"storage":"Saved only in this browser","safety":"Does not judge food safety","timing":"No alarms, no notifications","sync":"Does not sync between devices"},"reset":{"label":"Reset the fictional demo data","confirm":"Reset? The current fictional records will be cleared.","done":"Fictional demo data reset"},"home":{"kicker":"TWO PHYSICAL ENTRY POINTS","title":"At the fridge,<br>do only what this moment needs.","lede":"NFC and QR open two states of the same page. No app to install, no account to create.","addTitle":"Put in","addSub":"Note something that needs to be seen","manageTitle":"Check and handle","manageSub":"Update ownership, plan, or clear the record","boundary":"<strong>Evidence boundary:</strong> five interviews support the problem and habit framing. This page has passed researcher technical self-testing only and has not been usability-tested with participants.","foundTitle":"Found something","foundSub":"Note something nobody has claimed","shopTitle":"Before you shop","shopSub":"What to eat first, what the house has, where there is room","new":"NEW","backThree":"← Back to the three entry points"},"add":{"back":"← Back to the two entry points","kicker":"PUT IN","title":"Just back from the shop?<br>Tap once to add a line.","lede":"No need to enter them one at a time. Tap a common item, or use Other.","mascotLine":"Put it in — I'll remember it for you.","quickLabel":"Common items — tap one to add a line","quickPicks":["Milk","Leftovers","Vegetables","Bread","Yoghurt","Drinks"],"otherLabel":"+ Other","otherPlaceholder":"Write something","otherCommit":"Add to this batch","otherCancel":"Cancel","batchCountOne":"1 item in this batch","batchCountMany":"{n} items in this batch","batchDefault":"Default owner for this batch","planLabel":"When do you plan to eat it?","emptyHint":"Nothing added yet","saveOne":"Save all (1 item)","saveMany":"Save all ({n} items)","remove":"Remove","counter":"{n} / {max}","groupSoon":"These I usually eat soon","groupOpen":"These I leave open","quickSoon":["Milk","Leftovers","Meat"],"quickOpen":["Bread","Vegetables","Drinks"],"groupNote":"Both defaults can be changed, and changing one says nothing. This is about how you plan to note things, not about the food."},"ownership":{"personal":"Personal","shared":"Shared","ask":"Ask first","unknown":"Not sure whose"},"plan":{"soon":"Eating soon","week":"This week","open":"Not sure"},"manage":{"back":"← Back to the two entry points","kicker":"CHECK AND HANDLE","title":"See it, update it,<br>then let the record go.","mascotLine":"Let's look together — no nagging, no judging.","statusOne":"1 thing is past the middle of its plan.","statusMany":"{n} things are past the middle of their plan.","rescuedOne":"1 rescued recently","rescuedMany":"{n} rescued recently","fishInvite":"Handle it and the penguin gets a fish","filterLabel":"Filter list","filterAll":"All","filterPersonal":"Personal","filterShared":"Shared","filterSoon":"Eating soon","cardNote":"Only states a user has actively confirmed are shown.","emptyTitle":"Nothing in this view right now.","emptyBody":"Go back to Put in to add a fictional record.","emptyLink":"Go to Put in →","edit":"Update","clear":"Clear","editOwnership":"Update ownership","editPlan":"When do you plan to eat it?","saveUpdate":"Save update","cancel":"Cancel","clearTitle":"Clear this from the demo list?","clearBody":"This does not handle real food. It only removes the fictional record held on this device.","clearConfirm":"Confirm clear","clearCancel":"Keep","claim":"This is mine","hold":"I will handle this","releaseHold":"Leave it","holdOne":"Someone plans to handle this · 1 hour left","holdMany":"Someone plans to handle this · {n} hours left","holdOver":"Someone planned to handle this","handleNow":"Handle it","handled":"HANDLED · this receipt disappears after 48 hours","opened":"Opened","openedNote":"restarted when opened · today","pauseAll":"I'm away","resumeAll":"I am back","resumeOne":"Resume just this","pauseOne":"Pause this one","pausedBanner":"Plans are paused. Tap when you are back.","pausedChip":"paused","nothingNow":"Nothing needs attention right now.","toFreezer":"Move to freezer","thaw":"Take out to thaw","freezerNote":"Moving it to the freezer cancels the current plan. It goes quiet and stops surfacing.","offer":"Anyone can take this","offerStop":"Stop offering","offerToday":"Today only","offerTwoDays":"Next two days","offerAlways":"No time limit","offerGroup":"Free to take right now","offerGroupKind":"TIME-LIMITED","offerPick":"For how long?"},"toast":{"needDescription":"Write a short description first","savedOne":"Saved 1 item to the demo list on this device","savedMany":"Saved {n} items to the demo list on this device","rowRemoved":"Removed from this batch","updated":"Record updated","cleared":"Fictional record cleared","fishEarned":"Rescued in time — the penguin got a fish","recovered":"Corrupted local demo data was cleared and reset","claimed":"Marked as yours","held":"Held for 48 hours","holdReleased":"Left as it was","openedDone":"Plan restarted from now","pausedAll":"Plans paused","resumedAll":"Plans running again","noted":"Noted on this device","frozen":"Moved to the freezer","thawed":"Taken out to thaw","offered":"Open for anyone to take","offerStopped":"No longer offered","handedOver":"Handover finished","setupDone":"Fridge set up"},"demoFish":3,"demoItems":[{"description":"Chicken breast","ownership":"personal","plan":"soon","ageDays":3.4,"zone":"z1"},{"description":"Oat milk","ownership":"personal","plan":"soon","ageDays":2.2,"zone":"z1"},{"description":"Labelled leftovers box","ownership":"shared","plan":"week","ageDays":1,"zone":"z1"},{"description":"Bread","ownership":"personal","plan":"open","zone":"z1"},{"description":"A bottle of milk","ownership":"unknown","plan":"open","ageDays":87,"zone":"z2"},{"description":"Frozen chicken legs","ownership":"unknown","plan":"open","ageDays":112,"zone":"z3","spot":"Bottom shelf, at the back"}],"zone":{"label":"Where does this batch go?","rowLabel":"Zone","none":"Unspecified","new":"NEW","kindOwn":"PERSONAL","kindMixed":"ANYONE CAN PUT THINGS HERE","kindCold":"FIRST COME FIRST SERVED","mixedHint":"Anyone can put things in this area. Mark whose it is so it can find its way back.","coldHint":"Frozen things start with no plan.","whose":"Whose is this one?","roomLeft":"room left","full":"this one is full","markFull":"Mark as full","markRoom":"Mark as having room","freeing":"freeing up"},"found":{"back":"← Back to the two entry points","kicker":"FOUND SOMETHING","title":"Note it down.<br>No need to ask anyone.","lede":"The record itself makes it visible again. Nobody gets named.","note":"Ownership is locked to \"not sure whose\". This record does not tag anyone, and nobody is chased to claim it.","saveOne":"Note it down (1 item)","saveMany":"Note it down ({n} items)"},"spot":{"label":"Where exactly it is","hint":"“Door shelf” names an area, not which fridge or which level. This line travels with the record — anyone who opens it sees it.","picks":["Top shelf","Middle shelf","Bottom shelf","Door shelf","Drawer","Freezer"],"other":"+ Write it","otherPlaceholder":"e.g. second fridge in the kitchen, middle shelf","otherCommit":"Add it","clear":"Leave it out","editLabel":"Where exactly","emptyCard":"No exact spot — others only know it is in “{zone}”, not which level","set":"Location noted","cleared":"Location cleared"},"photo":{"label":"Take one photo of where it is","hint":"When the house has more than one fridge and more than one shelf, a few words rarely place it. The photo is kept on this phone only — never uploaded, never synced to anyone else's device.","take":"Take a photo","choose":"Choose from library","remove":"Remove photo","batchNote":"This photo is attached to every item noted here.","note":"The photo points at a place. It is not used to judge what the item is or whose it is.","cardOpen":"See it larger","cardClose":"Close","cardAdd":"Add a location photo","cardRemove":"Remove photo","emptySlot":"No location photo yet — others know it exists, not where to look","viewerAlt":"Location photo","editLabel":"Location photo","added":"Photo attached","removed":"Photo removed","failed":"That image could not be read — the record was saved anyway","tooLarge":"Local storage is nearly full: the record was saved, the oldest photo was not","cardRetake":"Retake the location photo"},"house":{"scopeMine":"Mine","scopeHouse":"House","localOnly":"Fictional records held on this device. This version does not sync between devices.","statusOne":"1 thing in the house is past the middle of its plan.","statusMany":"{n} things in the house are past the middle of their plan.","ageOne":"in here 1 day","ageMany":"in here {n} days"},"demoZones":[{"id":"z1","kind":"own","label":"Top shelf"},{"id":"z2","kind":"mixed","label":"Door"},{"id":"z3","kind":"cold","label":"Freezer drawer"}],"lang":{"toggle":"中文","aria":"Switch to Chinese"},"shop":{"kicker":"BEFORE YOU SHOP","title":"Before you go,<br>three things to check.","eatFirst":"Eat these first","already":"Already in the house","room":"Where there is room","countOne":"1 item","countMany":"{n} items","note":"Nothing on this screen changes anything.","empty":"Nothing needs eating first right now."},"moveOut":{"entry":"I'm moving out","cancel":"Cancel","step1Kicker":"MOVING OUT · STEP 1 / 4","step1Title":"First — which ones<br>will you finish?","step1Lede":"Ticked ones stay yours. The rest get handed over next.","step1NextOne":"Next (1 to hand over)","step1NextMany":"Next ({n} to hand over)","step1None":"Nothing left to hand over","step2Kicker":"MOVING OUT · STEP 2 / 4","step2Title":"The rest —<br>let others take them.","step2Note":"This does not change ownership. They are still yours — others may now take them.","step2Next":"Next","step3Kicker":"MOVING OUT · STEP 3 / 4","step3Title":"Your zones<br>will free up.","step3Note":"Space can be handed over. Food and responsibility do not hand themselves over. That is why the previous step exists.","step3Done":"Finish handover","step4Kicker":"MOVING OUT · STEP 4 / 4 · HOUSE VIEW","step4Title":"This is what<br>the house sees.","step4Note":"Whatever is not taken does not vanish — it becomes \"not sure whose\" and stays in the house view.","step4Done":"Back to the house view","banner":"Someone is moving out","freeToTake":"FREE TO TAKE"},"setup":{"entry":"Set up the fridge","skip":"Skip for now","next":"Next","done":"Done","step1Kicker":"HOUSE SETUP · STEP 1 / 3","step1Title":"How is this fridge<br>divided up?","step1Lede":"Use whatever you already call them.","addPlace":"+ Add a place","placeHint":"Name this place","step2Kicker":"HOUSE SETUP · STEP 2 / 3","step2Title":"What kind is<br>each place?","step2Note":"Only places marked \"anyone can put things here\" ask about ownership when you add something. Personal zones do not ask — the place already says whose it is.","kindOwn":"Personal","kindMixed":"Anyone can put things here","kindCold":"Freezer","step3Kicker":"HOUSE SETUP · STEP 3 / 3","step3Title":"Shall we agree<br>on three things?","agree1":"Mark whose it is when you use a shared place","agree2":"Anyone may flag something nobody claims","agree3":"Give it 48 hours before handling someone else’s","step3Note":"Ticked ones appear at the foot of the house view as what you agreed — never as a rule the app enforces. Soft agreements have collapsed before; the app does not pretend it can hold them.","agreedHead":"What this house agreed"}},"zh":{"_meta":{"htmlLang":"zh-CN","title":"Commons Fridge · 功能原型 v1.7"},"disclosure":{"version":"功能原型 v1.7","scope":"研究者技术自测 · 未经参与者可用性测试"},"brand":{"eyebrow":"THE COMMONS FRIDGE","name":"共享冰箱公地","backToHome":"返回首页"},"footer":{"storage":"仅保存于本机浏览器","safety":"不判断食品安全","timing":"不设闹钟，不发通知","sync":"不在设备之间同步"},"reset":{"label":"复位虚构演示数据","confirm":"确定复位？现有虚构记录会被清空。","done":"虚构演示数据已复位"},"home":{"kicker":"两个实体入口","title":"站在冰箱前，<br>只做这一刻需要的事。","lede":"NFC 与 QR 进入同一网页的两个状态。不安装 App，不建立账号。","addTitle":"放入","addSub":"记录一件需要被看见的食物","manageTitle":"查看处理","manageSub":"更新归属、计划或清除记录","boundary":"<strong>证据边界：</strong>五场访谈支持问题与习惯框架；本网页仅完成研究者技术自测，尚未接受参与者可用性测试。","foundTitle":"看到一件不知道是谁的东西","foundSub":"记下一件没人认领的东西","shopTitle":"买菜前看一眼","shopSub":"先吃什么、屋内有什么、哪一区还有空间","new":"NEW","backThree":"← 返回三个入口"},"add":{"back":"← 返回两个入口","kicker":"放入","title":"刚买回来？<br>点一下就加一行。","lede":"不用一件一件填。点常见的，或用「其他」补。","mascotLine":"先放进来，我帮你记住它。","quickLabel":"常见的东西，点一下就加一行","quickPicks":["牛奶","剩菜","蔬菜","面包","酸奶","饮料"],"otherLabel":"+ 其他","otherPlaceholder":"写点什么","otherCommit":"加进这批","otherCancel":"取消","batchCountOne":"本次 1 件","batchCountMany":"本次 {n} 件","batchDefault":"这批默认归属","planLabel":"打算什么时候吃？","emptyHint":"还没有加任何东西","saveOne":"全部保存（1 件）","saveMany":"全部保存（{n} 件）","remove":"移除","counter":"{n} / {max}","groupSoon":"这些我通常尽快吃","groupOpen":"这些先不设计划","quickSoon":["牛奶","剩菜","肉"],"quickOpen":["面包","蔬菜","饮料"],"groupNote":"两组的默认档位都可以改，改了不提示。这说的是你打算怎么记，不是食物会怎样。"},"ownership":{"personal":"个人","shared":"共用","ask":"需询问","unknown":"不知道是谁的"},"plan":{"soon":"这几天吃","week":"这周内","open":"说不准"},"manage":{"back":"← 返回两个入口","kicker":"查看处理","title":"看见、更新，<br>然后让记录离开。","mascotLine":"一起回来看看，不催也不评判。","statusOne":"有 1 件东西的计划过了大半。","statusMany":"有 {n} 件东西的计划过了大半。","rescuedOne":"最近被救下 1 件","rescuedMany":"最近被救下 {n} 件","fishInvite":"处理掉它，企鹅就能吃到一条","filterLabel":"清单过滤","filterAll":"全部","filterPersonal":"个人","filterShared":"共用","filterSoon":"这几天要吃的","cardNote":"以下只显示使用者主动确认的状态。","emptyTitle":"这个视图现在没有项目。","emptyBody":"回到「放入」添加一条虚构记录。","emptyLink":"前往放入 →","edit":"更新","clear":"清除","editOwnership":"更新归属","editPlan":"打算什么时候吃？","saveUpdate":"保存更新","cancel":"取消","clearTitle":"从演示清单清除这项？","clearBody":"这不会处理真实食物，只会移除本机虚构记录。","clearConfirm":"确认清除","clearCancel":"保留","claim":"这是我的","hold":"我打算处理它","releaseHold":"先别动","holdOne":"有人打算处理它 · 还有 1 小时","holdMany":"有人打算处理它 · 还有 {n} 小时","holdOver":"有人打算处理它","handleNow":"处理掉它","handled":"已处理 · 这条回执 48 小时后消失","opened":"开了","openedNote":"开了之后重新起算 · 今天","pauseAll":"我这几天不在","resumeAll":"回来了","resumeOne":"只恢复这一件","pauseOne":"暂停这一件","pausedBanner":"计划已暂停。回来的时候点一下继续。","pausedChip":"已暂停","nothingNow":"现在没有东西需要注意。","toFreezer":"放进冷冻","thaw":"拿出来解冻","freezerNote":"放进冷冻＝取消当前计划，它变安静，不再排到前面。","offer":"谁想吃都可以拿","offerStop":"收回","offerToday":"今天之内","offerTwoDays":"这两天","offerAlways":"一直可以","offerGroup":"现在可以拿的","offerGroupKind":"有时限","offerPick":"开放多久？"},"toast":{"needDescription":"请先写一条简短描述","savedOne":"已保存 1 件到本机演示清单","savedMany":"已保存 {n} 件到本机演示清单","rowRemoved":"已从这批移除","updated":"记录已更新","cleared":"虚构记录已清除","fishEarned":"赶上了——企鹅得到一条鱼","recovered":"损坏的本机演示数据已清除并复位","claimed":"已标记为你的","held":"已挂起 48 小时","holdReleased":"保持原样","openedDone":"计划已从现在重新起算","pausedAll":"计划已暂停","resumedAll":"计划已继续","noted":"已记在本机","frozen":"已放进冷冻","thawed":"已拿出来解冻","offered":"已开放取用","offerStopped":"已收回","handedOver":"交接完成","setupDone":"冰箱已设置好"},"demoFish":3,"demoItems":[{"description":"鸡胸肉","ownership":"personal","plan":"soon","ageDays":3.4,"zone":"z1"},{"description":"燕麦奶","ownership":"personal","plan":"soon","ageDays":2.2,"zone":"z1"},{"description":"贴了标签的保鲜盒","ownership":"shared","plan":"week","ageDays":1,"zone":"z1"},{"description":"面包","ownership":"personal","plan":"open","zone":"z1"},{"description":"一瓶牛奶","ownership":"unknown","plan":"open","ageDays":87,"zone":"z2"},{"description":"速冻鸡腿","ownership":"unknown","plan":"open","ageDays":112,"zone":"z3","spot":"下层靠里"}],"zone":{"label":"这批放在哪一区","rowLabel":"区域","none":"未指定","new":"NEW","kindOwn":"个人区","kindMixed":"大家都能放","kindCold":"先到先用","mixedHint":"这一区大家都能放。标一下是谁的，别人才找得回来。","coldHint":"冷冻的先不设计划。","whose":"这一件是谁的？","roomLeft":"还有空间","full":"这一区满了","markFull":"标为已满","markRoom":"标为还有空间","freeing":"即将空出"},"found":{"back":"← 返回两个入口","kicker":"看到一件不知道是谁的东西","title":"把它记下来，<br>不用问任何人。","lede":"记录本身就让它重新被看见。没有人会被点名。","note":"归属锁定为「不知道是谁的」。这一条记录不会 @ 任何人，也不会催任何人认领。","saveOne":"记下来（1 件）","saveMany":"记下来（{n} 件）"},"spot":{"label":"它具体在哪","hint":"「门侧」说得出哪一区，说不出哪台冰箱、哪一层。这一行跟着记录走 —— 别人打开这条记录就看得到。","picks":["上层","中层","下层","门侧","抽屉","冷冻室"],"other":"＋ 自己写","otherPlaceholder":"例：厨房第二台冰箱 中层","otherCommit":"写上","clear":"不写了","editLabel":"具体在哪","emptyCard":"没写具体位置 —— 别人只知道在「{zone}」，不知道哪一层","set":"位置已写上","cleared":"位置已清空"},"photo":{"label":"拍一张，说明它在哪","hint":"屋里不止一个冰箱、不止一层柜子的时候，一句话说不清它在哪。照片只存在这台手机里，不会上传，也不会同步到别人的设备。","take":"拍照","choose":"从相册选","remove":"移除照片","batchNote":"这张照片会附在这次记下的每一件上。","note":"照片是用来指位置的，不用来判断这是什么、是谁的。","cardOpen":"看大图","cardClose":"关闭","cardAdd":"补一张位置照片","cardRemove":"移除照片","emptySlot":"还没有位置照片 —— 别人只知道有这件东西，不知道去哪找","viewerAlt":"位置照片","editLabel":"位置照片","added":"照片已附上","removed":"照片已移除","failed":"这张图读不出来，记录照常保存","tooLarge":"本机存储快满了：记录已保存，最早的一张照片没能留下","cardRetake":"重拍位置照片"},"house":{"scopeMine":"我的","scopeHouse":"屋内","localOnly":"这些是本机的虚构记录。此版本不在设备之间同步。","statusOne":"屋内有 1 件东西的计划过了大半。","statusMany":"屋内有 {n} 件东西的计划过了大半。","ageOne":"放了 1 天","ageMany":"放了 {n} 天"},"demoZones":[{"id":"z1","kind":"own","label":"上层"},{"id":"z2","kind":"mixed","label":"门侧"},{"id":"z3","kind":"cold","label":"冷冻抽屉"}],"lang":{"toggle":"EN","aria":"切换到英文"},"shop":{"kicker":"买菜前看一眼","title":"出门前，<br>三件事看一眼。","eatFirst":"需要先吃掉的","already":"屋内已经有的","room":"哪一区还有空间","countOne":"1 件","countMany":"{n} 件","note":"这一屏不改任何东西。","empty":"现在没有需要先吃掉的东西。"},"moveOut":{"entry":"我要搬走了","cancel":"取消","step1Kicker":"搬出交接 · 步骤 1 / 4","step1Title":"先说清楚，<br>哪些你会吃完。","step1Lede":"勾上的留给你自己。剩下的下一步交出去。","step1NextOne":"下一步（1 件要交出去）","step1NextMany":"下一步（{n} 件要交出去）","step1None":"没有要交出去的东西","step2Kicker":"搬出交接 · 步骤 2 / 4","step2Title":"剩下的，<br>让别人拿走。","step2Note":"这不改所有权。它们仍然是你的，只是现在别人可以拿。","step2Next":"下一步","step3Kicker":"搬出交接 · 步骤 3 / 4","step3Title":"你的位置<br>会空出来。","step3Note":"空间可以交接，食物和责任不会自动交接。所以上一步要单独走一遍。","step3Done":"完成交接","step4Kicker":"搬出交接 · 步骤 4 / 4 · 屋内视图","step4Title":"屋内现在<br>看到这些。","step4Note":"没被拿走的不会自动消失——它们会变成「不知道是谁的」，留在屋内视图里。","step4Done":"回到屋内视图","banner":"有人要搬走了","freeToTake":"可以直接拿"},"setup":{"entry":"设置这台冰箱","skip":"先跳过，之后再说","next":"下一步","done":"完成","step1Kicker":"房屋设置 · 步骤 1 / 3","step1Title":"这台冰箱<br>分成几块？","step1Lede":"用你们自己的叫法，不用改成我们的词。","addPlace":"＋ 加一块地方","placeHint":"给这块地方起个名","step2Kicker":"房屋设置 · 步骤 2 / 3","step2Title":"每块地方<br>是哪一种？","step2Note":"只有「大家都能放」的地方，录入时才会问一次归属。个人区不问——位置已经说明了是谁的。","kindOwn":"个人区","kindMixed":"大家都能放","kindCold":"冷冻","step3Kicker":"房屋设置 · 步骤 3 / 3","step3Title":"要不要<br>先说好三件事？","agree1":"大家都能放的地方，东西要标一下是谁的","agree2":"不知道是谁的东西，任何人都可以标出来","agree3":"打算处理别人的东西，先挂 48 小时","step3Note":"勾了的会显示在屋内视图底部，作为提示，不作为强制。软性约定被超量购买压垮过，系统不假装自己能强制执行。","agreedHead":"这间屋子说好的"}}};
+/* Commons Fridge · Functional Prototype v1.7
  *
  * v1.4：系统盯的是「用户自己声明的计划」。
  * v1.5：把「位置」补回来，让它同时承担所有权的载体与共享的面。
  * v1.6：补齐生命周期两端（冷冻 / 开放取用 / 搬出交接 / 入住设置 / 购物前查看），
  *       并把两套语言一起打包，运行时可切换——很多看这份原型的人是中文读者。
+ * v1.7：把「在哪」补成两层。区域名说得出「哪一区」，说不出「哪台冰箱、哪一层」——
+ *       屋里有两台冰箱时，文字位置基本等于没有位置。
+ *       · 具体位置（spot）是**文字**，跟着记录走，任何人打开这条记录都看得到，
+ *         这是「让别人知道去哪找」真正落地的那一半；
+ *       · 位置照片是**精确指认**，但它只留在拍它的那台设备上（本版本不同步），
+ *         所以它补的是精度，替不了上面那行字。
+ *       照片由人自己拍、自己按下，只指位置，不做识别：
+ *       它回答「在哪」，从不回答「这是什么、是谁的」。
  *
  * 状态仍是当前时间的纯函数，永不写回存储。没有定时器，没有通知，不在设备之间同步。
  */
@@ -420,6 +486,10 @@ const ZONES_KEY = 'commons-fridge-functional-v1-zones';
 const SETTINGS_KEY = 'commons-fridge-functional-v1-settings';
 const LANG_KEY = 'commons-fridge-functional-v1-lang';
 const MAX_DESCRIPTION = 42;
+/* 640px 是「看得清哪一层、哪一台」与「localStorage 装得下」之间的折中：
+   一张约 40–80 KB，5 MB 的配额够放几十张，装不下时按最早的先丢（见 saveItems）。 */
+const MAX_PHOTO_EDGE = 640;
+const PHOTO_QUALITY = 0.7;
 const DAY_MS = 86400000;
 const HOUR_MS = 3600000;
 
@@ -475,6 +545,19 @@ function normalisePlanSetAt(value, plan, now) {
   const parsed = Date.parse(value);
   return Number.isFinite(parsed) ? new Date(parsed).toISOString() : new Date(now).toISOString();
 }
+/* 只认本机 canvas 产出的 data URL。外部字符串（http、blob）一律丢弃：
+   记录里永远不该出现一个「要去别处取」的图片地址。 */
+/* 具体位置是文字，所以它是记录的一部分，会跟着记录走；照片不会。
+   两者分工不同，缺了这一行，别人只知道「在门侧」，不知道哪一层、哪台。 */
+function normaliseSpot(value) {
+  const text = typeof value === 'string' ? value.trim().slice(0, MAX_DESCRIPTION) : '';
+  return text || null;
+}
+
+function normalisePhoto(value) {
+  return typeof value === 'string' && value.indexOf('data:image/') === 0 ? value : null;
+}
+
 function stamp(value) {
   const parsed = Date.parse(value);
   return Number.isFinite(parsed) ? new Date(parsed).toISOString() : null;
@@ -541,7 +624,11 @@ function initialItems() {
       zone: item.zone || null,
       ageBase: base || new Date(now).toISOString(),
       openedAt: null, pausedAt: null, pausedMs: 0,
-      holdUntil: null, handledAt: null, offerUntil: null
+      holdUntil: null, handledAt: null, offerUntil: null,
+      spot: normaliseSpot(item.spot),
+      /* 演示数据永远不带照片：一张摆拍的冰箱内部图会被当成证据看。
+         展台上留着空位反而更准——现场那台冰箱就在旁边，两秒就能拍一张真的。 */
+      photo: null
     };
   });
 }
@@ -569,7 +656,9 @@ function loadItems() {
         pausedMs: Number.isFinite(pausedMs) && pausedMs >= 0 ? pausedMs : 0,
         holdUntil: stamp(item.holdUntil),
         handledAt: stamp(item.handledAt),
-        offerUntil: normaliseOffer(item.offerUntil)
+        offerUntil: normaliseOffer(item.offerUntil),
+        spot: normaliseSpot(item.spot),
+        photo: normalisePhoto(item.photo)
       };
     });
   } catch (error) {
@@ -590,6 +679,32 @@ function loadFish() {
     localStorage.removeItem(FISH_KEY);
     return { count: 0, last: null };
   }
+}
+
+/* 压缩走 FileReader + Image + canvas，而不是 createImageBitmap——
+   兼容性更好，旧 iPhone 的 Safari 也能用，而现场用的就是各人自己的手机。
+   压完只留下 data URL：整条路径没有一次网络请求。 */
+function readPhoto(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('read failed'));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('decode failed'));
+      img.onload = () => {
+        const scale = Math.min(1, MAX_PHOTO_EDGE / Math.max(img.width, img.height));
+        const w = Math.max(1, Math.round(img.width * scale));
+        const h = Math.max(1, Math.round(img.height * scale));
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', PHOTO_QUALITY));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
 /* ---------- 状态：纯函数，不写回存储 ---------- */
@@ -665,12 +780,30 @@ const state = {
   otherOpen: false, otherText: '',
   scope: 'mine', filter: 'all',
   editingId: null, pendingClearId: null, whoseFor: null, offerFor: null,
-  moveOut: null, setup: null
+  moveOut: null, setup: null,
+  photo: null, photoFor: null, viewingPhoto: null,
+  spot: '', spotOtherOpen: false, spotOtherText: ''
 };
 state.zones = loadZones();
 state.items = loadItems();
 
-function saveItems() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items)); }
+/* 照片是 data URL，是这份原型里唯一能把 localStorage 撑爆的东西。
+   写不进去时不能连记录一起丢——从最早的一张开始丢照片，丢到写得进去为止。
+   记录本身永远比照片重要，而且要如实告诉用户照片没留下。 */
+function saveItems() {
+  const write = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items));
+  try { write(); return true; } catch (full) {
+    if (!state.items.some((item) => item.photo)) throw full;
+    for (let i = state.items.length - 1; i >= 0; i--) {
+      if (!state.items[i].photo) continue;
+      state.items[i].photo = null;
+      try { write(); showToast(T.photo.tooLarge); return false; } catch (stillFull) { /* 再丢一张 */ }
+    }
+    write();                       // 照片全丢光还写不进去，就让错误照常抛出
+    showToast(T.photo.tooLarge);
+    return false;
+  }
+}
 function saveFish() { localStorage.setItem(FISH_KEY, JSON.stringify(state.fish)); }
 function saveZones() { localStorage.setItem(ZONES_KEY, JSON.stringify(state.zones)); }
 function saveSettings() { localStorage.setItem(SETTINGS_KEY, JSON.stringify(state.settings)); }
@@ -795,6 +928,81 @@ function otherPanel(found) {
     </div>`;
 }
 
+/* F15 的第一半：具体位置。这是文字，所以它跟着记录走——别人打开这条记录就看得到。
+   「让别人知道去哪找」真正落地的是这一行，照片补的是精度。 */
+function spotPanel() {
+  const picks = T.spot.picks.map((label) => `
+    <button type="button" class="quick-pick ${state.spot === label ? 'is-chosen' : ''}"
+            data-action="spot-pick" data-value="${escapeHTML(label)}"
+            aria-pressed="${state.spot === label}">${escapeHTML(label)}</button>`).join('');
+  const custom = state.spot && !T.spot.picks.includes(state.spot) ? `
+    <button type="button" class="quick-pick is-chosen" data-action="spot-clear"
+            aria-pressed="true">${escapeHTML(state.spot)}</button>` : '';
+  return `
+    <div class="spot-block">
+      <p class="quick-group-label">${T.spot.label}</p>
+      <p class="photo-hint">${T.spot.hint}</p>
+      <div class="quick-row">${picks}${custom}
+        <button type="button" class="quick-pick is-other" data-action="spot-other-toggle"
+                aria-expanded="${state.spotOtherOpen}">${T.spot.other}</button>
+        ${state.spot ? `<button type="button" class="quick-pick is-clear"
+                data-action="spot-clear">${T.spot.clear}</button>` : ''}
+      </div>
+      ${state.spotOtherOpen ? `
+      <div class="other-panel">
+        <label class="field" for="spot-input">
+          <span class="field-head"><span>${T.spot.otherPlaceholder}</span></span>
+          <input id="spot-input" type="text" maxlength="${MAX_DESCRIPTION}" autocomplete="off"
+                 value="${escapeHTML(state.spotOtherText)}" placeholder="${escapeHTML(T.spot.otherPlaceholder)}">
+        </label>
+        <div class="actions">
+          <button type="button" data-action="spot-other-commit">${T.spot.otherCommit}</button>
+          <button type="button" class="secondary" data-action="spot-other-cancel">${T.add.otherCancel}</button>
+        </div>
+      </div>` : ''}
+    </div>`;
+}
+
+/* F15 的第二半：位置照片。只挂在「无主物」入口：那是唯一一个「记录的人不是要找它的人」的场景。
+   注意它和上面那行字的分工——照片精确，但只在拍它的那台设备上；文字不精确，但传得出去。 */
+function photoPanel() {
+  return `
+    <div class="photo-panel">
+      ${spotPanel()}
+      <p class="quick-group-label">${T.photo.label}</p>
+      <p class="photo-hint">${T.photo.hint}</p>
+      ${state.photo ? `
+      <div class="photo-preview">
+        <button type="button" class="photo-thumb" data-action="photo-open" data-value="draft"
+                aria-label="${T.photo.cardOpen}"><img src="${state.photo}" alt="${T.photo.viewerAlt}"></button>
+        <span class="photo-preview-side">
+          <span class="photo-batch-note">${T.photo.batchNote}</span>
+          <button type="button" class="secondary" data-action="photo-remove">${T.photo.remove}</button>
+        </span>
+      </div>` : `
+      <div class="quick-row">
+        <button type="button" class="quick-pick" data-action="photo-take">${T.photo.take}</button>
+        <button type="button" class="quick-pick" data-action="photo-choose">${T.photo.choose}</button>
+      </div>`}
+      <p class="photo-note">${T.photo.note}</p>
+    </div>`;
+}
+
+/* 看大图。缩略图看得出「有张照片」，看不出「第几层」——那正是这个功能要答的事。 */
+function photoViewer() {
+  if (!state.viewingPhoto) return '';
+  const src = state.viewingPhoto === 'draft'
+    ? state.photo
+    : (findItem(state.viewingPhoto) || {}).photo;
+  if (!src) return '';
+  return `
+    <div class="photo-viewer" role="dialog" aria-modal="true" aria-label="${T.photo.viewerAlt}"
+         data-action="photo-close">
+      <img src="${src}" alt="${T.photo.viewerAlt}">
+      <button type="button" class="photo-close" data-action="photo-close">${T.photo.cardClose}</button>
+    </div>`;
+}
+
 function whosePanel(row) {
   if (state.whoseFor !== row.tmpId) return '';
   const buttons = OWNERSHIP_KEYS.map((key) => `
@@ -878,7 +1086,7 @@ function entryView(found) {
     ${otherPanel(found)}
     ${n ? `<p class="batch-count">${plural(T.add.batchCountOne, T.add.batchCountMany, n)}</p>
     <div class="draft-list">${state.draft.map((row) => draftRow(row, found)).join('')}</div>
-    ${found ? `<p class="found-note">${T.found.note}</p>` : `
+    ${found ? `${photoPanel()}<p class="found-note">${T.found.note}</p>` : `
     <p class="group-note">${T.add.groupNote}</p>
     <div class="batch-default">
       <p class="batch-default-label">${T.add.batchDefault}</p>
@@ -914,6 +1122,17 @@ function editPanel(item) {
         <select data-edit-plan="${escapeHTML(item.id)}">${opts(PLAN_KEYS, item.plan, (k) => T.plan[k])}</select></label>
       ${state.zones.length ? `<label class="field">${T.zone.rowLabel}
         <select data-edit-zone="${escapeHTML(item.id)}">${zones}</select></label>` : ''}
+      <label class="field">${T.spot.editLabel}
+        <input type="text" maxlength="${MAX_DESCRIPTION}" autocomplete="off"
+               data-edit-spot="${escapeHTML(item.id)}" value="${escapeHTML(item.spot || '')}"
+               placeholder="${escapeHTML(T.spot.otherPlaceholder)}"></label>
+      <p class="photo-edit-label">${T.photo.editLabel}</p>
+      <div class="actions">
+        <button type="button" class="secondary" data-action="photo-add" data-value="${escapeHTML(item.id)}">
+          ${item.photo ? T.photo.cardRetake : T.photo.cardAdd}</button>
+        ${item.photo ? `<button type="button" class="secondary" data-action="photo-drop"
+          data-value="${escapeHTML(item.id)}">${T.photo.cardRemove}</button>` : ''}
+      </div>
       <div class="actions">
         <button type="button" data-action="update-item" data-value="${escapeHTML(item.id)}">${T.manage.saveUpdate}</button>
         <button type="button" class="secondary" data-action="cancel-update">${T.manage.cancel}</button>
@@ -945,6 +1164,37 @@ function offerPanel(item) {
           data-value="${escapeHTML(item.id)}:${k}" aria-checked="false">${l}</button>`).join('')}
       </div>
     </div>`;
+}
+
+/* 空位只给「不知道是谁的」那一类：那是别人真的会去找、却最不知道去哪找的东西。
+   其余卡片的照片入口收在编辑面板里，免得动作行越排越长。 */
+/* 位置 chip 紧跟区域 chip：区域说「哪一区」，它说「哪一层、哪一台」。 */
+function cardSpot(item) {
+  if (item.spot) {
+    return `<span class="chip chip-spot">${escapeHTML(item.spot)}</span>`;
+  }
+  return '';
+}
+
+/* 无主物没写具体位置时，把代价说出来——这一条别人是要去找的。 */
+function spotPrompt(item) {
+  if (item.spot || item.ownership !== 'unknown') return '';
+  return `<p class="spot-empty">${T.spot.emptyCard.replace('{zone}', escapeHTML(zoneLabel(item.zone)))}</p>`;
+}
+
+function cardPhoto(item) {
+  const id = escapeHTML(item.id);
+  if (item.photo) {
+    return `<div class="card-photo">
+      <button type="button" class="photo-thumb" data-action="photo-open" data-value="${id}"
+              aria-label="${T.photo.cardOpen}"><img src="${item.photo}" alt="${T.photo.viewerAlt}"></button>
+    </div>`;
+  }
+  if (item.ownership !== 'unknown') return '';
+  return `<button type="button" class="photo-slot" data-action="photo-add" data-value="${id}">
+    <span class="photo-slot-mark" aria-hidden="true"></span>
+    <span class="photo-slot-text">${T.photo.emptySlot}</span>
+    <span class="photo-slot-cta">${T.photo.cardAdd}</span></button>`;
 }
 
 function itemCard(item, now) {
@@ -997,8 +1247,11 @@ function itemCard(item, now) {
         <span class="chip${unknown ? ' chip-unknown' : ''}">${T.ownership[item.ownership]}</span>
         <span class="chip chip-plan is-${s}">${planChip}</span>
         ${item.zone ? `<span class="chip chip-zone">${escapeHTML(zoneLabel(item.zone))}</span>` : ''}
+        ${cardSpot(item)}
         ${offered ? `<span class="chip chip-offer">${T.manage.offer} · ${offerLabel(item)}</span>` : ''}
       </div>
+      ${spotPrompt(item)}
+      ${cardPhoto(item)}
       ${days !== null ? `<p class="age-line">${plural(T.house.ageOne, T.house.ageMany, days)}</p>` : ''}
       ${item.openedAt ? `<p class="opened-note">${T.manage.openedNote}</p>` : ''}
       ${holdRow}${invite}
@@ -1270,6 +1523,7 @@ function render({ focusHeading = false } = {}) {
     : route === 'moveout' ? moveOutView()
     : route === 'setup' ? setupView()
     : homeView();
+  app.insertAdjacentHTML('beforeend', photoViewer());
   if (focusHeading) document.getElementById('route-title')?.focus({ preventScroll: true });
 }
 
@@ -1282,7 +1536,9 @@ function resetDemo() {
   state.fish = loadFish();
   Object.assign(state, { draft: [], batchDefault: 'personal', batchZone: null, otherOpen: false,
     otherText: '', scope: 'mine', filter: 'all', editingId: null, pendingClearId: null,
-    whoseFor: null, offerFor: null, moveOut: null, setup: null });
+    whoseFor: null, offerFor: null, moveOut: null, setup: null,
+    photo: null, photoFor: null, viewingPhoto: null,
+    spot: '', spotOtherOpen: false, spotOtherText: '' });
   render();
   showToast(T.reset.done);
 }
@@ -1300,11 +1556,19 @@ function commitBatch(found) {
     id: `item-${now}-${index}`, description: row.description, ownership: row.ownership,
     plan: row.plan, planSetAt: row.plan === 'open' ? null : iso, zone: row.zone || null,
     ageBase: iso, openedAt: null, pausedAt: null, pausedMs: 0,
-    holdUntil: null, handledAt: null, offerUntil: null
+    holdUntil: null, handledAt: null, offerUntil: null,
+    /* 一次记录＝站在一处。同批每一件都拿到同一个具体位置与同一张照片。 */
+    spot: normaliseSpot(state.spot),
+    photo: state.photo
   }));
   const n = fresh.length;
   state.items = fresh.concat(state.items);
-  Object.assign(state, { draft: [], otherOpen: false, otherText: '', whoseFor: null });
+  Object.assign(state, { draft: [], otherOpen: false, otherText: '', whoseFor: null,
+                         photo: null, photoFor: null,
+                         spot: '', spotOtherOpen: false, spotOtherText: '' });
+  /* 无主物落在混合区，而「我的」视图按定义看不到混合区——记完就看不见自己刚记的那条，
+     位置照片也就白拍了。所以这一步把范围切到「屋内」：那条记录本来就是给屋里人看的。 */
+  if (found) state.scope = 'house';
   saveItems();
   window.location.hash = '#manage';
   showToast(found ? T.toast.noted : plural(T.toast.savedOne, T.toast.savedMany, n));
@@ -1468,8 +1732,10 @@ function handleAction(action, value) {
     const owner = document.querySelector(`[data-edit-ownership="${CSS.escape(value)}"]`);
     const plan = document.querySelector(`[data-edit-plan="${CSS.escape(value)}"]`);
     const zone = document.querySelector(`[data-edit-zone="${CSS.escape(value)}"]`);
+    const spot = document.querySelector(`[data-edit-spot="${CSS.escape(value)}"]`);
     if (owner) i.ownership = normaliseOwnership(owner.value);
     if (zone) i.zone = zone.value || null;
+    if (spot) i.spot = normaliseSpot(spot.value);
     if (plan) {
       const next = normalisePlan(plan.value);
       if (next !== i.plan) { i.plan = next; i.planSetAt = next === 'open' ? null : new Date().toISOString(); i.pausedMs = 0; }
@@ -1550,7 +1816,56 @@ function handleAction(action, value) {
     showToast(T.toast.setupDone); return;
   }
 
+  /* ---- 具体位置 ---- */
+  if (action === 'spot-pick') {
+    state.spot = state.spot === value ? '' : value;
+    state.spotOtherOpen = false;
+    render(); showToast(state.spot ? T.spot.set : T.spot.cleared); return;
+  }
+  if (action === 'spot-clear') {
+    state.spot = ''; state.spotOtherText = ''; state.spotOtherOpen = false;
+    render(); showToast(T.spot.cleared); return;
+  }
+  if (action === 'spot-other-toggle') {
+    state.spotOtherOpen = !state.spotOtherOpen;
+    if (state.spotOtherOpen) state.spotOtherText = T.spot.picks.includes(state.spot) ? '' : state.spot;
+    render();
+    if (state.spotOtherOpen) document.getElementById('spot-input')?.focus();
+    return;
+  }
+  if (action === 'spot-other-cancel') { state.spotOtherOpen = false; render(); return; }
+  if (action === 'spot-other-commit') {
+    const text = normaliseSpot(state.spotOtherText);
+    if (!text) { showToast(T.toast.needDescription); return; }
+    state.spot = text; state.spotOtherOpen = false;
+    render(); showToast(T.spot.set); return;
+  }
+
+  /* ---- 位置照片 ---- */
+  if (action === 'photo-take' || action === 'photo-choose') {
+    state.photoFor = null;
+    openPhotoInput(action === 'photo-take'); return;
+  }
+  if (action === 'photo-add') {
+    if (!findItem(value)) return;
+    state.photoFor = value;
+    openPhotoInput(true); return;
+  }
+  if (action === 'photo-remove') { state.photo = null; render(); showToast(T.photo.removed); return; }
+  if (action === 'photo-drop') {
+    const item = findItem(value); if (!item) return;
+    item.photo = null; saveItems(); render(); showToast(T.photo.removed); return;
+  }
+  if (action === 'photo-open') { state.viewingPhoto = value; render(); return; }
+  if (action === 'photo-close') { state.viewingPhoto = null; render(); return; }
+
   if (action === 'reset-demo') resetDemo();
+}
+
+/* 两个 input 一直躺在 shell 里，不随重绘消失，change 监听器也就只需要挂一次。
+   capture="environment" 让手机直接开后置相机——站在冰箱前少一步。 */
+function openPhotoInput(camera) {
+  document.getElementById(camera ? 'photo-camera' : 'photo-library')?.click();
 }
 
 document.addEventListener('input', (event) => {
@@ -1559,6 +1874,7 @@ document.addEventListener('input', (event) => {
     const counter = app.querySelector('.other-panel .counter');
     if (counter) counter.textContent = T.add.counter.replace('{n}', state.otherText.length).replace('{max}', MAX_DESCRIPTION);
   }
+  if (event.target.id === 'spot-input') state.spotOtherText = event.target.value;
   const idx = event.target.getAttribute && event.target.getAttribute('data-setup-label');
   if (idx !== null && idx !== undefined && state.setup) {
     const z = state.setup.zones[Number(idx)];
@@ -1566,7 +1882,37 @@ document.addEventListener('input', (event) => {
   }
 });
 
+document.addEventListener('change', async (event) => {
+  if (event.target.id !== 'photo-camera' && event.target.id !== 'photo-library') return;
+  const file = event.target.files && event.target.files[0];
+  event.target.value = '';                 // 清空才能连着选同一张
+  const target = state.photoFor;
+  state.photoFor = null;
+  if (!file) return;
+  let data;
+  try { data = await readPhoto(file); } catch (error) { showToast(T.photo.failed); return; }
+  if (target) {
+    const item = findItem(target);
+    if (!item) return;
+    item.photo = data;
+    /* saveItems 写不下时会自己说明照片没留下，这里就别再报一次「已附上」。 */
+    let saved = false;
+    try { saved = saveItems(); } catch (error) { showToast(T.photo.tooLarge); }
+    if (saved) showToast(T.photo.added);
+  } else {
+    state.photo = data;
+    showToast(T.photo.added);
+  }
+  render();
+});
+
 document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && state.viewingPhoto) {
+    state.viewingPhoto = null; render(); return;
+  }
+  if (event.target.id === 'spot-input' && event.key === 'Enter') {
+    event.preventDefault(); handleAction('spot-other-commit', ''); return;
+  }
   if (event.target.id === 'other-input' && event.key === 'Enter') {
     event.preventDefault();
     handleAction(getRoute() === 'found' ? 'found-commit' : 'other-commit', '');
@@ -1581,6 +1927,7 @@ document.addEventListener('click', (event) => {
 
 window.addEventListener('hashchange', () => {
   const route = getRoute();
+  state.viewingPhoto = null;
   if (route === 'moveout' && !state.moveOut) state.moveOut = { step: 1, keep: {} };
   if (route === 'setup' && !state.setup) {
     state.setup = { step: 1, zones: state.zones.map((z) => ({ ...z })), agreements: state.settings.agreements.slice() };

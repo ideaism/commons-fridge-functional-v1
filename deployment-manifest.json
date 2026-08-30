@@ -1,13 +1,22 @@
 {
-  "name": "Commons Fridge Functional Prototype v1.6 (bilingual build)",
-  "published": "2026-08-26",
-  "republished": "2026-08-27",
-  "supersedes": "v1.5 English build, published 2026-08-26, sha256 c423db7cd87397b1584316ff551d54a889690a2f3850394dda08ecf670fc2c0d",
-  "sourceSha256": "16c6ebe7f49eced82484939f4d330b0aad0f984311777fc9dd33eedde4d5eefa",
-  "republishNote": "Re-published 2026-08-27 under the same version name. The only change is illustration: the two home entries added in v1.6 — before you shop, and found something — carried typographic glyphs while put-in and check-and-handle carried the penguin. All four now carry the character. No route, record, string or capability changed, so the version number did not move; the file bytes did, and the previous build was sha256 b42d3f9ffbe808e9d242e32a4a5c8b086383188b37b470c2a4ed8b06761d74c7.",
-  "languages": ["en", "zh"],
+  "name": "Commons Fridge Functional Prototype v1.7 (bilingual build)",
+  "published": "2026-08-30",
+  "supersedes": "v1.6 bilingual build, published 2026-08-26 and re-published 2026-08-27, sha256 16c6ebe7f49eced82484939f4d330b0aad0f984311777fc9dd33eedde4d5eefa",
+  "sourceSha256": "383d23d2edcd0deb8a7fa1fb4af92856d968ae6b796042539854ae9e349015ad",
+  "languages": [
+    "en",
+    "zh"
+  ],
   "languageNote": "Both language tables ship in the same file and are switched at runtime from the header. The choice is remembered in localStorage; the first visit follows the browser language.",
-  "routes": { "home": "./", "add": "./#add", "found": "./#found", "manage": "./#manage", "beforeYouShop": "./#shop", "moveOut": "./#moveout", "setup": "./#setup" },
+  "routes": {
+    "home": "./",
+    "add": "./#add",
+    "found": "./#found",
+    "manage": "./#manage",
+    "beforeYouShop": "./#shop",
+    "moveOut": "./#moveout",
+    "setup": "./#setup"
+  },
   "storageKeys": {
     "items": "commons-fridge-functional-v1",
     "zones": "commons-fridge-functional-v1-zones",
@@ -22,6 +31,10 @@
     "The House view groups records by zone, never by person. No names, avatars or initials anywhere; the handled receipt clears itself after 48 hours so no history of who did what accumulates.",
     "Nothing is synced. The House view shows fictional records held in this one browser, and the interface says so on screen rather than in a footnote.",
     "Switching language re-seeds the demo records only while they are untouched; anything the viewer typed is left exactly as they wrote it.",
-    "No camera, upload, account, analytics, timer or notification API."
-  ]
+    "The camera is a file input the person triggers themselves; there is no continuous capture, no recognition, no auto-update, and no permanent device in the fridge. No upload, account, analytics, timer or notification API.",
+    "Storage is finite. If a write does not fit, the oldest photos are dropped one at a time until it does, and the person is told the photo was not kept — the record itself is never lost."
+  ],
+  "changeNote": "v1.7 answers one question the earlier versions could not: where exactly is it. A zone name says which area; it cannot say which fridge or which shelf, and a shared house with two fridges is ordinary. So the found-something entry now takes both an exact spot and a photo. The spot is a short line of text — six quick picks or your own words — stored on the record itself, so it travels with the record and anyone reading it sees which level and which appliance. The photo is taken by the person, downscaled in the browser to a 640px long edge at JPEG q0.7, and written only to this device. Both are optional, both only point at a place, and neither is used to identify the item or infer whose it is — ownership stays locked to not-sure-whose. Records already saved can be given either afterwards. Saving a found batch now switches the view to House, because a found record lives in a mixed zone the Mine view does not show.",
+  "photoBoundary": "The photo never leaves the device that took it: there is no upload path anywhere in the build, and the build script refuses to compile if fetch, XMLHttpRequest, sendBeacon, FormData, WebSocket, EventSource, mediaDevices/getUserMedia, a form element, or any http action or src appears in the output. Because nothing is synced, another housemate scanning the same tag does not see the photo — it serves the same person looking again, or a phone held out to someone, not house-wide visibility.",
+  "locationBoundary": "The two halves have different reach, and the build does not blur them. The exact spot is a record field like description, ownership, plan and zone: it goes wherever the record goes. The photo is device data — it never leaves the device that took it. There is no upload path anywhere in the build, and the build script refuses to compile if fetch, XMLHttpRequest, sendBeacon, FormData, WebSocket, EventSource, mediaDevices/getUserMedia, a form element, or any http action or src appears in the output. So the text is what makes a thing findable by someone else; the photo adds precision for the same person looking again, or for a phone held out to someone. Making the photo itself house-wide would need syncing, which this prototype deliberately does not do."
 }
