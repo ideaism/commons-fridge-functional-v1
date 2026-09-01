@@ -1,4 +1,4 @@
-# Commons Fridge Functional Prototype v1.7 · bilingual build
+# Commons Fridge Functional Prototype v1.8 · bilingual build
 
 Public static deployment of the Commons Fridge functional demonstrator.
 
@@ -9,6 +9,28 @@ This is a researcher-tested technical demonstrator using fictional local-browser
 ## English and Chinese in one file
 
 Both language tables ship inside the same single HTML file and are switched at runtime from the button beside the reset control in the header. The first visit follows the browser language; after that the choice is remembered locally. Switching re-seeds the fictional demo records so they read naturally in either language — anything a viewer typed themselves is left exactly as written, because that is content, not interface.
+
+## What v1.8 adds
+
+A presentation and housekeeping release. No route, record, string or capability changed.
+
+The fixed disclosure strip and the header were taking 156px before any content began on a
+phone; they now take 98px, and the body's top padding went from 70px to 34px. The brand
+eyebrow that repeated the name directly below it is hidden at 460px and under, and the
+language and reset controls came down from 46px to 33px.
+
+The strip was compacted, not shortened. It still carries the version and *Researcher
+self-test · not tested with participants* in full, wrapped onto two lines — the outcome
+page states that this boundary sits on every screen rather than in a footnote, so it stays
+legible.
+
+One behaviour is new. If nobody has interacted for 20 minutes, the fictional records, fish
+count, zones and settings are cleared and re-seeded; the language choice is kept. It is
+checked when the page opens and again every minute while it stays open, because a tab left
+open on an exhibition stand never reloads on its own. There is no login to hang this on and
+none is wanted — *no account to create* is a stated boundary, and a visitor scanning on
+their own phone already starts clean. This is for a shared device left on a stand. No URL
+changed, so printed QR codes stay valid.
 
 ## What v1.7 adds
 
@@ -65,10 +87,10 @@ Ownership, plan and zone kind are persisted as stable keys rather than display t
 
 ## Source snapshot
 
-- Version: Functional Prototype v1.7, bilingual build
-- Source SHA-256: `383d23d2edcd0deb8a7fa1fb4af92856d968ae6b796042539854ae9e349015ad`
-- Published: 2026-08-30
-- Supersedes: v1.6 bilingual build (`16c6ebe7…`, published 2026-08-26, re-published 2026-08-27)
+- Version: Functional Prototype v1.8, bilingual build
+- Source SHA-256: `1ab008f29d32f35d4cda05edf4ce23f16559ccae5f165bf4b4940e2a60bca19c`
+- Published: 2026-09-01
+- Supersedes: v1.7 bilingual build (`383d23d2…`, published 2026-08-30)
 
 ## Version history
 
@@ -81,5 +103,6 @@ Ownership, plan and zone kind are persisted as stable keys rather than display t
 | v1.6 | 2026-08-26 | Bilingual in one file, switchable from the header. Freezer, time-limited offering, move-out handover, tenancy setup, before-you-shop view, days in the fridge, per-zone fullness, split quick entry. |
 | v1.6 · re-published | 2026-08-27 | Illustration only. *Before you shop* and *found something* had shipped with typographic glyphs (`◷` and `?`) while the two original entries carried the penguin; all four home entries now carry the character. No route, record, string or capability changed, so the version number did not move — but the file did, and that is why this row exists. |
 | v1.7 | 2026-08-30 | Where exactly it is, in two halves: an exact spot stored on the record so it travels with it, and a photo kept on the device that took it. First version to store anything other than text and timestamps. |
+| v1.8 | 2026-09-01 | Presentation and housekeeping. The fixed strip and header were compacted so content starts 58px higher on a phone; the duplicated brand eyebrow is hidden at narrow widths; language and reset controls shrank. The boundary line was compacted, never shortened. Idle auto-reset after 20 minutes, for a shared device on an exhibition stand. No route, record, string or capability changed. |
 
 The complete academic project remains in a separate private repository.
