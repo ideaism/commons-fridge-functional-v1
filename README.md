@@ -25,9 +25,10 @@ page states that this boundary sits on every screen rather than in a footnote, s
 legible.
 
 One behaviour is new. If nobody has interacted for 20 minutes, the fictional records, fish
-count, zones and settings are cleared and re-seeded; the language choice is kept. It is
-checked when the page opens and again every minute while it stays open, because a tab left
-open on an exhibition stand never reloads on its own. There is no login to hang this on and
+count, zones and settings are cleared and re-seeded; the language choice is kept. It is checked
+when the page opens and again on the next interaction, so a tab left open on a stand is clean
+for whoever reaches for it next. It uses no polling or timing API — `build.py` bans those,
+because the footer promises no alarms and no notifications. There is no login to hang this on and
 none is wanted — *no account to create* is a stated boundary, and a visitor scanning on
 their own phone already starts clean. This is for a shared device left on a stand. No URL
 changed, so printed QR codes stay valid.
@@ -88,7 +89,7 @@ Ownership, plan and zone kind are persisted as stable keys rather than display t
 ## Source snapshot
 
 - Version: Functional Prototype v1.8, bilingual build
-- Source SHA-256: `1ab008f29d32f35d4cda05edf4ce23f16559ccae5f165bf4b4940e2a60bca19c`
+- Source SHA-256: `313a58e61f4181dd07324d92df9177a672fa2a4a7658f43d44e974bf394ed3e8`
 - Published: 2026-09-01
 - Supersedes: v1.7 bilingual build (`383d23d2…`, published 2026-08-30)
 

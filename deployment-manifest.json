@@ -2,7 +2,7 @@
   "name": "Commons Fridge Functional Prototype v1.8 (bilingual build)",
   "published": "2026-09-01",
   "supersedes": "v1.7 bilingual build, published 2026-08-30, sha256 383d23d2edcd0deb8a7fa1fb4af92856d968ae6b796042539854ae9e349015ad",
-  "sourceSha256": "1ab008f29d32f35d4cda05edf4ce23f16559ccae5f165bf4b4940e2a60bca19c",
+  "sourceSha256": "313a58e61f4181dd07324d92df9177a672fa2a4a7658f43d44e974bf394ed3e8",
   "languages": [
     "en",
     "zh"
@@ -34,7 +34,7 @@
     "Switching language re-seeds the demo records only while they are untouched; anything the viewer typed is left exactly as they wrote it.",
     "The camera is a file input the person triggers themselves; there is no continuous capture, no recognition, no auto-update, and no permanent device in the fridge. No upload, account, analytics, timer or notification API.",
     "Storage is finite. If a write does not fit, the oldest photos are dropped one at a time until it does, and the person is told the photo was not kept — the record itself is never lost.",
-    "Idle auto-reset: if nobody has interacted for 20 minutes, the fictional records, fish count, zones and settings are cleared and re-seeded — checked when the page opens and again every minute while it stays open, because a tab left open on an exhibition stand never reloads. The language choice is not cleared. There is no login to hang this on and none is wanted: 'no account to create' is a stated boundary, and a visitor scanning on their own phone already starts clean. This is for a shared device left on a stand. No URL changed, so printed QR codes stay valid."
+    "Idle auto-reset: if nobody has interacted for 20 minutes, the fictional records, fish count, zones and settings are cleared and re-seeded — checked when the page opens, and again on the next interaction, so a tab left open on a stand is clean for whoever reaches for it next. It uses no polling or timing API: build.py bans those because the footer promises no alarms and no notifications. The language choice is not cleared. There is no login to hang this on and none is wanted: 'no account to create' is a stated boundary, and a visitor scanning on their own phone already starts clean. This is for a shared device left on a stand. No URL changed, so printed QR codes stay valid."
   ],
   "changeNote": "v1.8 is a presentation and housekeeping release; no route, record, string or capability changed. The fixed disclosure strip and the header were compacted so the content starts 58px higher at phone width (header bottom 156px to 98px, body padding 70px to 34px), the brand eyebrow that duplicated the name below it is hidden at 460px and under, and the language and reset controls were reduced from 46px to 33px. The disclosure strip itself was compacted, never shortened: it still carries the version and 'Researcher self-test - not tested with participants' in full, on two lines, because the outcome page states that this boundary sits on every screen rather than in a footnote. Idle auto-reset was added for the exhibition; see notes.",
   "photoBoundary": "The photo never leaves the device that took it: there is no upload path anywhere in the build, and the build script refuses to compile if fetch, XMLHttpRequest, sendBeacon, FormData, WebSocket, EventSource, mediaDevices/getUserMedia, a form element, or any http action or src appears in the output. Because nothing is synced, another housemate scanning the same tag does not see the photo — it serves the same person looking again, or a phone held out to someone, not house-wide visibility.",
